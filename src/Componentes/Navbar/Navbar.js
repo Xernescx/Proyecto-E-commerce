@@ -1,39 +1,41 @@
 import { NavLink } from 'react-router-dom';
+import {useState} from 'react';
 import './Navbar.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faShoppingCart, faBars} from '@fortawesome/free-solid-svg-icons' ;
 const Navbar = () => {
 
+const [show, setShow] = useState(true);
+
+function showC(e){
+  setShow (
+    !show
+  );
+}
+
 
   return (
-    <nav class="navbar">
-        <span class="navbar-toggle" id="js-navbar-toggle">
+    <nav className="navbar">
+        <span className="navbar-toggle" id="js-navbar-toggle" onClick={(e) => showC()}>
         <FontAwesomeIcon  icon={faBars} />
         </span>
-        <a href="#p" class="logo">logo</a>
-        <div class="container">
+        <a href="#p" className="logo">logo</a>
+        <div className="container">
             <input type="text" placeholder="Search..." />
-            <div class="search"></div>
+            <div className="search"></div>
           </div>
-        <ul class="main-nav" id="js-menu">
+        <ul className={show? "main-nav" : "main-nav active"} id="js-menu">
         <li>
-                <a href="#p" class="nav-links">Login</a>
+                <a href="#p" className="nav-links">Login</a>
             </li>
             <li>
-                <a href="#p" class="nav-links registro">Create Account</a>
+                <a href="#p" className="nav-links registro">Create Account</a>
             </li>
             <li>
-                <a href="#p" class="nav-links shoppingColor "><FontAwesomeIcon   icon={faShoppingCart} />{" "}</a>
+                <a href="#p" className="nav-links shoppingColor "><FontAwesomeIcon   icon={faShoppingCart} />{" "}</a>
             </li>
         </ul>
     </nav>
-
-
-
-    //<FontAwesomeIcon class="fas fa-bars" icon={faBars} />
-       
-        //<FontAwesomeIcon  class=" fas fa-shopping-cart" icon={faShoppingCart} />
-       
   );
 };
 
