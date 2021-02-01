@@ -3,8 +3,22 @@ footer {
   color: white;
   text-align: center;
   padding: 10px;
+
+}
+
+
+#page-container {
+  position: relative;
+  min-height: 8vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 100px;
+  height: 2.5rem;            /* Footer height */
 }
