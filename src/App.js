@@ -9,6 +9,7 @@ import Header from './Componentes/Header';
 import Navbar from './Componentes/Navbar';
 import Footer from './Componentes/Footer';
 import Bar from './Componentes/Bar';
+import Formulario from './Componentes/Formulario';
 
 const App = () => (
   <Router>

@@ -23,7 +23,7 @@ const Formulario = () => {
     };
     return (
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form">
             <label>Nombre de Usuario: <input onChange={handleChange} type="text" name="userName" /></label>
             <br />
             <label>Constraseña: <input onChange={handleChange} type="password" name="password" /></label>

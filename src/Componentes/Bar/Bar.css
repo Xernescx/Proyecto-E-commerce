@@ -1,4 +1,4 @@
-.Genders{
+.Bar{
     margin-top: 10px;
     margin-left: 10px;
     width: 300px;
@@ -9,6 +9,16 @@
     color: white;
 }
 
+.Genders{
+  height: 70%;
+
+
+}
+
+.Plataform{
+  border-top: #423c44 1px solid;
+  
+}
 
 .Genders p{
   padding-top: 5px;
@@ -22,7 +32,7 @@
 
 ul.ks-cboxtags {
     list-style: none;
-    padding: 20px;
+    padding: 10px;
 }
 ul.ks-cboxtags li{
   display: inline;
@@ -71,6 +81,29 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 }
 
 
+.scrollbar
+{
+  height: 94%;
+	float: left;
+	overflow-y: scroll;
+
+}
 
 
+#barScroll::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: rgba(139, 139, 139);
+}
 
+#barScroll::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#barScroll::-webkit-scrollbar-thumb
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #f0f0f0;
+}
