@@ -6,7 +6,6 @@ import {faShoppingCart, faBars} from '@fortawesome/free-solid-svg-icons' ;
 const Navbar = () => {
 
 const [show, setShow] = useState(true);
-
 function showC(e){
   setShow (
     !show

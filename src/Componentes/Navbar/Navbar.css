@@ -92,9 +92,11 @@ body {
   .nav-links:hover {
     color: rgba(255, 255, 255, 1);
   }
+  
 
 
 }
+
 .active .nav-links{
 	transition-duration: 0.4s;
 	display: inline-block;
@@ -113,6 +115,7 @@ body {
   font-size: 18px;
   padding: 0px;
   
+
 }
 
 .registro{
