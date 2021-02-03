@@ -69,9 +69,7 @@ ul.ks-cboxtags li input[type="checkbox"]:checked + label {
     transition: all .2s;
 }
 
-ul.ks-cboxtags li input[type="checkbox"] {
-  display: absolute;
-}
+
 ul.ks-cboxtags li input[type="checkbox"] {
   position: absolute;
   opacity: 0;
@@ -83,7 +81,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 
 .scrollbar
 {
-  height: 94%;
+  height: 93%;
 	float: left;
 	overflow-y: scroll;
 
@@ -106,4 +104,63 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #f0f0f0;
+}
+
+
+.Plataform{
+  list-style: none;
+    padding-top: 10px;
+}
+
+.Plataform img{
+  width: 70px;
+}
+
+.Plataform div label {
+  display: inline-block;
+  background-color:  #212529;
+  border: 2px solid rgba(139, 139, 139, .3);
+  color: #adadad;
+  border-radius: 25px;
+  white-space: nowrap;
+  margin: 3px 0px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all .2s;
+}
+
+.Plataform  div input[type="checkbox"]:checked + label{
+  border: 2px solid rgb(137, 0, 155);
+  background-color: rgb(137, 0, 155);
+  color: #fff;
+  transition: all .2s;
+}
+
+.Plataform  div input[type="checkbox"]:focus + label {
+  border: 2px solid #423c44;
+}
+
+.Plataform ul{
+  display: flex;;
+  justify-content: space-around;
+}
+
+.Plataform li{
+  display: inline;
+
+}
+
+
+.Plataform  div input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.Plataform  div img {
+  
+  cursor: pointer;
 }
