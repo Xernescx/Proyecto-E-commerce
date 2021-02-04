@@ -15,8 +15,7 @@ const App = () => (
   <Router>
     <Navbar />
     
-    <Bar />
-    
+    <Formulario />
     
     
     

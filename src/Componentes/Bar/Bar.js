@@ -13,35 +13,34 @@ const Bar = () => {
 
     return (
         <div className="Bar " >
-
             <div className="Genders">
                 <p>Generos</p>
                 <div className="Genders scrollbar" id="barScroll">
                     <ul className="ks-cboxtags">
-                        <li><input type="checkbox" name="genders" id="checkboxOne" value="Accion" />        <label for="checkboxOne">       Accion      </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxTwo" value="Aventura" />      <label for="checkboxTwo">       Aventura    </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxThree" value="Arcade" />      <label for="checkboxThree">     Arcade      </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxFour" value="Carreras" />     <label for="checkboxFour">      Carreras    </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxFive" value="Cooperativo" />  <label for="checkboxFive">      Cooperativo </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxSix" value="Deportes" />      <label for="checkboxSix">       Deportes    </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxSeven" value="Estrategia" />  <label for="checkboxSeven">     Estrategia  </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxEight" value="FPS" />         <label for="checkboxEight">     FPS         </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxNine" value="Gestion" />      <label for="checkboxNine">      Gestion     </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxTen" value="Indie" />         <label for="checkboxTen">       Indie       </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxEleven" value="Lucha" />      <label for="checkboxEleven">    Lucha       </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxTwelve" value="Multijugador" /><label for="checkboxTwelve">    Multijugador</label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxThirteen" value="RPG" />      <label for="checkboxThirteen">  RPG         </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxFourTeen" value="Rol" />      <label for="checkboxFourTeen">  Rol         </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxFifteen" value="Sigilor" />   <label for="checkboxFifteen">   Sigilo      </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxSixteen" value="Simulador" /> <label for="checkboxSixteen">   Simulador   </label></li>
-                        <li><input type="checkbox" name="genders" id="checkboxSevenTeen" value="Terror" />  <label for="checkboxSevenTeen"> Terror      </label></li>
-
+                        <li><input type="checkbox" name="genders" id="checkboxOne"          value="Accion" />           <label for="checkboxOne">           Accion      </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxTwo"          value="Aventura" />         <label for="checkboxTwo">           Aventura    </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxThree"        value="Arcade" />           <label for="checkboxThree">         Arcade      </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxFour"         value="Carreras" />         <label for="checkboxFour">          Carreras    </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxFive"         value="Cooperativo" />      <label for="checkboxFive">          Cooperativo </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxSix"          value="Deportes" />         <label for="checkboxSix">           Deportes    </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxSeven"        value="DLC" />              <label for="checkboxSeven">         DLC         </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxEight"        value="Estrategia" />       <label for="checkboxEight">         Estrategia  </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxNine"         value="FPS" />              <label for="checkboxNine">          FPS         </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxTen"          value="Gestion" />          <label for="checkboxTen">           Gestion     </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxEleven"       value="Indie" />            <label for="checkboxEleven">        Indie       </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxTwelve"       value="Lucha" />            <label for="checkboxTwelve">        Lucha       </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxThirteen"     value="Multijugador"/>      <label for="checkboxThirteen">      Multijugador</label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxFourTeen"     value="RPG" />              <label for="checkboxFourTeen">      RPG         </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxFifteen"      value="Rol" />              <label for="checkboxFifteen">       Rol         </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxSixteen"      value="Sigilor" />          <label for="checkboxSixteen">       Sigilo      </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxSevenTeen"   value="Simulador" />        <label for="checkboxSevenTeen">     Simulador   </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxEightTeen"    value="Terror" />           <label for="checkboxEightTeen">     Terror      </label></li>
+                        <li><input type="checkbox" name="genders" id="checkboxNineTeen"     value="Un jugador " />       <label for="checkboxNineTeen">     Un jugador  </label></li>
                     </ul>
                 </div>
             </div>
             <div className="Plataform">
                 <div>
-
                     <ul>
                         <li><input type="checkbox" name="plataforms" id="imgOne" value="steam" /> <label for="imgOne">        <img src={Steam} alt="steam" /></label></li>
                         <li><input type="checkbox" name="plataforms" id="imgTwo" value="epic" />  <label for="imgTwo">        <img src={Epic} alt="epic games" />   </label></li>
