@@ -18,20 +18,24 @@ function showC(e){
         <span className="navbar-toggle" id="js-navbar-toggle" onClick={(e) => showC()}>
         <FontAwesomeIcon  icon={faBars} />
         </span>
-        <a href="#p" className="logo">logo</a>
+        <NavLink to="/home">
+        <p  className="logo">logo</p>
+        </NavLink>
         <div className="container">
             <input type="text" placeholder="Search..." />
             <div className="search"></div>
           </div>
-        <ul className={show? "main-nav" : "main-nav active"} id="js-menu">
+        <ul className={show? "main-nav" : "main-nav activeOpen"} id="js-menu">
         <li>
-                <a href="#p" className="nav-links">Login</a>
+                <p  className="nav-links">Login</p>
             </li>
             <li>
-                <a href="#p" className="nav-links registro">Create Account</a>
+                <NavLink to="/registro">
+                <p  className="nav-links registro">Create Account</p>
+                </NavLink>
             </li>
             <li>
-                <a href="#p" className="nav-links shoppingColor "><FontAwesomeIcon   icon={faShoppingCart} />{" "}</a>
+                <p  className="nav-links shoppingColor "><FontAwesomeIcon   icon={faShoppingCart} />{" "}</p>
             </li>
         </ul>
     </nav>

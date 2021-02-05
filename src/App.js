@@ -5,20 +5,24 @@ import{
   Switch
 } from 'react-router-dom';
 import './App.css';
-import Header from './Componentes/Header';
 import Navbar from './Componentes/Navbar';
 import Footer from './Componentes/Footer';
-import Bar from './Componentes/Bar';
-import Formulario from './Componentes/Formulario';
+import Home from './Componentes/Pages/Home';
+import Register from './Componentes/Pages/Register'
 
 const App = () => (
   <Router>
     <Navbar />
+    <Switch>  
+      <Route path="/home" >
+        <Home />
+      </Route>
+    <Route exact path="/registro">
+        <Register />
+    </Route>
     
-    <Formulario />
-    
-    
-    
+    <Redirect to="/home"/>
+    </Switch>
     <Footer />
   </Router>
 );

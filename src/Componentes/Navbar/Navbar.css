@@ -48,7 +48,7 @@ body {
   font-size: 24px;
 }
 
-.active {
+.activeOpen {
 	border-top: 1px solid rgb(92, 92, 92);
   padding-left: 1%;
   margin-top: 1%;
@@ -97,19 +97,19 @@ body {
 
 }
 
-.active .nav-links{
+.activeOpen .nav-links{
 	transition-duration: 0.4s;
 	display: inline-block;
 }
 
 
-.active .nav-links:hover{
+.activeOpen .nav-links:hover{
 	padding: 5px 10px;
 	transition-duration: 0.4s;
 	display: inline-block;
 }
 
-.active .registro{
+.activeOpen .registro{
 	background-color: #ffffff00; 
   color:  rgba(255, 255, 255, 0.7);
   font-size: 18px;

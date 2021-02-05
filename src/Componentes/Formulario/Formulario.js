@@ -25,9 +25,9 @@ const Formulario = () => {
         <div className="formulario">
         <div  className="log-form">
         <form onSubmit={handleSubmit} >
-        <label className="labelForm"  id="email">Correo:                         <input className="inputForm" onChange={handleChange} type="email" name="email" required/></label>
+            <label className="labelForm"  id="email">Correo:                         <input className="inputForm" onChange={handleChange} type="email" name="email" required/></label>
             <br /> 
-            <label className="labelForm"  id="password">Constraseña:                <input className="inputForm" onChange={handleChange} type="password" name="password" required/></label>
+            <label className="labelForm"  id="password">Constraseña:                 <input className="inputForm" onChange={handleChange} type="password" name="password" required/></label>
             <br />
             <label className="labelForm"  id="confirmPassword">Confirma Constraseña: <input className="inputForm" onChange={handleChange} type="password" name="confirmPassword" required/></label>
             <br />
@@ -37,9 +37,8 @@ const Formulario = () => {
             <br />
             <label className="labelForm"  id="date">Fecha de nacimiento:             <input className="inputForm" onChange={handleChange} type="date" name="dateB" required/></label>
             <br />
-    
             <label className="labelForm" for="country">  Pais: </label>
-        
+            <div className="select">
             <select id="country" name="country" className="inputForm" >
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
@@ -286,6 +285,7 @@ const Formulario = () => {
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
             </select>
+            </div>
             <br />                       
             <button className="btn" type="submit">Submit</button>
         </form>

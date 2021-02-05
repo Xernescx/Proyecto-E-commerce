@@ -2,12 +2,12 @@
 
 @media screen and (min-width: 640px) {
     .formulario{
-        height:800px;
+        height:900px;
     }
 }
 
 .log-form {
-    margin-top: 75px;
+    margin-top: 120px;
     width: 40%;
     min-width: 320px;
     max-width: 475px;
@@ -72,8 +72,8 @@
     display: inline-block;
     margin-top: 20px;
     margin-left: 35%;
-    background: #1fb5bf;
-    border: 1px solid #1ba0a9;
+    background: rgb(137, 0, 155);
+    border: 1px solid rgb(63, 1, 71);
     padding: .5em 2em;
     color: white;
     margin-right: .5em;
@@ -103,3 +103,58 @@
   .log-form .forgot:hover {
     color: #1ba0a9;
   }
+
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #ffffff;
+    background-image: none;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+    display: none;
+  }
+  /* Custom Select */
+  .select {
+    border: none;
+    border-bottom: 1px solid #eaeaea;
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #575757;
+    overflow: hidden;
+    border-radius: .25em;
+  }
+  select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #757575;
+    cursor: pointer;
+  }
+  /* Arrow */
+  .select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #dbdddf;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+  /* Transition */
+  .select:hover::after {
+    color: rgb(137, 0, 155);
+  }
+  
