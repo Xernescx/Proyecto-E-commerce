@@ -5,6 +5,7 @@ import{
   Switch
 } from 'react-router-dom';
 import './App.css';
+import './Componentes/FireBase/Firebase';
 import Navbar from './Componentes/Navbar';
 import Footer from './Componentes/Footer';
 import Home from './Componentes/Pages/Home';
