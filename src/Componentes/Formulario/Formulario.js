@@ -1,6 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import './Formulario.css';
+import {FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faExclamationCircle} from '@fortawesome/free-solid-svg-icons' ;
+
+
 
 const Formulario = () => {
 
@@ -25,19 +29,19 @@ const Formulario = () => {
         <div className="formulario">
         <div  className="log-form">
         <form onSubmit={handleSubmit} >
-            <label className="labelForm"  id="email">Correo:                         <input className="inputForm" onChange={handleChange} type="email" name="email" required/></label>
+            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle}/>  <label className="labelForm"  id="email">Correo                         <input className="inputForm" onChange={handleChange} type="email" name="email" required/></label>
             <br /> 
-            <label className="labelForm"  id="password">Constraseña:                 <input className="inputForm" onChange={handleChange} type="password" name="password" required/></label>
+            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle}/>  <label className="labelForm"  id="password">Constraseña                 <input className="inputForm" onChange={handleChange} type="password" name="password" required/></label>
             <br />
-            <label className="labelForm"  id="confirmPassword">Confirma Constraseña: <input className="inputForm" onChange={handleChange} type="password" name="confirmPassword" required/></label>
+            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle}/>  <label className="labelForm"  id="confirmPassword">Confirma Constraseña <input className="inputForm" onChange={handleChange} type="password" name="confirmPassword" required/></label>
             <br />
-            <label className="labelForm"  id="name">Nombres:                         <input className="inputForm" onChange={handleChange} type="text" name="name" /></label>
+            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle}/>  <label className="labelForm"  id="name">Nombre                          <input className="inputForm" onChange={handleChange} type="text" name="name" /></label>
             <br />
-            <label className="labelForm"  id="lastName">Apellidos:                   <input className="inputForm" onChange={handleChange} type="text" name="lastname" /></label>
+            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle}/>  <label className="labelForm"  id="lastName">Apellido                    <input className="inputForm" onChange={handleChange} type="text" name="lastname" /></label>
             <br />
-            <label className="labelForm"  id="date">Fecha de nacimiento:             <input className="inputForm" onChange={handleChange} type="date" name="dateB" required/></label>
+            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle}/>  <label className="labelForm"  id="date">Fecha de nacimiento             <input className="inputForm" onChange={handleChange} type="date" name="dateB" required/></label>
             <br />
-            <label className="labelForm" for="country">  Pais: </label>
+            <label className="labelForm" for="country">   Pais </label>
             <div className="select">
             <select id="country" name="country" className="inputForm" >
                 <option value="Afghanistan">Afghanistan</option>

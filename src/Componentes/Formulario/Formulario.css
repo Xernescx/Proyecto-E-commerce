@@ -2,13 +2,13 @@
 
 @media screen and (min-width: 640px) {
     .formulario{
-        height:900px;
+        height: 860px;
     }
 }
 
 .log-form {
-    margin-top: 120px;
-    width: 40%;
+    margin-top: 110px;
+    width: 50%;
     min-width: 320px;
     max-width: 475px;
     background: #fff;
@@ -54,6 +54,18 @@
     margin: 0;
     font-weight: 200;
   }
+
+  .log-form input:invalid{
+    border-bottom: 1px solid #d10202;
+
+    
+  }
+
+  .fa-exclamationCircle:valid{
+    
+    visibility: hidden;
+  }
+
   .log-form input {
     display: block;
     margin: auto auto;
@@ -65,6 +77,14 @@
     padding-bottom: 1.25em;
     color: #757575;
   }
+  
+
+  .fa-exclamationCircle{
+    color: #d10202;
+    visibility: hidden;
+  
+  }
+
   .log-form input:focus {
     outline: none;
   }
@@ -126,7 +146,7 @@
     border-bottom: 1px solid #eaeaea;
     position: relative;
     display: flex;
-    width: 20em;
+    width: 90%;
     height: 3em;
     line-height: 3;
     background: #575757;
