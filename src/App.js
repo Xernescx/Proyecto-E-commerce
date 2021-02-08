@@ -9,7 +9,8 @@ import './Componentes/FireBase/Firebase';
 import Navbar from './Componentes/Navbar';
 import Footer from './Componentes/Footer';
 import Home from './Componentes/Pages/Home';
-import Register from './Componentes/Pages/Register'
+import Login from './Componentes/Login'
+import Register from './Componentes/Register'
 
 const App = () => (
   <Router>
@@ -18,7 +19,10 @@ const App = () => (
       <Route path="/home" >
         <Home />
       </Route>
-    <Route exact path="/registro">
+      <Route exact path="/Login">
+        <Login />
+    </Route>
+    <Route exact path="/register">
         <Register />
     </Route>
     

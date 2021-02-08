@@ -27,13 +27,15 @@ function showC(e){
           </div>
         <ul className={show? "main-nav" : "main-nav activeOpen"} id="js-menu">
         <li>
-                <p  className="nav-links">Login</p>
-            </li>
-            <li>
-                <NavLink to="/registro">
-                <p  className="nav-links registro">Create Account</p>
-                </NavLink>
-            </li>
+          <NavLink to="/login">
+            <p className="nav-links">Login</p>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/register">
+            <p className="nav-links registro">Create Account</p>
+          </NavLink>
+        </li>
             <li>
                 <p  className="nav-links shoppingColor "><FontAwesomeIcon   icon={faShoppingCart} />{" "}</p>
             </li>
