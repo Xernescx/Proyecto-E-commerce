@@ -79,11 +79,7 @@
   }
   
 
-  .fa-exclamationCircle{
-    color: #d10202;
-    visibility: hidden;
   
-  }
 
   .log-form input:focus {
     outline: none;
