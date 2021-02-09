@@ -9,6 +9,8 @@ import { db, auth } from '../FireBase/Firebase'
 
 const Register = () => {
 
+
+
     const initalStateValue = {
         email: '',
         password: '',
@@ -26,8 +28,12 @@ const Register = () => {
         setFormState({
             ...formState,
             [event.target.name]: event.target.value,
+
+            
         })
+        
     }
+        
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -35,6 +41,7 @@ const Register = () => {
             console.error('Passwords do not match');
             return;
         }
+        
         registro();
         console.log(formState);
     };
@@ -73,17 +80,17 @@ const Register = () => {
         <div className="formulario">
             <div className="log-form">
                 <form onSubmit={handleSubmit} >
-                    <label className="labelForm" id="email">Correo                        <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} /> <input className="inputForm" onChange={handleChange} type="email" name="email" required /></label>               
+                    <label className="labelForm" id="email">Correo                        <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden"/><span className="error"></span> <input className="inputForm" onChange={handleChange} placeholder="correo@gmail.com" type="email" name="email" /* required */ /></label>
                     <br />
-                    <label className="labelForm" id="password">Constraseña                <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} /> <input className="inputForm" onChange={handleChange} type="password" name="password" required /></label>         
+                    <label className="labelForm" id="password">Contraseña                 <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden" /><span className="error"></span><input className="inputForm" onChange={handleChange} placeholder="Minimo 6 caracteres" pattern=".{6,}" type="password" name="password" /* required */ /></label>
                     <br />
-                    <label className="labelForm" id="confirmPassword">Confirma Constraseña<FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} /> <input className="inputForm" onChange={handleChange} type="password" name="confirmPassword" required /></label>  
+                    <label className="labelForm" id="confirmPassword">Confirma Costraseña <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden" /><span className="error"></span> <input className="inputForm" onChange={handleChange} placeholder="Minimo 6 caracteres" pattern=".{6,}" type="password" name="confirmPassword" /* required */ /></label>
                     <br />
-                    <label className="labelForm" id="name">Nombre                          <input className="inputForm" onChange={handleChange} type="text" name="name" /></label>                          
+                    <label className="labelForm" id="name">Nombre                         <input className="inputForm" onChange={handleChange} type="text" name="name" /></label>
                     <br />
-                    <label className="labelForm" id="lastName">Apellido                    <input className="inputForm" onChange={handleChange} type="text" name="lastName" /></label>                      
+                    <label className="labelForm" id="lastName">Apellido                   <input className="inputForm" onChange={handleChange} type="text" name="lastName" /></label>
                     <br />
-                    <label className="labelForm" id="date">Fecha de nacimiento            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} /> <input className="inputForm" onChange={handleChange} type="date" name="date" required /></label>                  
+                    <label className="labelForm" id="date">Fecha de nacimiento            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden" /><span className="error"></span><input className="inputForm" onChange={handleChange} type="date" name="date" /* required */ /></label>
                     <br />
                     <label className="labelForm" >   Pais </label>
                     <div className="select">

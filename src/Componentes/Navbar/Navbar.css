@@ -21,6 +21,10 @@ body {
   display: none;
 }
 
+
+a:link, a:visited, a:active {
+    text-decoration:none;
+}
 .nav-links,
 .logo {
   text-decoration: none;

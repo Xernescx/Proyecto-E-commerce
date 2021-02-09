@@ -55,27 +55,28 @@
     font-weight: 200;
   }
 
-  .log-form input:invalid{
+  .log-form input:invalid {
     border-bottom: 1px solid #d10202;
-    
+    visibility: visible;
 
     
   }
 
-  .fa-exclamationCircle:valid{
-    
+  .log-form input:placeholder-shown {
+    border-bottom: 1px solid #eaeaea; 
     
   }
+  
 
   .log-form input {
     display: block;
     margin: auto auto;
     width: 100%;
     margin-bottom: 2em;
-    padding: .5em 0;
+    padding: .5em ;
     border: none;
     border-bottom: 1px solid #eaeaea;
-    padding-bottom: 1.25em;
+    padding-top: 1.30em;
     color: #757575;
   }
   
@@ -83,11 +84,19 @@
   .fa-exclamationCircle{
     position: float;
     float: right;
-    
     color: #d10202;
     
-  
   }
+  
+  .error{
+    font-size:12px;
+    position: float;
+    float: right;
+    color: #d10202;
+    margin-right: 5px;
+  }
+
+  
 
   .log-form input:focus {
     outline: none;
