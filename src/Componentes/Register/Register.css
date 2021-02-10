@@ -87,14 +87,16 @@
     color: #d10202;
     
   }
+ 
   
-  .error{
+  label.labelForm p{
     font-size:12px;
     position: float;
     float: right;
     color: #d10202;
     margin-right: 5px;
   }
+  
 
   
 

@@ -1,17 +1,26 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './Register.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { db, auth } from '../FireBase/Firebase'
+import { useForm } from "react-hook-form";
 
 
+const Register1 = () => {
 
-const Register = () => {
+    const { register, errors, handleSubmit, watch} = useForm({});
+    const password = useRef({});
+    password.current = watch("password", "");
+    const email = useRef({});
 
+    
+    const onSubmit = async data => {
+        registro();
+        console.log(formState);
+    };
 
-
-    const initalStateValue = {
+    const state = {
         email: '',
         password: '',
         confirmPassword: '',
@@ -23,31 +32,31 @@ const Register = () => {
     }
     const [error, setError] = useState(null);
 
-    const [formState, setFormState] = useState(initalStateValue);
+    const [formState, setFormState] = useState(state);
     const handleChange = event => {
         setFormState({
             ...formState,
             [event.target.name]: event.target.value,
 
-            
-        })
-        
-    }
-        
 
-    const handleSubmit = event => {
-        event.preventDefault();
+        })
+
+    }
+
+   /*   handleSubmit = event => {
         if (formState.password !== formState.confirmPassword) {
             console.error('Passwords do not match');
+            setError("Passwords do not match");
             return;
         }
-        
         registro();
         console.log(formState);
-    };
+    }; */  
 
     const registro = React.useCallback(async () => {
+
         try {
+
             const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
             await db.collection('users').doc(res.user.uid).set({
                 email: res.user.email,
@@ -57,18 +66,19 @@ const Register = () => {
                 date: formState.date,
                 country: formState.country,
                 nickname: ''
+
             });
 
         } catch (error) {
             console.log(error)
             // setError(error.message)
             if (error.code === 'auth/email-already-in-use') {
-                setError('Usuario ya registrado...')
-                return
+                setError('Email ya registrado')
+                return;
             }
             if (error.code === 'auth/invalid-email') {
                 setError('Email no válido')
-                return
+                return;
             }
         }
 
@@ -76,25 +86,79 @@ const Register = () => {
 
     })
 
+    
+
     return (
         <div className="formulario">
             <div className="log-form">
-                <form onSubmit={handleSubmit} >
-                    <label className="labelForm" id="email">Correo                        <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden"/><span className="error"></span> <input className="inputForm" onChange={handleChange} placeholder="correo@gmail.com" type="email" name="email" /* required */ /></label>
+                <form onSubmit={handleSubmit(onSubmit)} >
+
+                    <label className="labelForm" >Correo         
+                        {error && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                        icon={faExclamationCircle}  /><p>Correo en uso</p></div>}
+                        {errors.email && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                        icon={faExclamationCircle}  /><p>{errors.email.message}</p></div>}
+
+                        <input className="inputForm" onChange={handleChange}
+                        placeholder="correo@gmail.com" 
+                        type="text" 
+                        name="email" 
+                            ref={register({
+                                required: "Parametro requerido.",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: "Caracteres no validos."
+                                },
+                                
+                            })}
+                            
+                        /></label>
                     <br />
-                    <label className="labelForm" id="password">Contraseña                 <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden" /><span className="error"></span><input className="inputForm" onChange={handleChange} placeholder="Minimo 6 caracteres" pattern=".{6,}" type="password" name="password" /* required */ /></label>
+                    <label className="labelForm" id="password">Contraseña              
+                    
+                    {errors.password && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                    icon={faExclamationCircle}  /><p>{errors.password.message}</p></div>}
+                    <input className="inputForm" onChange={handleChange}
+                    placeholder="Minimo 6 caracteres" 
+                    pattern=".{6,}" 
+                    type="password" 
+                    name="password"
+
+                    ref={register({
+                        required: "Parametro requerido.",
+                        
+                    })}
+                    /></label>  
                     <br />
-                    <label className="labelForm" id="confirmPassword">Confirma Costraseña <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden" /><span className="error"></span> <input className="inputForm" onChange={handleChange} placeholder="Minimo 6 caracteres" pattern=".{6,}" type="password" name="confirmPassword" /* required */ /></label>
+                    <label className="labelForm" id="confirmPassword">Confirma Costraseña 
+
+                    {errors.confirmPassword && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                    icon={faExclamationCircle}  /><p>{errors.confirmPassword.message}</p></div>}
+
+                    <input className="inputForm"  onChange={handleChange}
+                    placeholder="Minimo 6 caracteres" 
+                    pattern=".{6,}" 
+                    type="password" 
+                    name="confirmPassword" /* required */ 
+                            ref={register({
+                                validate: value =>
+                                    value === password.current || "Las contraseña no coinciden"
+                            })}
+                    /></label>
                     <br />
-                    <label className="labelForm" id="name">Nombre                         <input className="inputForm" onChange={handleChange} type="text" name="name" /></label>
+                    <label className="labelForm" id="name">Nombre                         <input className="inputForm"  onChange={handleChange}  type="text" name="name" /></label>
                     <br />
-                    <label className="labelForm" id="lastName">Apellido                   <input className="inputForm" onChange={handleChange} type="text" name="lastName" /></label>
+                    <label className="labelForm" id="lastName">Apellido                   <input className="inputForm"  onChange={handleChange}  type="text" name="lastName" /></label>
                     <br />
-                    <label className="labelForm" id="date">Fecha de nacimiento            <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} visibility="hidden" /><span className="error"></span><input className="inputForm" onChange={handleChange} type="date" name="date" /* required */ /></label>
+                    <label className="labelForm" id="date">Fecha de nacimiento            
+                    
+                    <input className="inputForm" 
+                     onChange={handleChange}  type="date" name="date" /* required */ 
+                    /></label>
                     <br />
                     <label className="labelForm" >   Pais </label>
                     <div className="select">
-                        <select id="country" name="country" className="inputForm" onChange={handleChange}>
+                        <select id="country" name="country" className="inputForm"  onChange={handleChange} >
                             <option value="Afghanistan" >Afghanistan</option>
                             <option value="Åland Islands">Åland Islands</option>
                             <option value="Albania">Albania</option>
@@ -342,7 +406,8 @@ const Register = () => {
                         </select>
                     </div>
                     <br />
-                    <button className="btn" type="submit">Submit</button>
+
+                    <button className="btn" type="submit" >Submit</button>
                 </form>
             </div>
         </div>
@@ -352,4 +417,4 @@ const Register = () => {
 
 }
 
-export default Register;
+export default Register1;

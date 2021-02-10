@@ -4,7 +4,7 @@ import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { db, auth } from '../FireBase/Firebase'
-
+import { useForm } from "react-hook-form";
 
 
 const Login = () => {
@@ -21,6 +21,12 @@ const Login = () => {
     }
     const [error, setError] = useState(null);
 
+
+    const { register, errors, handleSubmit, watch} = useForm({});
+    const onSubmit = async data => {
+        //registro();
+        console.log(formState);
+    };
     const [formState, setFormState] = useState(initalStateValue);
     const handleChange = event => {
         setFormState({
@@ -86,9 +92,11 @@ const Login = () => {
         <div className="formulario">
             <div className="log-form">
                 <form onSubmit={login} >
-                    <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} />  <label className="labelForm" id="email">Correo                         <input className="inputForm" onChange={handleChange} type="email" name="email" required /></label>
+                    <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} />  <label className="labelForm" id="email">Correo                         
+                    <input className="inputForm" onChange={handleChange} type="email" name="email" required /></label>
                     <br />
-                    <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} />  <label className="labelForm" id="password">Constraseña                 <input className="inputForm" onChange={handleChange} type="password" name="password" required /></label>
+                    <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} />  <label className="labelForm" id="password">Constraseña                 
+                    <input className="inputForm" onChange={handleChange} type="password" name="password" required /></label>
                     <br />
                     {/* <a class="forgot" href="#"> Aun no tienes cuenta? registrate</a> */}
                     <button className="btn" type="submit">Entrar</button>
