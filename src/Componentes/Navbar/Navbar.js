@@ -13,6 +13,8 @@ function showC(e){
 }
 
 
+
+
   return (
     <nav className="navbar">
         <span className="navbar-toggle" id="js-navbar-toggle" onClick={(e) => showC()}>

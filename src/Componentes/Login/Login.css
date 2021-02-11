@@ -4,15 +4,17 @@
   .formulario{
       height: 860px;
   }
+  
 }
 
 .log-form {
-  margin-top: 110px;
+  margin-top: 20px;
+
   width: 50%;
   min-width: 320px;
   max-width: 475px;
   background: #fff;
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -23,9 +25,13 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
 }
 @media (max-width: 40em) {
+  .formulario{
+      height: 100%;
+  }
   .log-form {
+    
     width: 95%;
-    position: relative;
+    
     margin: 2.5% auto 0 auto;
     left: 0%;
     -webkit-transform: translate(0%, 0%);
