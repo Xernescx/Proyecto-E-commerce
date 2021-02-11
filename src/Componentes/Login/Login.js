@@ -25,6 +25,7 @@ const Login = () => {
     const { register, errors, handleSubmit, watch} = useForm({});
     const onSubmit = async data => {
         //registro();
+        login();
         console.log(formState);
     };
     const [formState, setFormState] = useState(initalStateValue);
@@ -41,22 +42,16 @@ const Login = () => {
                 console.log("logeado puto")
             })
         } catch (error) {
-            
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorMessage, errorCode);
         }
     })
 
 
 
 
-    /* const handleSubmit = event => {
-        event.preventDefault();
-        if (formState.password !== formState.confirmPassword) {
-            console.error('Passwords do not match');
-            return;
-        }
-        registro();
-        console.log(formState);
-    }; */
+    
 
     /* const registro = React.useCallback(async () => {
         try {
@@ -91,7 +86,7 @@ const Login = () => {
     return (
         <div className="formulario">
             <div className="log-form">
-                <form onSubmit={login} >
+                <form onSubmit={handleSubmit(onSubmit)} >
                     <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} />  <label className="labelForm" id="email">Correo                         
                     <input className="inputForm" onChange={handleChange} type="email" name="email" required /></label>
                     <br />

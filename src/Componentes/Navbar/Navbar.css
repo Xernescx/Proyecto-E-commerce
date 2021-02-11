@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+
 
 body {
   font-family: "Josefin Sans", sans-serif;
