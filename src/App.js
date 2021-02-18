@@ -13,7 +13,7 @@ import Login from './Componentes/Login'
 import Register from './Componentes/Register'
 
 const App = () => (
-  <div className=".main-container">
+  <div className="main-container">
   <Router>
     <Navbar />
     <Switch>  

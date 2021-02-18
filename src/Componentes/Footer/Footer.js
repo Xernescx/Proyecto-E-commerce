@@ -5,7 +5,7 @@ const Footer = () => {
 
 
 return (
- <div id="page-container">
+ <div>
    <div id="content-wrap">
     
    </div>

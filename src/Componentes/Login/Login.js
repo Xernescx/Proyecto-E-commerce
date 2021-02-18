@@ -12,19 +12,12 @@ const Login = () => {
     const initalStateValue = {
         email: '',
         password: '',
-        confirmPassword: '',
-        name: '',
-        lastName: '',
-        date: '',
-        country: 'Afghanistan',
-        nickname: ''
     }
     const [error, setError] = useState(null);
 
 
-    const { register, errors, handleSubmit, watch} = useForm({});
+    const { register, errors, handleSubmit, watch } = useForm({});
     const onSubmit = async data => {
-        //registro();
         login();
         console.log(formState);
     };
@@ -39,63 +32,53 @@ const Login = () => {
     const login = React.useCallback(async () => {
         try {
             const res = await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
-                console.log("logeado puto")
+                console.log("logeado parece")
+                window.location = '/home';
             })
         } catch (error) {
-            var errorCode = error.code;
+            if (error.code === "auth/user-not-found") {
+                setError('Email invalido');
+                return;
+            }
+            if (error.code === "auth/wrong-password") {
+                setError('Contraseña incorrecta');
+                return;
+            }
+            /* var errorCode = error.code;
             var errorMessage = error.message;
-            console.log(errorMessage, errorCode);
+            console.log(errorCode); */
         }
     })
-
-
-
-
-    
-
-    /* const registro = React.useCallback(async () => {
-        try {
-            const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
-            await db.collection('users').doc(res.user.uid).set({
-                email: res.user.email,
-                password: formState.password,
-                name: formState.name,
-                lastName: formState.lastName,
-                date: formState.date,
-                country: formState.country,
-                nickname: ''
-            });
-
-        } catch (error) {
-            console.log(error)
-            // setError(error.message)
-            if (error.code === 'auth/email-already-in-use') {
-                setError('Usuario ya registrado...')
-                return
-            }
-            if (error.code === 'auth/invalid-email') {
-                setError('Email no válido')
-                return
-            }
-        }
-
-
-
-    }) */
-
     return (
         <div className="formulario">
             <div className="log-form">
                 <form onSubmit={handleSubmit(onSubmit)} >
-                    <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} />  <label className="labelForm" id="email">Correo                         
-                    <input className="inputForm" onChange={handleChange} type="email" name="email" required /></label>
+                    <label className="labelForm" id="email">Correo
+                    {error && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                            icon={faExclamationCircle} /><p>{error}</p></div>}
+                    {errors.email && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                        icon={faExclamationCircle}  /><p>{errors.email.message}</p></div>}
+                        <input className="inputForm" onChange={handleChange}
+                            type="email"
+                            name="email"
+                            ref={register({
+                                required: "Correo requerido."
+                            })} /></label>
                     <br />
-                    <FontAwesomeIcon className="fa-exclamationCircle" icon={faExclamationCircle} />  <label className="labelForm" id="password">Constraseña                 
-                    <input className="inputForm" onChange={handleChange} type="password" name="password" required /></label>
+                    <label className="labelForm" id="password">Constraseña
+                    {errors.password && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                            icon={faExclamationCircle} /><p>{errors.password.message}</p></div>}
+                        <input className="inputForm" onChange={handleChange}
+                            type="password"
+                            name="password"
+                            ref={register({
+                                required: "contraseña requerida.",
+
+                            })} /></label>
                     <br />
                     {/* <a class="forgot" href="#"> Aun no tienes cuenta? registrate</a> */}
                     <button className="btn" type="submit">Entrar</button>
-                    
+
                 </form>
             </div>
         </div>

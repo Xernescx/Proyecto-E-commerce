@@ -95,7 +95,7 @@ const Register1 = () => {
 
                     <label className="labelForm" >Correo         
                         {error && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                        icon={faExclamationCircle}  /><p>Correo en uso</p></div>}
+                        icon={faExclamationCircle}  /><p>{error}</p></div>}
                         {errors.email && <div><FontAwesomeIcon className="fa-exclamationCircle"
                         icon={faExclamationCircle}  /><p>{errors.email.message}</p></div>}
 
