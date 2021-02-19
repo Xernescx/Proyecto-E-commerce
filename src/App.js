@@ -12,7 +12,10 @@ import Home from './Componentes/Pages/Home';
 import Login from './Componentes/Login'
 import Register from './Componentes/Register'
 
+
+
 const App = () => (
+  
   <div className="main-container">
   <Router>
     <Navbar />

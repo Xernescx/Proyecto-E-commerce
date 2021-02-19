@@ -4,6 +4,7 @@ import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { db, auth } from '../FireBase/Firebase'
+
 import { useForm } from "react-hook-form";
 
 
@@ -14,7 +15,7 @@ const Login = () => {
         password: '',
     }
     const [error, setError] = useState(null);
-
+    const [errorp, setErrorp] = useState(null);
 
     const { register, errors, handleSubmit, watch } = useForm({});
     const onSubmit = async data => {
@@ -29,8 +30,15 @@ const Login = () => {
         })
     }
 
+
+
+
+
     const login = React.useCallback(async () => {
         try {
+
+
+
             const res = await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
                 console.log("logeado parece")
                 window.location = '/home';
@@ -41,7 +49,7 @@ const Login = () => {
                 return;
             }
             if (error.code === "auth/wrong-password") {
-                setError('Contraseña incorrecta');
+                setErrorp('Contraseña incorrecta');
                 return;
             }
             /* var errorCode = error.code;
@@ -66,6 +74,8 @@ const Login = () => {
                             })} /></label>
                     <br />
                     <label className="labelForm" id="password">Constraseña
+                    {errorp && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                            icon={faExclamationCircle} /><p>{errorp}</p></div>}
                     {errors.password && <div><FontAwesomeIcon className="fa-exclamationCircle"
                             icon={faExclamationCircle} /><p>{errors.password.message}</p></div>}
                         <input className="inputForm" onChange={handleChange}
