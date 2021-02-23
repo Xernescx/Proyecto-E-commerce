@@ -1,113 +1,39 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 
-
 body {
-  font-family: "Josefin Sans", sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 }
 
-.navbar {
-  font-size: 18px;
-  background-color:#212529;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 10px;
-}
 
-.main-nav {
-  list-style-type: none;
-  display: none;
-}
 
 
 a:link, a:visited, a:active {
     text-decoration:none;
 }
-.nav-links,
-.logo {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
-}
 
-.main-nav li {
-  
-  margin: 15px auto;
-}
 
-.logo {
-  display: inline-block;
-  font-size: 22px;
-  margin-top: 10px;
-  margin-left: 20px;
-}
+
+
 
 .navbar-toggle {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  cursor: pointer;
-  color: rgba(248, 248, 248, 0.8);
-  font-size: 24px;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	cursor: pointer;
+	color: rgba(248, 248, 248, 0.8);
+	font-size: 24px;
 }
 
 .activeOpen {
 	border-top: 1px solid rgb(92, 92, 92);
-  padding-left: 1%;
-  margin-top: 1%;
-  padding-top: 1%;
-  display: block;
-}
-
-@media screen and (min-width: 860px) {
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 0;
-    height: 50px;
-    align-items: center;
-  }
-
-.main-nav {
-    display: flex;
-    margin-right: 30px;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-.main-nav li {
-    margin: 0;
-  }
-
-.nav-links {
-    margin-left: 40px;
-  }
-
-.logo {
-    margin-top: 0;
-  }
-
-.navbar-toggle {
-    display: none;
-  }
-
-.logo:hover,
-  .nav-links:hover {
-    color: rgba(255, 255, 255, 1);
-  }
-  
-
-
-}
-
-.activeOpen .nav-links{
-	transition-duration: 0.4s;
-	display: inline-block;
+	padding-left: 1%;
+	margin-top: 1%;
+	padding-top: 1%;
+	display: block;
 }
 
 
-.activeOpen .nav-links:hover{
-	padding: 5px 10px;
-	transition-duration: 0.4s;
-	display: inline-block;
-}
+
 
 .activeOpen .registro{
 	background-color: #ffffff00; 
@@ -132,117 +58,3 @@ a:link, a:visited, a:active {
   margin-top: -5px;
 }
 
-/* ---------------------------------------------------------------- */
-.container {
-	position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-	width: 300px;
-	height: 50px;
-}
-.container .search {
-	position: absolute;
-	margin: auto;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	width: 30px;
-	height: 30px;
-	background: rgb(137, 0, 155);
-	border-radius: 50%;
-	transition: all 1s;
-	z-index: 4;
-	box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
-}
-.container .search:hover {
-	cursor: pointer;
-}
-.container .search::before {
-	content: "";
-	position: absolute;
-	margin: auto;
-	top: 10px;
-	right: 0;
-	bottom: 0;
-	left: 10px;
-	width: 7px;
-	height: 2px;
-	background: white;
-	transform: rotate(45deg);
-	transition: all 0.5s;
-}
-.container .search::after {
-	content: "";
-	position: absolute;
-	margin: auto;
-	top: -5px;
-	right: 0;
-	bottom: 0;
-	left: -5px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	border: 2px solid white;
-	transition: all 0.5s;
-}
-.container input {
-	font-family: 'Inconsolata', monospace;
-	position: absolute;
-	margin: auto;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	width: 50px;
-	height: 30px;
-	outline: none;
-	border: none;
-	background: rgb(128, 32, 128);
-	color: white;
-	text-shadow: 0 0 10px rgb(128, 32, 128);
-	padding: 0 80px 0 20px;
-	border-radius: 30px;
-	box-shadow: 0 0 25px 0 rgb(128, 32, 128), 0 20px 25px 0 rgba(0, 0, 0, 0.2);
-	transition: all 1s;
-	opacity: 0;
-	z-index: 5;
-	font-weight: bolder;
-	letter-spacing: 0.1em;
-}
-.container input:hover {
-	cursor: pointer;
-}
-.container input:focus {
-	width: 300px;
-	opacity: 1;
-	cursor: text;
-}
-.container input:focus ~ .search {
-	right: -250px;
-	background: #151515;
-	z-index: 6;
-}
-.container input:focus ~ .search::before {
-	top: 0;
-	left: 0;
-	width: 25px;
-}
-.container input:focus ~ .search::after {
-	top: 0;
-	left: 0;
-	width: 25px;
-	height: 2px;
-	border: none;
-	background: white;
-	border-radius: 0%;
-	transform: rotate(-45deg);
-}
-.container input::placeholder {
-	color: white;
-	opacity: 0.5;
-	font-weight: bolder;
-}

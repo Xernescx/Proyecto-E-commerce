@@ -4,7 +4,7 @@ import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { db, auth } from '../FireBase/Firebase'
-
+import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
 
 
@@ -19,7 +19,20 @@ const Login = () => {
 
     const { register, errors, handleSubmit, watch } = useForm({});
     const onSubmit = async data => {
-        login();
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .then(() => {
+      // Existing and future Auth states are now persisted in the current
+      // session only. Closing the window would clear any existing state even
+      // if a user forgets to sign out.
+      // ...
+      // New sign-in will be persisted with session persistence.
+      login();
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
         console.log(formState);
     };
     const [formState, setFormState] = useState(initalStateValue);
@@ -41,7 +54,10 @@ const Login = () => {
 
             const res = await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
                 console.log("logeado parece")
+                window.localStorage.setItem('user', JSON.stringify(formState));
+                console.log(window.localStorage.getItem('user'));
                 window.location = '/home';
+               
             })
         } catch (error) {
             if (error.code === "auth/user-not-found") {
