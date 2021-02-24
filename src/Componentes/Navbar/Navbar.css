@@ -5,56 +5,49 @@ body {
 }
 
 
-
-
-a:link, a:visited, a:active {
-    text-decoration:none;
-}
-
-
-
-
-
-.navbar-toggle {
-	position: absolute;
-	top: 10px;
-	right: 20px;
-	cursor: pointer;
-	color: rgba(248, 248, 248, 0.8);
-	font-size: 24px;
-}
-
-.activeOpen {
-	border-top: 1px solid rgb(92, 92, 92);
-	padding-left: 1%;
-	margin-top: 1%;
-	padding-top: 1%;
-	display: block;
-}
-
-
-
-
-.activeOpen .registro{
-	background-color: #ffffff00; 
-  color:  rgba(255, 255, 255, 0.7);
+.main-nav {
+  display: flex;
   font-size: 18px;
-  padding: 0px;
+  flex-direction: row;
+  justify-content: flex-end;
+  list-style-type: none;
+  align-items: center;
+  transition-duration: 0.4s;
   
-
 }
+.main-nav li {
+
+  margin-right: 20px;
+}
+
 
 .registro{
 	background-color: #ac4caf; 
   border: none;
-  color:  rgba(255, 255, 255, 0.7);
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  width: 90px;  
   font-size: 18px;
-  transition-duration: 0.4s;
   cursor: pointer;
-  margin-top: -5px;
 }
 
+.navLinkMenu{
+  text-decoration:none;
+  color: rgb(0, 0, 0);
+}
+
+.navLinkBase:visited, .navLinkBase:active, .navLinkBase{
+  text-decoration:none;
+  color: rgba(255, 255, 255, 0.7);
+
+}
+
+.nav-link{
+text-decoration:none;
+}
+
+.navLinkBase:hover {
+  color: rgba(255, 255, 255, 1);
+}

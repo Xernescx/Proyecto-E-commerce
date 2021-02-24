@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { db, auth } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
+import { TitleOutlined } from '@material-ui/icons';
 
 
 const Register1 = () => {
@@ -14,11 +15,7 @@ const Register1 = () => {
     password.current = watch("password", "");
     const email = useRef({});
 
-    
-    const onSubmit = async data => {
-        registro();
-        console.log(formState);
-    };
+
 
     const state = {
         email: '',
@@ -30,32 +27,47 @@ const Register1 = () => {
         country: 'Afghanistan',
         nickname: ''
     }
+    const [error2, setError2] = useState(null);
+    
     const [error, setError] = useState(null);
-
     const [formState, setFormState] = useState(state);
     const handleChange = event => {
         setFormState({
             ...formState,
             [event.target.name]: event.target.value,
-
-
         })
-
     }
 
-   /*   handleSubmit = event => {
-        if (formState.password !== formState.confirmPassword) {
-            console.error('Passwords do not match');
-            setError("Passwords do not match");
-            return;
-        }
+    const onSubmit = async data => {
+        setError2(null)
+        setError(null)      
+
         registro();
-        console.log(formState);
-    }; */  
+        /* console.log(formState); */
+        
+    };
+    
+
+        
+    
+    
 
     const registro = React.useCallback(async () => {
-
         try {
+
+                const d = new Date();
+                const c = new Date(formState.date);
+                const a = c.getFullYear();
+                const n = d.getFullYear();
+            
+                const edad = n - a;
+                if(edad < 18){
+                    setError2("Tienes que ser mayor de 18")
+                    return;
+                }
+                /* console.log(edad)
+                
+                console.log(n) */
 
             const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
             await db.collection('users').doc(res.user.uid).set({
@@ -68,9 +80,11 @@ const Register1 = () => {
                 nickname: ''
 
             });
-
+        
+            
+            
         } catch (error) {
-            console.log(error)
+            /* console.log(error) */
             // setError(error.message)
             if (error.code === 'auth/email-already-in-use') {
                 setError('Email ya registrado')
@@ -146,14 +160,31 @@ const Register1 = () => {
                             })}
                     /></label>
                     <br />
-                    <label className="labelForm" id="name">Nombre                         <input className="inputForm"  onChange={handleChange}  type="text" name="name" /></label>
+                    <label className="labelForm" id="name">Nombre                         
+                    <input className="inputForm"  
+                    onChange={handleChange}  
+                    type="text" 
+                    name="name" /></label>
                     <br />
-                    <label className="labelForm" id="lastName">Apellido                   <input className="inputForm"  onChange={handleChange}  type="text" name="lastName" /></label>
+                    <label className="labelForm" id="lastName">Apellido      
+
+                    <input className="inputForm"  
+                    onChange={handleChange}  
+                    type="text" 
+                    name="lastName" /></label>
                     <br />
                     <label className="labelForm" id="date">Fecha de nacimiento            
-                    
+                    {error2 && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                    icon={faExclamationCircle}  /><p>{error2}</p></div>}
+                    {errors.date  && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                    icon={faExclamationCircle}  /><p>{errors.date.message}</p></div>}        
                     <input className="inputForm" 
-                     onChange={handleChange}  type="date" name="date" /* required */ 
+                    onChange={handleChange}  type="date"
+                    name="date" 
+                    ref={register({
+                        required: "Fecha de nacimiento requerdia.",
+                        
+                    })}
                     /></label>
                     <br />
                     <label className="labelForm" >   Pais </label>

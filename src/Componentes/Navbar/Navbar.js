@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
@@ -8,20 +8,22 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import HomeIcon from '@material-ui/icons/Home';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import firebase from 'firebase/app';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faBars, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import Badge from '@material-ui/core/Badge';
+import MenuIcon from '@material-ui/icons/Menu';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -110,11 +112,13 @@ const theme = createMuiTheme({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [logState, setLogstate] = React.useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [logState, setLogstate] = useState(true);
 
-  //verifica que el usuarioo esta logeado
-  window.onload = () => {
+  /* Mira si el usuario esta registrado en el localstorte */
+
+
+  useEffect((longState) => {
     if (window.localStorage.getItem("user") === null) {
       setLogstate(true);
       console.log("no hay log");
@@ -123,9 +127,10 @@ export default function PrimarySearchAppBar() {
       setLogstate(false)
       console.log("si hay log");
     }
+  });
 
-  }
-  //Metodo de salir del usuario
+
+  /* Metodo de salir de la secion */
   const SingOutMethod = () => {
     firebase.auth().signOut().then(() => {
       console.log('hola buenas')
@@ -139,7 +144,7 @@ export default function PrimarySearchAppBar() {
 
 
 
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -195,36 +200,92 @@ export default function PrimarySearchAppBar() {
         onClose={handleMobileMenuClose}
       >
         {logState && (
-          <div></div>
-        )}
-        <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
+          <div>
+            <NavLink className='navLinkMenu' to="/home">
+              <MenuItem>
+                <IconButton aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit">
+                  <HomeIcon />
+                </IconButton>
+                <p>Home</p>
+              </MenuItem>
+            </NavLink>
+            <MenuItem>
+              <IconButton aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit" >
+                <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+              </IconButton>
+              <p>Carrito</p>
 
+            </MenuItem>
+            <NavLink className='navLinkMenu' to="/login">
+              <MenuItem>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <p>Login</p>
+              </MenuItem>
+            </NavLink>
+            <NavLink className='navLinkMenu' to="/register">
+              <MenuItem>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <p>Sing In</p>
+
+              </MenuItem>
+            </NavLink>
+          </div>
+        )}
+        {!logState && (
+          <div>
+            <NavLink className='navLinkMenu' to="/home">
+              <MenuItem>
+                <IconButton aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit">
+                  <HomeIcon />
+                </IconButton>
+                <p>Home</p>
+              </MenuItem>
+            </NavLink>
+            <MenuItem>
+              <IconButton aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit" >
+                <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+              </IconButton>
+              <p>Carrito</p>
+            </MenuItem>
+            <MenuItem onClick={handleProfileMenuOpen}>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <p>Profile</p>
+            </MenuItem>
+          </div>
+        )}
       </Menu>
     </ThemeProvider>
   );
@@ -236,8 +297,10 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
 
             <Typography className={classes.title} variant="h5" >
-              Logo
-          </Typography>
+              <NavLink className='navLinkBase' to="/home">Logo
+              </NavLink>
+
+            </Typography>
 
             <Grid
               container
@@ -261,18 +324,64 @@ export default function PrimarySearchAppBar() {
             </Grid>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              {/* Partes cambiantes del Navbar */}
+              {/* Cambions de navbar  */}
               {logState && (
-                <div>
-                  <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+                <div >
+
+                  <ul className="main-nav" id="js-menu">
+
+                    <li>
+                      <NavLink className='navLinkBase' to="/login">
+                        <p className="nav-links">Login</p>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink className='navLinkBase' to="/register">
+                        <p className="nav-links registro">Sign in</p>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+                    </li>
+                  </ul>
+
+
                 </div>
               )}
               {!logState && (
                 <div>
+                  <ul className="main-nav" id="js-menu">
+                    <li>
+                      <IconButton
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                      >
+                        <AccountCircle />
+                      </IconButton>
+                    </li>
+                    <li>
+                      <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+                    </li>
+                  </ul>
 
                 </div>
               )}
 
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
             </div>
           </Toolbar>
         </AppBar>

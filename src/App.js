@@ -1,4 +1,4 @@
-import{ 
+import {
   BrowserRouter as Router,
   Redirect,
   Route,
@@ -11,29 +11,30 @@ import Footer from './Componentes/Footer';
 import Home from './Componentes/Pages/Home';
 import Login from './Componentes/Login'
 import Register from './Componentes/Register'
+import Profile from './Componentes/Profile';
 
 
 
 const App = () => (
-  
+
   <div className="main-container">
-  <Router>
-    <Navbar />
-    <Switch>  
-      <Route path="/home" >
-        <Home />
-      </Route>
-      <Route  path="/Login">
-        <Login />
-    </Route>
-    <Route  path="/register">
-        <Register />
-    </Route>
-    
-    <Redirect to="/home"/>
-    </Switch>
-    <Footer />
-  </Router>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route path="/home" >
+          {/* <Home /> */}
+          <Profile />
+        </Route>
+        <Route path="/Login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Redirect to="/home" />
+      </Switch>
+      <Footer />
+    </Router>
   </div>
 );
 
