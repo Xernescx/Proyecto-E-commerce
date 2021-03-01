@@ -3,14 +3,14 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDvRUDKoqHJRSczwy7s7QO_Oq9LPN_d6mY",
-    authDomain: "proyectoreact-8ff3e.firebaseapp.com",
-    projectId: "proyectoreact-8ff3e",
-    storageBucket: "proyectoreact-8ff3e.appspot.com",
-    messagingSenderId: "724725699296",
-    appId: "1:724725699296:web:49c5ffc6afca7e666ef685"
+    apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
+    appId: process.env.REACT_APP_FIREBASE_APPID
 };
-
+    /* console.log(firebaseConfig); */
     
     const fb = firebase.initializeApp(firebaseConfig);
     
