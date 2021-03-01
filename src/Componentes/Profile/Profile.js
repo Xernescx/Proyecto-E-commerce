@@ -6,15 +6,23 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
 import { db, auth } from '../FireBase/Firebase'
+import TextField from '@material-ui/core/TextField';
 
 const Profile = () => {
-    const { register, errors, handleSubmit, watch } = useForm({});
-    /* const password = useRef({});
-    password.current = watch("password", "");
-    const email = useRef({}); */
 
-    const [logState, setLogstate] = useState(true);
+    const { register, errors, handleSubmit, watch } = useForm({});
+    var name1, email1, lastName1, date1, password1, country1;
+    const [userState, setUserState] = useState({
+        name: "",
+        email: "",
+        password: "",
+        date: "",
+        country: "",
+        lastName: "",
+    });
+
     const [formState, setFormState] = useState();
+
     const handleChange = event => {
         setFormState({
             ...formState,
@@ -25,10 +33,22 @@ const Profile = () => {
     const userJ = JSON.parse(window.localStorage.getItem("user"));
     //console.log(userJ.email, userJ.password)
     const onSubmit = async data => {
-
+            console.log(formState)
+            db.collection("users").doc(firebase.auth().currentUser.uid).update({
+                name: formState.name,
+                lastName: formState.lastName,   
+                country: formState.country,
+                date1: formState.date,
+            }).then(() => {
+                console.log("Document successfully updated!");
+            })
+            .catch((error) => {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
     };
 
-    var name, email, photoUrl, uid, emailVerified;
+    var uid;
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -36,39 +56,52 @@ const Profile = () => {
                 console.log("todo correcto por aqui");
             } else {
                 if (window.localStorage.getItem("user") === null) {
-                    setLogstate(true);
                     window.location = '/home';
                 } else {
-                    setLogstate(false)
                     console.log("si hay log");
-                    login();
+                    /* login(); */
                 }
             }
             var user = firebase.auth().currentUser;
-            
             if (user != null) {
-              name = user.displayName;
-              email = user.email;
-              photoUrl = user.photoURL;
-              emailVerified = user.emailVerified;
-              uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                               // this value to authenticate with your backend server, if
-                               // you have one. Use User.getToken() instead.
+                email1 = user.email;    
+                uid = user.uid;  
+                console.log(uid)                 
             }
 
-
-            db.collection("users").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    console.log(`${doc.id} => ${doc.data().email}`);
-        
+            db.collection("users").where("email", "==", email1)
+                .onSnapshot((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        name1 = doc.data().name
+                        lastName1 = doc.data().lastName;
+                        date1 = doc.data().date
+                        password1 = doc.data().password
+                        country1 = doc.data().country
+                        setUserState({
+                            ...userState,
+                            email: email1,
+                            name: name1,
+                            lastName: lastName1,
+                            country: country1,
+                            date: date1,
+                            password: password1
+                        })
+                        setFormState({
+                            ...formState,
+                            email: email1,
+                            name: name1,
+                            lastName: lastName1,
+                            country: country1,
+                            date: date1,
+                            password: password1
+                        })
+                    });
                 });
-            }); 
         });
-        })
-    
+    }, [])
+        
 
-
-    const login = React.useCallback(async () => {
+    /* const login = React.useCallback(async () => {
         try {
             const res = await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
                 console.log("logeado parece")
@@ -77,80 +110,54 @@ const Profile = () => {
         } catch (error) {
             console.log(error.code)
         }
-    })
-    
+    }) */
     return (
         <div className="formulario">
             <div className="log-form ">
                 <form onSubmit={handleSubmit(onSubmit)} >
 
                     <label className="labelForm" >Correo         
-
+            
 
                         <input className="inputForm" onChange={handleChange}
                         placeholder="correo@gmail.com" 
                         type="text" 
                         name="email" 
-                        
+                        disabled
+                        defaultValue={userState.email}
                             ref={register({
                                 required: "Parametro requerido.",
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                     message: "Caracteres no validos."
                                 },
-                                
                             })}
                             
                         /></label>
-                    <br />
-                    <label className="labelForm" id="password">Contraseña              
-                    
-
-                    <input className="inputForm" onChange={handleChange}
-                    placeholder="Minimo 6 caracteres" 
-                    pattern=".{6,}" 
-                    type="password" 
-                    name="password"
-
-                    ref={register({
-                        required: "Parametro requerido.",
-                        
-                    })}
-                    /></label>  
-                    <br />
-                    <label className="labelForm" id="confirmPassword">Confirma Costraseña 
-
-                    
-
-                    <input className="inputForm"  onChange={handleChange}
-                    placeholder="Minimo 6 caracteres" 
-                    pattern=".{6,}" 
-                    type="password" 
-                    name="confirmPassword" /* required */ 
-                            ref={register({
-                               /*  validate: value =>
-                                    value === password.current || "Las contraseña no coinciden" */
-                            })}
-                    /></label>
-                    <br />
-                    <label className="labelForm" id="name">Nombre                         
-                    <input className="inputForm"  
-                    onChange={handleChange}  
-                    type="text" 
-                    name="name" /></label>
+                    <br/>
+                    <label className="labelForm" id="name">Nombre
+                    <input className="inputForm"
+                            defaultValue={userState.name}
+                            onChange={handleChange}
+                            type="text"
+                            name="name"
+                        /></label>
                     <br />
                     <label className="labelForm" id="lastName">Apellido      
 
                     <input className="inputForm"  
                     onChange={handleChange}  
                     type="text" 
-                    name="lastName" /></label>
+                    name="lastName"
+                    defaultValue={userState.lastName}
+                    /></label>
                     <br />
                     <label className="labelForm" id="date">Fecha de nacimiento            
                     
                     <input className="inputForm" 
                     onChange={handleChange}  type="date"
-                    name="date" 
+                    name="date"
+                    defaultValue={userState.date}  
                     ref={register({
                         required: "Fecha de nacimiento requerdia.",
                         
@@ -160,6 +167,8 @@ const Profile = () => {
                     <label className="labelForm" >   Pais </label>
                     <div className="select">
                         <select id="country" name="country" className="inputForm"  onChange={handleChange} >
+                            <option select value={userState.country}>{userState.country}</option>
+                            <option disabled value={userState.country}>-----------------------------</option>
                             <option value="Afghanistan" >Afghanistan</option>
                             <option value="Åland Islands">Åland Islands</option>
                             <option value="Albania">Albania</option>

@@ -182,7 +182,9 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <NavLink className='navLinkMenu' to="/profile">
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </NavLink>
       <MenuItem onClick={SingOutMethod}>Sing Out</MenuItem>
     </Menu>
   );
@@ -297,7 +299,8 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
 
             <Typography className={classes.title} variant="h5" >
-              <NavLink className='navLinkBase' to="/home">Logo
+              <NavLink className='navLinkBase' to="/home">
+                Logo
               </NavLink>
 
             </Typography>

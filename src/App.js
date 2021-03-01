@@ -22,14 +22,16 @@ const App = () => (
       <Navbar />
       <Switch>
         <Route path="/home" >
-          {/* <Home /> */}
-          <Profile />
+          <Home />
         </Route>
         <Route path="/Login">
           <Login />
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
         <Redirect to="/home" />
       </Switch>

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { db, auth } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
-import { TitleOutlined } from '@material-ui/icons';
+
 
 
 const Register1 = () => {
@@ -31,6 +31,7 @@ const Register1 = () => {
     
     const [error, setError] = useState(null);
     const [formState, setFormState] = useState(state);
+
     const handleChange = event => {
         setFormState({
             ...formState,
@@ -144,7 +145,7 @@ const Register1 = () => {
                     })}
                     /></label>  
                     <br />
-                    <label className="labelForm" id="confirmPassword">Confirma Costraseña 
+                    <label className="labelForm" id="confirmPassword">Confirmar Costraseña 
 
                     {errors.confirmPassword && <div><FontAwesomeIcon className="fa-exclamationCircle"
                     icon={faExclamationCircle}  /><p>{errors.confirmPassword.message}</p></div>}
