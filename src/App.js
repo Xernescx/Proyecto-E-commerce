@@ -12,6 +12,7 @@ import Home from './Componentes/Pages/Home';
 import Login from './Componentes/Login'
 import Register from './Componentes/Register'
 import Profile from './Componentes/Profile';
+import NewGame from './Componentes/NewGame'
 
 
 
@@ -32,6 +33,9 @@ const App = () => (
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route path="/newGame">
+          <NewGame />
         </Route>
         <Redirect to="/home" />
       </Switch>
