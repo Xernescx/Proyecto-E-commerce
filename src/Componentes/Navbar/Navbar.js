@@ -23,7 +23,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-
+import { db, auth } from '../FireBase/Firebase'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -114,9 +114,30 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [logState, setLogstate] = useState(true);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
+  const[search, setSearch] = useState({
+    search: ''
+  })
   /* Mira si el usuario esta registrado en el localstorte */
 
+  const updateSearch = e => {
+    setSearch({
+      search: e.target.value
+    });
+    searchData()
+    console.log(search);
+    
+}
+const searchData = e => {
+
+  const usersRef = db.collection('VideoGames');
+  const queryName = usersRef.where('name', '==', search.search);
+  
+  
+  console.log('query name', search.search);
+  
+}
 
   useEffect((longState) => {
     if (window.localStorage.getItem("user") === null) {
@@ -141,10 +162,6 @@ export default function PrimarySearchAppBar() {
     });
 
   }
-
-
-
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -317,6 +334,7 @@ export default function PrimarySearchAppBar() {
                 <InputBase
                   placeholder="Search…"
                   fullWidth="true"
+                  onChange={updateSearch}
                   classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput,
