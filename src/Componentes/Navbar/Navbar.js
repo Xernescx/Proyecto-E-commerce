@@ -18,12 +18,12 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import firebase from 'firebase/app';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faBars, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import Badge from '@material-ui/core/Badge';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+/* import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { db, auth } from '../FireBase/Firebase'
+import NotificationsIcon from '@material-ui/icons/Notifications'; */
+import { db, /* auth */ } from '../FireBase/Firebase'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -116,7 +116,7 @@ export default function PrimarySearchAppBar() {
   const [logState, setLogstate] = useState(true);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-  const[search, setSearch] = useState({
+  const [search, setSearch] = useState({
     search: ''
   })
   /* Mira si el usuario esta registrado en el localstorte */
@@ -126,18 +126,43 @@ export default function PrimarySearchAppBar() {
       search: e.target.value
     });
     searchData()
-    console.log(search);
-    
-}
-const searchData = e => {
+    console.log(search.search);
+    console.log(name1)
+    console.log(userState)
+
+  }
+  let name1
+  const [userState, setUserState] = useState()
+  const searchData = () => {
+    db.collection("VideoGames")
+      .where("name", ">=", search.search)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+
+          name1 = doc.data().name
+          if (name1 >= search.search) {
+            setUserState({
+              email: name1
+            })
+          }
+        })
+      }).catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+
+  }
+
+
+
 
   const usersRef = db.collection('VideoGames');
   const queryName = usersRef.where('name', '==', search.search);
-  
-  
+
+
   console.log('query name', search.search);
-  
-}
+
+
 
   useEffect((longState) => {
     if (window.localStorage.getItem("user") === null) {
@@ -148,7 +173,7 @@ const searchData = e => {
       setLogstate(false)
       console.log("si hay log");
     }
-  });
+  }, []);
 
 
   /* Metodo de salir de la secion */
@@ -239,7 +264,6 @@ const searchData = e => {
                 <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
               </IconButton>
               <p>Carrito</p>
-
             </MenuItem>
             <NavLink className='navLinkMenu' to="/login">
               <MenuItem>
@@ -265,7 +289,6 @@ const searchData = e => {
                   <AccountCircle />
                 </IconButton>
                 <p>Sing In</p>
-
               </MenuItem>
             </NavLink>
           </div>
@@ -314,14 +337,11 @@ const searchData = e => {
       <ThemeProvider theme={theme}>
         <AppBar position="static">
           <Toolbar>
-
             <Typography className={classes.title} variant="h5" >
               <NavLink className='navLinkBase' to="/home">
                 Logo
               </NavLink>
-
             </Typography>
-
             <Grid
               container
               justify="center"
@@ -330,7 +350,6 @@ const searchData = e => {
                 <div className={classes.searchIcon} >
                   <SearchIcon />
                 </div>
-
                 <InputBase
                   placeholder="Search…"
                   fullWidth="true"
@@ -348,9 +367,7 @@ const searchData = e => {
               {/* Cambions de navbar  */}
               {logState && (
                 <div >
-
                   <ul className="main-nav" id="js-menu">
-
                     <li>
                       <NavLink className='navLinkBase' to="/login">
                         <p className="nav-links">Login</p>
@@ -365,8 +382,6 @@ const searchData = e => {
                       <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
                     </li>
                   </ul>
-
-
                 </div>
               )}
               {!logState && (
@@ -388,7 +403,6 @@ const searchData = e => {
                       <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
                     </li>
                   </ul>
-
                 </div>
               )}
 
