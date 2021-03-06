@@ -164,7 +164,7 @@ export default function PrimarySearchAppBar() {
 
 
 
-  useEffect((longState) => {
+  useEffect(() => {
     if (window.localStorage.getItem("user") === null) {
       setLogstate(true);
       console.log("no hay log");

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Destacados from '../../Destacados'
 import Bar from '../../Bar';
 
 const Home = () =>{
@@ -7,6 +7,7 @@ const Home = () =>{
     return (
         <div>
         <Bar />
+        <Destacados />
         </div>
     )
 
