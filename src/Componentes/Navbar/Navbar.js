@@ -123,7 +123,7 @@ export default function PrimarySearchAppBar() {
 
   const updateSearch = e => {
     setSearch({
-      search: e.target.value
+      search: e.target.value.toLowerCase()
     });
     searchData()
     console.log(search.search);

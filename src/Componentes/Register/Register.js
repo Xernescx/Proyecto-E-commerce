@@ -73,7 +73,6 @@ const Register1 = () => {
             const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
             await db.collection('users').doc(res.user.uid).set({
                 email: res.user.email,
-                password: formState.password,
                 name: formState.name,
                 lastName: formState.lastName,
                 date: formState.date,

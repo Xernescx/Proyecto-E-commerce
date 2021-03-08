@@ -1,0 +1,61 @@
+.uldetacados{
+    background-color: #212529;
+    width: 75%;
+    
+    margin-right: 20px;
+}
+
+.destacadosContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+
+
+.gamesD{
+    padding: 4px;
+    color: white;
+    width: calc(25% - 10px);
+    
+}
+
+
+.gamesD .nameGame{
+    width: 70%;
+    font-size: 13px;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+.loading{
+    background-color: #212529;
+    width: 75%;
+    margin-right: 20px;
+    padding-top: 20%;
+    padding-bottom:20%
+    
+}
+.gamesD p{
+    
+    font-size: 13px;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+.pepe{
+    
+}
+.covePage{
+    width: 150px;
+    height: 190px;
+    
+}
+
+ul li{
+    list-style: none;
+}

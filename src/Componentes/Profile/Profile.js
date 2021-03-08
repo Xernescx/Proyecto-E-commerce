@@ -59,7 +59,7 @@ const Profile = () => {
                     window.location = '/home';
                 } else {
                     console.log("si hay log");
-                    /* login(); */
+                     login(); 
                 }
             }
             var user = firebase.auth().currentUser;
@@ -100,8 +100,7 @@ const Profile = () => {
         });
     }, [])
         
-
-    /* const login = React.useCallback(async () => {
+     const login = React.useCallback(async () => {
         try {
             const res = await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
                 console.log("logeado parece")
@@ -110,7 +109,7 @@ const Profile = () => {
         } catch (error) {
             console.log(error.code)
         }
-    }) */
+    }) 
     return (
         <div className="formulario">
             <div className="log-form ">
