@@ -135,17 +135,19 @@ export default function PrimarySearchAppBar() {
   const [userState, setUserState] = useState()
   const searchData = () => {
     db.collection("VideoGames")
-      .where("name", ">=", search.search)
+      .where("nameSearch", ">=", search.search)
+      .orderBy("nameSearch", "asc")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-
           name1 = doc.data().name
+          console.log(doc.data().name);
           if (name1 >= search.search) {
             setUserState({
               email: name1
             })
           }
+
         })
       }).catch((error) => {
         console.log("Error getting documents: ", error);
@@ -173,17 +175,17 @@ export default function PrimarySearchAppBar() {
       setLogstate(false)
       console.log("si hay log");
     }
-  }, []);
+  }, [logState]);
 
 
   /* Metodo de salir de la secion */
   const SingOutMethod = () => {
     firebase.auth().signOut().then(() => {
-      console.log('hola buenas')
+      /* console.log('hola buenas') */
       window.location = '/home';
       window.localStorage.clear("user");
     }).catch((error) => {
-      console.log('no pos yiyi')
+      /*  console.log('no pos yiyi') */
     });
 
   }
@@ -405,7 +407,6 @@ export default function PrimarySearchAppBar() {
                   </ul>
                 </div>
               )}
-
             </div>
             <div className={classes.sectionMobile}>
               <IconButton

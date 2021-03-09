@@ -35,6 +35,7 @@ const Login = () => {
     });
         console.log(formState);
     };
+
     const [formState, setFormState] = useState(initalStateValue);
     const handleChange = event => {
         setFormState({
@@ -43,15 +44,8 @@ const Login = () => {
         })
     }
 
-
-
-
-
     const login = React.useCallback(async () => {
         try {
-
-
-
             const res = await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
                 console.log("logeado parece")
                 window.localStorage.setItem('user', JSON.stringify(formState));
@@ -80,8 +74,8 @@ const Login = () => {
                     <label className="labelForm" id="email">Correo
                     {error && <div><FontAwesomeIcon className="fa-exclamationCircle"
                             icon={faExclamationCircle} /><p>{error}</p></div>}
-                    {errors.email && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                        icon={faExclamationCircle}  /><p>{errors.email.message}</p></div>}
+                        {errors.email && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                            icon={faExclamationCircle} /><p>{errors.email.message}</p></div>}
                         <input className="inputForm" onChange={handleChange}
                             type="email"
                             name="email"
@@ -92,7 +86,7 @@ const Login = () => {
                     <label className="labelForm" id="password">Constraseña
                     {errorp && <div><FontAwesomeIcon className="fa-exclamationCircle"
                             icon={faExclamationCircle} /><p>{errorp}</p></div>}
-                    {errors.password && <div><FontAwesomeIcon className="fa-exclamationCircle"
+                        {errors.password && <div><FontAwesomeIcon className="fa-exclamationCircle"
                             icon={faExclamationCircle} /><p>{errors.password.message}</p></div>}
                         <input className="inputForm" onChange={handleChange}
                             type="password"

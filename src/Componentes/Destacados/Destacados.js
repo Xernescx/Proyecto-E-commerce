@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { createMuiTheme, fade, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -18,12 +20,13 @@ const theme = createMuiTheme({
     secondary: {
       main: '#ac4caf'
     }
-  }
+    
+  },
+ 
 })
 
 export default function SimpleContainer() {
-
-
+  
 
   const [data, setState] = useState({
     name: '',
@@ -35,11 +38,26 @@ export default function SimpleContainer() {
   useEffect(() => {
 
 
-    db.collection("VideoGames").get().then((querySnapshot) => {
+   /*  var first = db.collection("VideoGames")
+      .orderBy("nameSearch")
+      .limit(10);
+
+    return first.get().then((documentSnapshots) => {
+      // Get the last visible document
+      var lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+      console.log("last", lastVisible);
+
+      // Construct a new query starting at this document,
+      // get the next 25 cities.
+      var next = db.collection("VideoGames")
+        .orderBy("nameSearch")
+        .startAfter(lastVisible)
+        .limit(25);
+    }); */
+
+    db.collection("VideoGames").orderBy("nameSearch").limit(12).get().then((querySnapshot) => {
       const docs = [];
       querySnapshot.forEach((doc) => {
-
-
         console.log(doc.data())
         docs.push({
           ...doc.data(), date: doc.date,
@@ -69,7 +87,7 @@ export default function SimpleContainer() {
             alignItems="center"
           >
             <div>
-              <CircularProgress theme={theme} className="pepe" />
+              <CircularProgress theme={theme} />
             </div>
           </Grid>
         </ThemeProvider>
@@ -80,73 +98,37 @@ export default function SimpleContainer() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <div className="uldetacados">
-        <ul  >
-          <li>
+      
+        
             <div className="destacadosContainer">
               {links.map(link => {
                 return (
                   <div className="gamesD">
+                    <a className="cover" href="#">
                     <Grid
                       container
                       direction="column"
                       justify="center"
                       alignItems="center"
                     >
-                      <img className="covePage" alt={link.name + "covePage"} src={link.covePage} />
+                      <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
                       <div className="nameGame ">{link.name}</div>
                     </Grid>
+                    </a>
                   </div>
                 )
               })}
+              <Grid
+            container
+            justify="center"
+            alignItems="center"
+          ><ThemeProvider theme={theme}>
+              <Pagination count={10} variant="outlined"
+              color="primary" />
+              </ThemeProvider>
+              </Grid>
             </div>
-          </li>
-          <li>
-            <div className="destacadosContainer">
-              {links.map(link => {
-                return (
-                  <div className="gamesD">
-                    <Grid
-                      container
-                      direction="column"
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <img className="covePage" alt={link.name + "covePage"} src={link.covePage} />
-                      <div className="nameGame ">{link.name}</div>
-                    </Grid>
-                  </div>
-                )
-              })}
-            </div>
-          </li>
-          <li>
-            <div className="destacadosContainer">
-              {links.map(link => {
-                return (
-                  <div className="gamesD">
-                    <Grid
-                      container
-                      direction="column"
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <img className="covePage" alt={link.name + "covePage"} src={link.covePage} />
-                      <div className="nameGame ">{link.name}</div>
-                    </Grid>
-                  </div>
-                )
-              })}
-            </div>
-          </li>
 
-        </ul>
-
-
-
-
-
-      </div>
     </React.Fragment>
   );
 }
