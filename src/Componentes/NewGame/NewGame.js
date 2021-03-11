@@ -18,20 +18,30 @@ const NewGame = () => {
         date: '',
         requerimentsMin: {
             cpuMin: '',
+            cpuMin2: '',
             ramMin: '',
             gpuMin: '',
+            gpuMin2: '',
         },
         requerimentsMax: {
             cpuMax: '',
+            cpuMax2: '',
             ramMax: '',
             gpuMax: '',
+            gpuMax2: '',
+            
         },
         so: '',
         discSpaces: '',
         covePage: '',
-        imageTwo: '',
-        imageThree: '',
+        images: {
+
+        },
         video: '',
+        plataform: '',
+        genders: {
+            
+        },
         price: 0,
         promo: 0,
     }
@@ -230,3 +240,31 @@ const NewGame = () => {
 }
 
 export default NewGame;
+
+
+
+/* export default function App() {
+    const { register, handleSubmit, errors } = useForm();
+    const onSubmit = data => console.log(data);
+    console.log(errors);
+    
+     return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="text" placeholder="Title" name="Title" ref={register({required: true})} />
+      <textarea name="Descriocion" ref={register} />
+      <input type="text" placeholder="Nombre" name="Nombre" ref={register({required: true, maxLength: 80})} />
+      <input type="text" placeholder="Developer" name="Developer" ref={register({required: true})} />
+      <input type="datetime" placeholder="Fecha de salida" name="Fecha de salida" ref={register({required: true})} />
+      <select name="Plataforma" ref={register}>
+        <option value="Steam">Steam</option>
+        <option value=" Epic Games"> Epic Games</option>
+        <option value=" Battle.net"> Battle.net</option>
+        <option value=" GOG"> GOG</option>
+        <option value=" Orign"> Orign</option>
+        <option value=" U-play"> U-play</option>
+      </select>
+
+      <input type="submit" />
+    </form>
+  );
+  } */

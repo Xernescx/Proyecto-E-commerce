@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import './Destacados.css';
+import './Products.css';
 import { db } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
@@ -26,11 +26,18 @@ const theme = createMuiTheme({
 })
 
 export default function SimpleContainer() {
+  const [pagination, setPagination] = useState({
+    entradas: [],
+    paginas: 0,
+    forPages: 6,
+    total: 0,
+    page: 0,
 
+  });
+  
 
 
   const [links, setLink] = useState([]);
-  const [promo, setPromo] = useState([]);
   const [loading, setloading] = useState(true);
   /* const [page, setPage] = React.useState(1); */
 
@@ -62,17 +69,17 @@ export default function SimpleContainer() {
     });
 
   }; */
-  let primero = [];
+
   useEffect(() => {
 
 
     db.collection("VideoGames").orderBy("nameSearch", "asc" ).get().then((querySnapshot) => {
-      let docs = []
+    
         querySnapshot.forEach((doc) => {
           
           
           console.log(doc.data())
-          docs.push({
+          pagination.entradas.push({
             ...doc.data(), date: doc.date,
             requerimentsMax: doc.requerimentsMax,
             requerimentsMin: doc.requerimentsMin,
@@ -83,14 +90,12 @@ export default function SimpleContainer() {
           })
         });
 
-        setLink(docs)
-        console.log(links[0])
-        primero.push({
-          ...links[1]
-        }) 
+        console.log(pagination.entradas)
+        setLink(pagination.entradas)
+        
         setloading(false);
-        console.log(docs)
-        console.log(primero)
+        console.log(pagination)
+
       });
      
   }, [])
@@ -121,7 +126,7 @@ export default function SimpleContainer() {
       <CssBaseline />
 
 
-      <div className="destacadosContainer"> 
+      <div className="destacadosContainer">
         {links.map(link => {
           return (
             <div className="gamesD">
@@ -132,13 +137,7 @@ export default function SimpleContainer() {
                   justify="center"
                   alignItems="center"
                 >
-                  <div>
                   <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
-                  <div className="priceData">
-                    <spam className="promo">0%</spam>
-                    <spam className="price">{link.price}€</spam>
-                  </div>
-                  </div>
                   <div className="nameGame ">{link.name}</div>
                 </Grid>
               </a>
