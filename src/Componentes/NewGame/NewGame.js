@@ -34,7 +34,7 @@ const NewGame = () => {
         so: '',
         discSpaces: '',
         covePage: '',
-        images: {
+        imageArray: { 
 
         },
         video: '',
@@ -57,14 +57,21 @@ const NewGame = () => {
         })
     }
 
-    const [Imagen, setImagen] = useState();
+    const [imagens, setImagens] = useState([]);
+    const [imagen, setImagen] = useState();
 
     //OBTENIENDO LA IMAGEN
     const changeImagen = e => {
+        console.log(e.target.files[0])
         setImagen(e.target.files[0]);
-        console.log(Imagen)
+        console.log(imagen)
     }
-
+    
+    const changeImagens = e => {
+        console.log(e.target.files)
+        setImagens(e.target.files);
+        console.log(imagens)
+    }
     const onSubmit = async data => {
         registro();
     };
@@ -72,20 +79,32 @@ const NewGame = () => {
 
     const registro = React.useCallback(async () => {
         try {
-
-            console.log(Imagen)
+            let imageArray = [];
             let storageRef = firebase.storage();
-            const newRef = storageRef.ref('images/' + formState.name.toLowerCase()).child(Imagen.name); // nombre del archivo
-
-            await newRef.put(Imagen);
-
+            console.log(imagens)
+            /* console.log(imagen) */
+            for (let index = 0; index < imagens.length; index++) {
+                const newRef = storageRef.ref('images/' + formState.name.toLowerCase()).child(imagens[index].name); // nombre del archivo
+                await newRef.put(imagens[index]);
+                let urlImagen = await newRef.getDownloadURL()
+                console.log('la ul de la imagen es' + urlImagen); 
+                imageArray.push(urlImagen);
+                
+            } 
+            console.log(imageArray)
+            
+            const newRef = storageRef.ref('images/' + formState.name.toLowerCase()).child(imagen.name); // nombre del archivo
+            await newRef.put(imagen);
             let urlImagen = await newRef.getDownloadURL()
-            console.log('la ul de la imagen es' + urlImagen);
+           /*  console.log('la ul de la imagen es' + urlImagen); */
             console.log(formState)
+
+
+            let nameS = formState.name.toLowerCase()
 
             db.collection("VideoGames").add({
                 name: formState.name,
-                nameSearch: formState.name.toLowerCase(),
+                nameSearch: nameS,
                 description: formState.description,
                 developer: formState.developer,
                 date: formState.date,
@@ -100,10 +119,12 @@ const NewGame = () => {
                     ramMax: formState.ramMax,
                     gpuMax: formState.gpuMax,
                 },
+
+                imageArray,
                 so: formState.so,
                 discSpaces: formState.discSpaces,
                 price: formState.price
-            });
+            }); 
             /*  const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
                 await db.collection('videoGames').doc(res.user.uid).set({
                     email: res.user.email,
@@ -113,13 +134,13 @@ const NewGame = () => {
                     date: formState.date,
                     country: formState.country,
                     nickname: ''
-                }); */
+                });  */
 
 
         } catch (error) {
             console.log(error)
         }
-    }, [Imagen, formState])
+    }, [imagen, formState, imagens])
 
     return (
         <div className="formulario">
@@ -147,13 +168,22 @@ const NewGame = () => {
                         name="developer" /></label>
                 <br />
 
-                <label className="labelForm">Imagen de portadas
+                <label className="labelForm">imagen de portadas
                     <input onChange={changeImagen}
                         type="file"
                         name="imageOne"
                     ></input>
                 </label>
                 <br />
+                <label className="labelForm">imagenasondoasugkbdas
+                    <input onChange={changeImagens}
+                        type="file"
+                        name="imageOne"
+                        multiple
+                    ></input>
+                </label>
+                <br />
+
 
                 <label className="labelForm" id="lastName">CpuMin
                     <input className="inputForm"
@@ -243,28 +273,3 @@ export default NewGame;
 
 
 
-/* export default function App() {
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
-    
-     return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="Title" name="Title" ref={register({required: true})} />
-      <textarea name="Descriocion" ref={register} />
-      <input type="text" placeholder="Nombre" name="Nombre" ref={register({required: true, maxLength: 80})} />
-      <input type="text" placeholder="Developer" name="Developer" ref={register({required: true})} />
-      <input type="datetime" placeholder="Fecha de salida" name="Fecha de salida" ref={register({required: true})} />
-      <select name="Plataforma" ref={register}>
-        <option value="Steam">Steam</option>
-        <option value=" Epic Games"> Epic Games</option>
-        <option value=" Battle.net"> Battle.net</option>
-        <option value=" GOG"> GOG</option>
-        <option value=" Orign"> Orign</option>
-        <option value=" U-play"> U-play</option>
-      </select>
-
-      <input type="submit" />
-    </form>
-  );
-  } */

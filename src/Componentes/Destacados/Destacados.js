@@ -30,7 +30,7 @@ export default function SimpleContainer() {
 
 
   const [links, setLink] = useState([]);
-  const [promo, setPromo] = useState([]);
+  const [promo, setPromo] = useState();
   const [loading, setloading] = useState(true);
   /* const [page, setPage] = React.useState(1); */
 
@@ -62,7 +62,6 @@ export default function SimpleContainer() {
     });
 
   }; */
-  let primero = [];
   useEffect(() => {
 
 
@@ -70,7 +69,7 @@ export default function SimpleContainer() {
       let docs = []
         querySnapshot.forEach((doc) => {
           
-          
+          console.log(querySnapshot)
           console.log(doc.data())
           docs.push({
             ...doc.data(), date: doc.date,
@@ -84,13 +83,8 @@ export default function SimpleContainer() {
         });
 
         setLink(docs)
-        console.log(links[0])
-        primero.push({
-          ...links[1]
-        }) 
         setloading(false);
         console.log(docs)
-        console.log(primero)
       });
      
   }, [])
@@ -134,8 +128,10 @@ export default function SimpleContainer() {
                 >
                   <div>
                   <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
-                  <div className="priceData">
+                  <div className="priceData">{link.promo && (
                     <spam className="promo">0%</spam>
+                  )}
+                    
                     <spam className="price">{link.price}€</spam>
                   </div>
                   </div>
