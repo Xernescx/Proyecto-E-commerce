@@ -64,7 +64,8 @@ const Profile = () => {
             }
             var user = firebase.auth().currentUser;
             if (user != null) {
-                email1 = user.email;    
+                email1 = user.email;
+                console.log(email1);
                 uid = user.uid;  
                 console.log(uid)                 
             }

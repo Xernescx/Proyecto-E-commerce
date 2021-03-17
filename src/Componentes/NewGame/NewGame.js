@@ -151,7 +151,7 @@ const NewGame = () => {
                         type="text"
                         name="name" /></label>
                 <br />
-
+                
                 <label className="labelForm" id="name">Description
                     <textarea
                         onChange={handleChange}

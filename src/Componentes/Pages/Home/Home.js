@@ -2,6 +2,7 @@ import React from 'react';
 import Destacados from '../../Destacados'
 import Bar from '../../Bar';
 import Grid from '@material-ui/core/Grid';
+import Products from '../../ProductsName'
 
 const Home = () => {
     return (
@@ -9,11 +10,10 @@ const Home = () => {
             <Grid
                 container
                 direction="row"
-                justify="space-between"
+                justify="center"
                 alignItems="center"
-            >
-                <Bar />
-                <Destacados />
+            >   
+                <Products />
             </Grid>
         </div>
     )
