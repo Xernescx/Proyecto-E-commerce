@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
-
-body {
-	font-family: "Josefin Sans", sans-serif;
-}
-
 
 .main-nav {
   display: flex;
@@ -43,11 +37,11 @@ body {
   color: rgba(255, 255, 255, 0.7);
 
 }
+.navLinkBase:hover {
+  color: rgba(255, 255, 255, 1);
+}
 
 .nav-link{
 text-decoration:none;
 }
 
-.navLinkBase:hover {
-  color: rgba(255, 255, 255, 1);
-}

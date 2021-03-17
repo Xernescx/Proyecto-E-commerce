@@ -14,6 +14,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Modal from '@material-ui/core/Modal';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+
+import Steam from '../IconLogo/steam.png';
+import Epic from '../IconLogo/epic.png'
+import Battle from '../IconLogo/battle.png'
+import GoG from '../IconLogo/gog.png'
+import Uplay from '../IconLogo/uplay.png'
+import Origin from '../IconLogo/origin.png'
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -25,15 +34,12 @@ const useStyles = makeStyles((theme) => ({
     gridList: {
         flexWrap: 'nowrap',
         backgroundColor: "#212529",
-
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
-
     },
     images: {
         width: "60%",
     },
-
     title: {
         color: "#ac4caf",
     },
@@ -53,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      },
+    },
 }));
 
 const theme = createMuiTheme({
@@ -64,19 +70,15 @@ const theme = createMuiTheme({
         secondary: {
             main: '#ac4caf'
         }
-
     },
 
 })
 
 export default function SimpleContainer() {
 
-
     const [info, setInfo] = useState(null);
-    const [open, setOpen] = React.useState({open: false, currentImg: null});
+    const [open, setOpen] = React.useState({ open: false, currentImg: null });
     const [loading, setloading] = useState(true);
-
-
     const classes = useStyles();
     useEffect(() => {
 
@@ -86,18 +88,16 @@ export default function SimpleContainer() {
                     setInfo(doc.data())
                     console.log(info)
                 });
-
             });
         setloading(false);
-
     }, [])
 
     const activateModal = (tile) => {
-        setOpen({open: true, currentImg: tile})
+        setOpen({ open: true, currentImg: tile })
     }
 
     const closeModal = () => {
-        setOpen({open: false, currentImg: null})
+        setOpen({ open: false, currentImg: null })
     }
 
     if (info === null) {
@@ -130,60 +130,104 @@ export default function SimpleContainer() {
                     <div className="productImage" >
                         <img src={info.covePage} alt={info.name}></img>
                     </div>
-                    <div className="imagesTitle">
+                    <div className="info">
                         <Grid
                             container
                             direction="row"
                             justify="space-between"
                             alignItems="center"
                         >
-                            <h1>{info.name} </h1>
+                            <h1>{info.name}</h1>
                             <IconButton >
                                 <StarBorderIcon className={classes.title} />
                             </IconButton>
                         </Grid>
-                        
+                        <div className="infoDevImg">
+                            <Grid
+                                container
+                                direction="row"
+                                alignItems="center"
+                            >
+                                <div className="infoImg">
+                                    <p>{info.plataform}</p>
+                                    <img className="imgPlataform" src={Steam} alt={info.plataform} />
+                                </div>
+                                <p className="infoDev" >Developer:    {info.developer}</p>
+                            </Grid>
+                        </div>
+                        <div className="infoGenderDiv">
+                            {info.genders.map(gender => {
+                                return (
+                                    <a href="#"><p className="infoGender">{gender}</p></a>
+                                )
+                            }
+                            )}
+                        </div>
+                        <div className="priceInfo2">
+                            <div className="priceInfo">
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="flex-end"
+                                    alignItems="center"
+                                >
+                                    {info.promo && (<p className="promoInfo">{info.promo}%</p>)}
+                                    <div className="pricesInfo">
+                                        <Grid
+                                            container
+                                            direction="column"
+                                        >
+                                            {info.promo && (<spam >{info.price}€</spam>)}
+                                            <p>{info.promo && (((info.price - (info.price * info.promo) / 100)).toFixed(2))}
+                                                {!info.promo && (info.price)}€</p>
+                                        </Grid>
+                                    </div>
+                                    <p className="buttonCar">
+                                        Añadir al carrito
+                                </p>
+                                </Grid>
+                            </div>
+                        </div>
                     </div>
                 </Grid>
                 <div>
-                <iframe height="340" src={info.urlVideo} frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                        <div className={classes.root}>
-                            <GridList className={classes.gridList} id="barScroll" cellHeight={130} cols={3.5} >
-                                {info.imageArray.map((tile) => (
-
-                                    <GridListTile key={tile}>
-                                        
-                                            <img  onclick={activateModal} src={tile} alt={info.name + "image"} />
-                                    
-                                        <GridListTileBar
-                                            classes={{
-                                                root: classes.titleBar,
-                                                title: classes.title,
-                                            }}
-                                            actionIcon={
-                                                <IconButton onClick={() => activateModal(tile)}  aria-label={`star ${tile.title}`}>
-                                                    <ZoomInIcon className={classes.title} />
-                                                </IconButton>
-                                            }
-                                        />
-                                    </GridListTile>
-
-                                ))}
-                            </GridList>
-                            <Modal
+                    <iframe height="340" src={info.urlVideo} frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    <div className={classes.root}>
+                        <GridList className={classes.gridList} id="barScroll" cellHeight={130} cols={3.5} >
+                            {info.imageArray.map((tile) => (
+                                <GridListTile key={tile}>
+                                    <img onclick={activateModal} src={tile} alt={info.name + "image"} />
+                                    <GridListTileBar
+                                        classes={{
+                                            root: classes.titleBar,
+                                            title: classes.title,
+                                        }}
+                                        actionIcon={
+                                            <IconButton onClick={() => activateModal(tile)} aria-label={`star ${tile.title}`}>
+                                                <ZoomInIcon className={classes.title} />
+                                            </IconButton>
+                                        }
+                                    />
+                                </GridListTile>
+                            ))}
+                        </GridList>
+                        <Modal
                             className={classes.modal}
                             aria-labelledby="transition-modal-title"
                             aria-describedby="transition-modal-description"
                             open={open.open}
                             onClose={closeModal}
                         >
-                            <img src={open.currentImg}  className={classes.images} />
+                            <img src={open.currentImg} className={classes.images} />
                         </Modal>
-                        </div>
-                    <h2>Descripcion</h2>
-                    <p>{info.description}</p>
+                    </div>
+                    <div className="textContent">
+                        <h2>Descripcion</h2>
+                        <br />
+                        <p>{info.description}</p>
+                    </div>
                 </div>
             </div>
         </div>

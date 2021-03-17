@@ -1,11 +1,12 @@
 import React from 'react';
 import "./Bar.css";
-import Steam from './IconLogo/steam.png';
-import Epic from './IconLogo/epic.png'
-import Battle from './IconLogo/battle.png'
-import Gog from './IconLogo/gog.png'
-import Uplay from './IconLogo/uplay.png'
-import Orinin from './IconLogo/origin.png'
+
+import Steam from '../IconLogo/steam.png';
+import Epic from '../IconLogo/epic.png'
+import Battle from '../IconLogo/battle.png'
+import Gog from '../IconLogo/gog.png'
+import Uplay from '../IconLogo/uplay.png'
+import Orinin from '../IconLogo/origin.png'
 
 const Bar = () => {
     
