@@ -59,7 +59,7 @@ const Profile = () => {
                     window.location = '/home';
                 } else {
                     console.log("si hay log");
-                     login(); 
+                    login();
                 }
             }
             var user = firebase.auth().currentUser;

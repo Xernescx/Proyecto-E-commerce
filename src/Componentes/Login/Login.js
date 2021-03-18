@@ -47,9 +47,9 @@ const Login = () => {
     const login = React.useCallback(async () => {
         try {
             const res = await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
-                console.log("logeado parece")
+               /*  console.log("logeado parece") */
                 window.localStorage.setItem('user', JSON.stringify(formState));
-                console.log(window.localStorage.getItem('user'));
+                /* console.log(window.localStorage.getItem('user')); */
                 window.location = '/home';
                
             })

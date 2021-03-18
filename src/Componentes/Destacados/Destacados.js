@@ -1,14 +1,12 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect  } from 'react';
 import './Destacados.css';
 import {Link} from 'react-router-dom'
 import { db } from '../FireBase/Firebase'
-import { useForm } from "react-hook-form";
-import firebase from 'firebase/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { createMuiTheme, fade, makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme} from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 
@@ -28,10 +26,7 @@ const theme = createMuiTheme({
 
 export default function SimpleContainer() {
 
-
-
   const [links, setLink] = useState([]);
-  const [promo, setPromo] = useState();
   const [loading, setloading] = useState(true);
   /* const [page, setPage] = React.useState(1); */
 
@@ -63,15 +58,20 @@ export default function SimpleContainer() {
     });
 
   }; */
+
+
+   
+
   useEffect(() => {
 
 
-    db.collection("VideoGames").orderBy("nameSearch", "asc" ).get().then((querySnapshot) => {
+    db.collection("VideoGames").where("nameSearch", ">=", " ").orderBy("nameSearch", "asc" ).get().then((querySnapshot) => {
       let docs = []
+
         querySnapshot.forEach((doc) => {
           
-          console.log(querySnapshot)
-          console.log(doc.data())
+          /* console.log(querySnapshot)
+          console.log(doc.data()) */
           docs.push({
             ...doc.data(), date: doc.date,
             requerimentsMax: doc.requerimentsMax,
@@ -85,7 +85,7 @@ export default function SimpleContainer() {
 
         setLink(docs)
         setloading(false);
-        console.log(docs)
+        /* console.log(docs) */
       });
      
   }, [])

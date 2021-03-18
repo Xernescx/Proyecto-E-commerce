@@ -17,6 +17,7 @@ import NewGame from './Componentes/NewGame'
 import ProductsName from './Componentes/ProductsName'
 import Products from './Componentes/Products'
 
+import Destacados from './Componentes/Destacados'
 
 const App = () => (
 
@@ -49,7 +50,7 @@ const App = () => (
             <ProductsName />
           </Grid>
         </Route>
-        <Route path="/product/search/:name">
+        <Route path="/search/:name">
           <Grid
             container
             direction="row"

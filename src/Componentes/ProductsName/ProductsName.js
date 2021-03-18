@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './ProductsName.css';
 import { db } from '../FireBase/Firebase'
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Modal from '@material-ui/core/Modal';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     gridList: {
         flexWrap: 'nowrap',
-        
+
         backgroundColor: "#212529",
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
@@ -75,11 +75,25 @@ export default function SimpleContainer() {
     const [info, setInfo] = useState(null);
     const [open, setOpen] = React.useState({ open: false, currentImg: null });
     const [loading, setloading] = useState(true);
+    const [logState, setLogstate] = useState(true);
     const classes = useStyles();
     let nameV = useParams()
     /* console.log(nameV) */
+
     useEffect(() => {
-        
+        if (window.localStorage.getItem("user") === null) {
+            setLogstate(true);
+            console.log("no hay log");
+
+        } else {
+            setLogstate(false)
+            console.log("si hay log");
+        }
+    }, []);
+
+
+    useEffect(() => {
+
         db.collection("VideoGames")
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -87,7 +101,7 @@ export default function SimpleContainer() {
                     console.log(info)
                 });
             });
-        
+
         setloading(false);
     }, [])
 
@@ -181,9 +195,24 @@ export default function SimpleContainer() {
                                                 {!info.promo && (info.price)}€</p>
                                         </Grid>
                                     </div>
-                                    <p className="buttonCar">
-                                        Añadir al carrito
-                                </p>
+                                    {logState && (
+                                        <Link className="carritoImg" to="/login">
+                                            <p className="buttonCar">
+                                            Añadir al carrito<AddShoppingCartIcon />
+                                            </p>
+                                            
+                                        </Link>
+                                    )}
+                                    {!logState && (
+                                        <Link className="carritoImg" to="#">
+                                        <p className="buttonCar">
+                                        Añadir al carrito<AddShoppingCartIcon />
+                                        </p>
+                                        
+                                    </Link>
+                                        
+                                    )}
+
                                 </Grid>
                             </div>
                         </div>

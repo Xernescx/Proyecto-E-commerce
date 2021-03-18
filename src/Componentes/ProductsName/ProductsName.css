@@ -42,7 +42,10 @@
 
     
 }
-
+.carritoImg:active, .carritoImg:visited,  .carritoImg:link{
+    text-decoration: none;
+    color: white;
+}
 .infoImg{
     width: 50%;
     border-right: 1px solid #f0f0f0;

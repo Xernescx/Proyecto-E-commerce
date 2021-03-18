@@ -1,5 +1,5 @@
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 import { createMuiTheme, fade, makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -17,8 +18,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import firebase from 'firebase/app';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+
 /* import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
@@ -93,9 +93,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  typographyStyle: {
-    color: 'red'
-  }
+
 }));
 
 
@@ -115,67 +113,46 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [logState, setLogstate] = useState(true);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [search, setSearch] = useState(false);
 
-  const [search, setSearch] = useState({
-    search: ''
-  })
   /* Mira si el usuario esta registrado en el localstorte */
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      /* console.log("que miras puto") */
+      setSearch(e.target.value)
 
+    }
+
+    /* console.log(e.target.value)  */
+  }
   const updateSearch = e => {
-    setSearch({
-      search: e.target.value.toLowerCase()
-
-    });
-    searchData()
-     console.log(search.search)
-    console.log(name1)
-    console.log(userState) 
-
+    /* console.log(e.target.value) */
   }
   let name1
   const [userState, setUserState] = useState()
-  const searchData = () => {
-    db.collection("VideoGames")
-      .where("nameSearch", ">=", search.search)
-      .orderBy("nameSearch", "asc")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          name1 = doc.data().name
-          console.log(doc.data().name);
-          if (name1 >= search.search) {
-            setUserState({
-              email: name1
-            })
-          }
-
-        })
-      }).catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
-
-  }
 
 
 
 
-  const usersRef = db.collection('VideoGames');
-  const queryName = usersRef.where('name', '==', search.search);
-
-
-  console.log('query name', search.search);
 
 
 
   useEffect(() => {
-    if (window.localStorage.getItem("user") === null) {
+    
+     if (window.localStorage.getItem("user") === null) {
       setLogstate(true);
       console.log("no hay log");
 
     } else {
       setLogstate(false)
       console.log("si hay log");
-    }
+    } 
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+      } else {
+        window.localStorage.clear("user");
+      }
+    })
   }, [logState]);
 
 
@@ -246,28 +223,30 @@ export default function PrimarySearchAppBar() {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
+        <NavLink className='navLinkMenu' to="/home">
+          <MenuItem>
+            <IconButton aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit">
+              <HomeIcon />
+            </IconButton>
+            <p>Home</p>
+          </MenuItem>
+        </NavLink>
         {logState && (
           <div>
-            <NavLink className='navLinkMenu' to="/home">
+            <NavLink className='navLinkMenu' to="/login">
               <MenuItem>
                 <IconButton aria-label="account of current user"
                   aria-controls="primary-search-account-menu"
                   aria-haspopup="true"
-                  color="inherit">
-                  <HomeIcon />
+                  color="inherit" >
+                  <ShoppingCartIcon />
                 </IconButton>
-                <p>Home</p>
+                <p>Carrito</p>
               </MenuItem>
             </NavLink>
-            <MenuItem>
-              <IconButton aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit" >
-                <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
-              </IconButton>
-              <p>Carrito</p>
-            </MenuItem>
             <NavLink className='navLinkMenu' to="/login">
               <MenuItem>
                 <IconButton
@@ -298,23 +277,12 @@ export default function PrimarySearchAppBar() {
         )}
         {!logState && (
           <div>
-            <NavLink className='navLinkMenu' to="/home">
-              <MenuItem>
-                <IconButton aria-label="account of current user"
-                  aria-controls="primary-search-account-menu"
-                  aria-haspopup="true"
-                  color="inherit">
-                  <HomeIcon />
-                </IconButton>
-                <p>Home</p>
-              </MenuItem>
-            </NavLink>
             <MenuItem>
               <IconButton aria-label="account of current user"
                 aria-controls="primary-search-account-menu"
                 aria-haspopup="true"
                 color="inherit" >
-                <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+                <ShoppingCartIcon />
               </IconButton>
               <p>Carrito</p>
             </MenuItem>
@@ -342,7 +310,7 @@ export default function PrimarySearchAppBar() {
           <Toolbar>
             <Typography className={classes.title} variant="h5" >
               <NavLink className='navLinkBase' to="/home">
-                Logo
+                HyperPC
               </NavLink>
             </Typography>
             <Grid
@@ -356,6 +324,7 @@ export default function PrimarySearchAppBar() {
                 <InputBase
                   placeholder="Search…"
                   fullWidth="true"
+                  onKeyDown={handleKeyDown}
                   onChange={updateSearch}
                   classes={{
                     root: classes.inputRoot,
@@ -382,7 +351,15 @@ export default function PrimarySearchAppBar() {
                       </NavLink>
                     </li>
                     <li>
-                      <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+                      <NavLink className='navLinkMenu' to="/login">
+                        <IconButton 
+                          
+                          aria-controls="primary-search-account-menu"
+                          aria-haspopup="true"
+                          color="inherit" >
+                          <ShoppingCartIcon />
+                        </IconButton>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
@@ -403,7 +380,12 @@ export default function PrimarySearchAppBar() {
                       </IconButton>
                     </li>
                     <li>
-                      <p className="nav-links shoppingColor "><FontAwesomeIcon icon={faShoppingCart} />{" "}</p>
+                      <IconButton aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                        color="inherit" >
+                        <ShoppingCartIcon />
+                      </IconButton>
                     </li>
                   </ul>
                 </div>
@@ -425,6 +407,9 @@ export default function PrimarySearchAppBar() {
         {renderMobileMenu}
         {renderMenu}
       </ThemeProvider>
+      {search && (
+        <Redirect to={`/search/${search.toLowerCase()}`} />
+      )}
     </div>
 
   );
