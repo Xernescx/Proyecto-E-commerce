@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import './Products.css';
 import { db } from '../FireBase/Firebase'
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { createMuiTheme, fade, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
-
+import {Link} from 'react-router-dom'
 
 
 const theme = createMuiTheme({
@@ -67,11 +68,14 @@ export default function SimpleContainer() {
     });
 
   }; */
-
+  let nameV = useParams()
+  /* console.log(nameV) */
   useEffect(() => {
 
 
-    db.collection("VideoGames").orderBy("nameSearch", "asc" ).get().then((querySnapshot) => {
+    db.collection("VideoGames")
+    .where("nameSearch", ">=", nameV.name)
+    .orderBy("nameSearch", "asc").get().then((querySnapshot) => {
     
         querySnapshot.forEach((doc) => {
           
@@ -128,7 +132,7 @@ export default function SimpleContainer() {
         {links.map(link => {
           return (
             <div className="gamesD">
-              <a className="cover" href="#">
+              <Link className="cover" to={`/product/${link.name}`}>
                 <Grid
                   container
                   direction="column"
@@ -138,7 +142,7 @@ export default function SimpleContainer() {
                   <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
                   <div className="nameGame ">{link.name}</div>
                 </Grid>
-              </a>
+              </Link>
             </div>
           )
         })}

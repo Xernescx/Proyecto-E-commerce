@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import './ProductsName.css';
 import { db } from '../FireBase/Firebase'
 import Grid from '@material-ui/core/Grid';
@@ -15,12 +16,6 @@ import Modal from '@material-ui/core/Modal';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-import Steam from '../IconLogo/steam.png';
-import Epic from '../IconLogo/epic.png'
-import Battle from '../IconLogo/battle.png'
-import GoG from '../IconLogo/gog.png'
-import Uplay from '../IconLogo/uplay.png'
-import Origin from '../IconLogo/origin.png'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     gridList: {
         flexWrap: 'nowrap',
+        
         backgroundColor: "#212529",
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
@@ -80,20 +76,23 @@ export default function SimpleContainer() {
     const [open, setOpen] = React.useState({ open: false, currentImg: null });
     const [loading, setloading] = useState(true);
     const classes = useStyles();
+    let nameV = useParams()
+    /* console.log(nameV) */
     useEffect(() => {
-
+        
         db.collection("VideoGames")
-            .where("name", "==", "Hollow Knight").get().then((querySnapshot) => {
+            .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     setInfo(doc.data())
                     console.log(info)
                 });
             });
+        
         setloading(false);
     }, [])
 
-    const activateModal = (tile) => {
-        setOpen({ open: true, currentImg: tile })
+    const activateModal = (images) => {
+        setOpen({ open: true, currentImg: images })
     }
 
     const closeModal = () => {
@@ -150,7 +149,7 @@ export default function SimpleContainer() {
                             >
                                 <div className="infoImg">
                                     <p>{info.plataform}</p>
-                                    <img className="imgPlataform" src={Steam} alt={info.plataform} />
+                                    <img className="imgPlataform" src={info.plataformURL} alt={info.plataform} />
                                 </div>
                                 <p className="infoDev" >Developer:    {info.developer}</p>
                             </Grid>
@@ -191,21 +190,21 @@ export default function SimpleContainer() {
                     </div>
                 </Grid>
                 <div>
-                    <iframe height="340" src={info.urlVideo} frameborder="0"
+                    <iframe height="340" src={info.urlVideo} frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
+                        allowFullScreen></iframe>
                     <div className={classes.root}>
                         <GridList className={classes.gridList} id="barScroll" cellHeight={130} cols={3.5} >
-                            {info.imageArray.map((tile) => (
-                                <GridListTile key={tile}>
-                                    <img onclick={activateModal} src={tile} alt={info.name + "image"} />
+                            {info.imageArray.map((images) => (
+                                <GridListTile key={images}>
+                                    <img onClick={activateModal} src={images} alt={info.name + "image"} />
                                     <GridListTileBar
                                         classes={{
                                             root: classes.titleBar,
                                             title: classes.title,
                                         }}
                                         actionIcon={
-                                            <IconButton onClick={() => activateModal(tile)} aria-label={`star ${tile.title}`}>
+                                            <IconButton onClick={() => activateModal(images)} aria-label={`star ${images.title}`}>
                                                 <ZoomInIcon className={classes.title} />
                                             </IconButton>
                                         }
@@ -227,6 +226,26 @@ export default function SimpleContainer() {
                         <h2>Descripcion</h2>
                         <br />
                         <p>{info.description}</p>
+                        <br />
+                        <h2>Requisitos</h2>
+                        <br />
+                        <h3>Requisitos Minimos</h3>
+                        <ul>
+                            <li>Sistema Operativo: {info.so}</li>
+                            <li>Procesador: {info.requerimentsMin.cpuMin}</li>
+                            <li>RAM: {info.requerimentsMin.ramMin}</li>
+                            <li>GPU: {info.requerimentsMin.gpuMin}</li>
+                            <li>Espacio: {info.discSpaces}</li>
+                        </ul>
+                        <br />
+                        <h3>Requisitos Recomendados</h3>
+                        <ul>
+                            <li>Sistema Operativo: {info.so}</li>
+                            <li>Procesador: {info.requerimentsMax.cpuMax}</li>
+                            <li>RAM: {info.requerimentsMax.ramMax}</li>
+                            <li>GPU: {info.requerimentsMax.gpuMax}</li>
+                            <li>Espacio: {info.discSpaces}</li>
+                        </ul>
                     </div>
                 </div>
             </div>

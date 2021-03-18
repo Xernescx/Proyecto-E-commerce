@@ -2,7 +2,8 @@ import React from 'react';
 import Destacados from '../../Destacados'
 import Bar from '../../Bar';
 import Grid from '@material-ui/core/Grid';
-import Products from '../../ProductsName'
+import ProductsName from '../../ProductsName'
+import Products from '../../Products'
 
 const Home = () => {
     return (
@@ -13,7 +14,7 @@ const Home = () => {
                 justify="center"
                 alignItems="center"
             >   
-                <Products />
+                <Destacados />
             </Grid>
         </div>
     )

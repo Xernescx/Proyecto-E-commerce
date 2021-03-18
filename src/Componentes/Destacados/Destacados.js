@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './Destacados.css';
+import {Link} from 'react-router-dom'
 import { db } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
@@ -119,7 +120,7 @@ export default function SimpleContainer() {
         {links.map(link => {
           return (
             <div className="gamesD">
-              <a className="cover" href="#">
+              <Link className="cover" to={`/product/${link.name}`}>
                 <Grid
                   container
                   direction="column"
@@ -127,17 +128,18 @@ export default function SimpleContainer() {
                   alignItems="center"
                 >
                   <div>
+                  <img  className="bange" src={link.plataformURL} alt={link.plataform}/>
                   <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
-                  <div className="priceData">{link.promo && (
-                    <spam className="promo">0%</spam>
-                  )}
+                  <div className="priceData">
+                    {link.promo && ( <spam className="promo">{link.promo}%</spam> )}
+                    {link.promo && ( <spam className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</spam>)}
+                    {!link.promo && (  <spam className="price">{link.price}€</spam>)}
                     
-                    <spam className="price">{link.price}€</spam>
                   </div>
                   </div>
                   <div className="nameGame ">{link.name}</div>
                 </Grid>
-              </a>
+              </Link>
             </div>
           )
         })}
