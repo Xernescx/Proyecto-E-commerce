@@ -1,8 +1,7 @@
 import React from 'react';
 import { useState, useRef } from 'react';
 import './Register.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import ReportIcon from '@material-ui/icons/Report';
 import { db, auth } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
 
@@ -108,10 +107,8 @@ const Register1 = () => {
                 <form onSubmit={handleSubmit(onSubmit)} >
 
                     <label className="labelForm" >Correo         
-                        {error && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                        icon={faExclamationCircle}  /><p>{error}</p></div>}
-                        {errors.email && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                        icon={faExclamationCircle}  /><p>{errors.email.message}</p></div>}
+                        {error && <div className="alert"><ReportIcon/><p>{error}</p></div>}
+                        {errors.email && <div className="alert"><ReportIcon/><p>{errors.email.message}</p></div>}
 
                         <input className="inputForm" onChange={handleChange}
                         placeholder="correo@gmail.com" 
@@ -130,8 +127,7 @@ const Register1 = () => {
                     <br />
                     <label className="labelForm" id="password">Contraseña              
                     
-                    {errors.password && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                    icon={faExclamationCircle}  /><p>{errors.password.message}</p></div>}
+                    {errors.password && <div className="alert"><ReportIcon/><p>{errors.password.message}</p></div>}
                     <input className="inputForm" onChange={handleChange}
                     placeholder="Minimo 6 caracteres" 
                     pattern=".{6,}" 
@@ -146,8 +142,7 @@ const Register1 = () => {
                     <br />
                     <label className="labelForm" id="confirmPassword">Confirmar Costraseña 
 
-                    {errors.confirmPassword && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                    icon={faExclamationCircle}  /><p>{errors.confirmPassword.message}</p></div>}
+                    {errors.confirmPassword && <div className="alert"><ReportIcon/><p>{errors.confirmPassword.message}</p></div>}
 
                     <input className="inputForm"  onChange={handleChange}
                     placeholder="Minimo 6 caracteres" 
@@ -174,10 +169,8 @@ const Register1 = () => {
                     name="lastName" /></label>
                     <br />
                     <label className="labelForm" id="date">Fecha de nacimiento            
-                    {error2 && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                    icon={faExclamationCircle}  /><p>{error2}</p></div>}
-                    {errors.date  && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                    icon={faExclamationCircle}  /><p>{errors.date.message}</p></div>}        
+                    {error2 && <div className="alert"><ReportIcon/><p>{error2}</p></div>}
+                    {errors.date  && <div className="alert"><ReportIcon/><p>{errors.date.message}</p></div>}        
                     <input className="inputForm" 
                     onChange={handleChange}  type="date"
                     name="date" 

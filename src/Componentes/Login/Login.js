@@ -1,8 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './Login.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import ReportIcon from '@material-ui/icons/Report';
 import { db, auth } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
@@ -72,10 +71,8 @@ const Login = () => {
             <div className="log-form">
                 <form onSubmit={handleSubmit(onSubmit)} >
                     <label className="labelForm" id="email">Correo
-                    {error && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                            icon={faExclamationCircle} /><p>{error}</p></div>}
-                        {errors.email && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                            icon={faExclamationCircle} /><p>{errors.email.message}</p></div>}
+                    {error && <div className="alert"><ReportIcon/><p>{error}</p></div>}
+                        {errors.email && <div className="alert"><ReportIcon/><p>{errors.email.message}</p></div>}
                         <input className="inputForm" onChange={handleChange}
                             type="email"
                             name="email"
@@ -84,10 +81,8 @@ const Login = () => {
                             })} /></label>
                     <br />
                     <label className="labelForm" id="password">Constraseña
-                    {errorp && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                            icon={faExclamationCircle} /><p>{errorp}</p></div>}
-                        {errors.password && <div><FontAwesomeIcon className="fa-exclamationCircle"
-                            icon={faExclamationCircle} /><p>{errors.password.message}</p></div>}
+                    {errorp && <div className="alert"><ReportIcon/><p>{errorp}</p></div>}
+                        {errors.password && <div className="alert"><ReportIcon/><p>{errors.password.message}</p></div>}
                         <input className="inputForm" onChange={handleChange}
                             type="password"
                             name="password"

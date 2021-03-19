@@ -1,12 +1,11 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import './Profile.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
+import ReportIcon from '@material-ui/icons/Report';
 import { db, auth } from '../FireBase/Firebase'
-import TextField from '@material-ui/core/TextField';
+/* import TextField from '@material-ui/core/TextField'; */
 
 const Profile = () => {
 
@@ -53,12 +52,12 @@ const Profile = () => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log(user)
-                console.log("todo correcto por aqui");
+                /* console.log("todo correcto por aqui"); */
             } else {
                 if (window.localStorage.getItem("user") === null) {
                     window.location = '/home';
                 } else {
-                    console.log("si hay log");
+                    /* console.log("si hay log"); */
                     login();
                 }
             }

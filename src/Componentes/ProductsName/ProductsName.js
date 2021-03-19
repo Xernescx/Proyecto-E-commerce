@@ -16,6 +16,7 @@ import Modal from '@material-ui/core/Modal';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import firebase from 'firebase/app';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -89,7 +90,20 @@ export default function SimpleContainer() {
             setLogstate(false)
             console.log("si hay log");
         }
-    }, []);
+    }, []); 
+
+    const putCar = () => {
+        db.collection("users").doc(firebase.auth().currentUser.uid).update({
+            carrito: firebase.firestore.FieldValue.arrayUnion(info.name),
+        }).then(() => {
+            console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+
+    }
 
 
     useEffect(() => {
@@ -205,7 +219,7 @@ export default function SimpleContainer() {
                                     )}
                                     {!logState && (
                                         <Link className="carritoImg" to="#">
-                                        <p className="buttonCar">
+                                        <p onClick={putCar} className="buttonCar">
                                         Añadir al carrito<AddShoppingCartIcon />
                                         </p>
                                         
