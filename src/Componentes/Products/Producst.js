@@ -5,11 +5,18 @@ import { db } from '../FireBase/Firebase'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { createMuiTheme} from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
 
 
-
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            marginTop: theme.spacing(2),
+            color: "#ffff",
+        },
+    },
+}));
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -25,54 +32,60 @@ const theme = createMuiTheme({
 
 export default function SimpleContainer() {
 
-
+    const classes = useStyles();
 
     const [links, setLink] = useState([]);
     const [loading, setloading] = useState(true);
-    /* const [page, setPage] = React.useState(1); */
+    const [page, setPage] = React.useState(1)
+    const [data, setdata] = React.useState({
+        total: 0,
+        paginas: 0,
+        porPagina: 15,
+    });
 
-    /* const handleChange = (event, value) => {
-      setloading(true)
-  
-      setPage(value)
-      console.log(value)
-      db.collection("VideoGames").limit(pagination.forPages).orderBy("nameSearch")
-      .startAfter(pagination.forPages*(value - 1)).get().then((querySnapshot) => {
-        pagination.entradas = []; 
-        querySnapshot.forEach((doc) => {
-          console.log(doc.data())
-          pagination.entradas.push({
-            ...doc.data(), date: doc.date,
-              requerimentsMax: doc.requerimentsMax,
-              requerimentsMin: doc.requerimentsMin,
-              developer: doc.developer,
-              discSpaces: doc.discSpaces,
-              description: doc.description,
-              so: doc.so
-          })
-        });
-  
-        setLink(pagination.entradas)
-        setloading(false);
-  
-  
-      });
-  
-    }; */
+
 
     let nameV = useParams()
+    let search;
+    let search2;
+    const handleChange = (event, value) => {
 
+        console.log(value)
+        let ref;
+        let ref2;
+        ////////////////////////////////////////
+        if(nameV.name === undefined){
+            search = ""
+            ref2 = db.collection("VideoGames").where("nameSearch", ">=", search)
+        }else{
+            search = nameV.name;
+            ref2 = db.collection("VideoGames").where("nameSearch", ">=", search)
+        }
+        /////////////////////////////////////////
+        if(nameV.plataform === undefined){
+            search2 = ""
+            
+            
+        }else{
+            search2 = nameV.plataform;
+            ref2 = db.collection("VideoGames").where("nameSearch", ">=", search).where("plataform", "==", search2)
 
-    useEffect(() => {
-        console.log(nameV)
-
-        db.collection("VideoGames").where("nameSearch", ">=", nameV.name).orderBy("nameSearch", "asc").get().then((querySnapshot) => {
+        }
+        if(value === page){
+            return
+        }
+        
+        else if (value < page) {
+            ref = ref2.limit(data.porPagina).orderBy("nameSearch").endAt(links[0].nameSearch)
+        } else {    
+            ref = ref2.limit(data.porPagina).orderBy("nameSearch").startAfter(links[14].nameSearch)
+        }
+        setloading(true)
+        setPage(value)
+        ref.get().then((querySnapshot) => {
             let docs = []
-            console.log(nameV)
             querySnapshot.forEach((doc) => {
-
-                console.log(querySnapshot)
-                console.log(doc.data())
+                /* console.log(doc.data()) */
                 docs.push({
                     ...doc.data(), date: doc.date,
                     requerimentsMax: doc.requerimentsMax,
@@ -86,6 +99,60 @@ export default function SimpleContainer() {
 
             setLink(docs)
             setloading(false);
+
+
+        });
+
+    };
+
+    useEffect(() => {
+        let ref;
+        ////////////////////////////////////////
+        if(nameV.name === undefined){
+            search = ""
+            ref = db.collection("VideoGames").where("nameSearch", ">=", search)
+        }else{
+            search = nameV.name;
+            ref = db.collection("VideoGames").where("nameSearch", ">=", search)
+        }
+        /////////////////////////////////////////
+        if(nameV.plataform === undefined){
+            search2 = ""
+            
+            
+        }else{
+            search2 = nameV.plataform;
+            ref = db.collection("VideoGames").where("nameSearch", ">=", search).where("plataform", "==", search2)
+
+        }
+        /////////////////////////////////////////
+        console.log(nameV)
+        ref.get().then(res => {
+            data.total = res.size
+            console.log(res.size) 
+            data.paginas = Math.ceil((data.total / data.porPagina))
+        })
+        ref.orderBy("nameSearch", "asc").limit(15).get().then((querySnapshot) => {
+            let docs = []
+            
+            querySnapshot.forEach((doc) => {
+
+            /*  console.log(querySnapshot)
+                console.log(doc.data()) */
+                docs.push({
+                    ...doc.data(), date: doc.date,
+                    requerimentsMax: doc.requerimentsMax,
+                    requerimentsMin: doc.requerimentsMin,
+                    developer: doc.developer,
+                    discSpaces: doc.discSpaces,
+                    description: doc.description,
+                    so: doc.so
+                })
+            });
+
+            setLink(docs)
+            setPage(1)
+            setloading(false);
             console.log(docs)
         });
 
@@ -96,8 +163,8 @@ export default function SimpleContainer() {
     if (loading === true) {
         return (
             <div className="loading">
-                
-                
+
+
                 <ThemeProvider theme={theme}>
                     <Grid
                         container
@@ -146,6 +213,18 @@ export default function SimpleContainer() {
                         </div>
                     )
                 })}
+                <ThemeProvider theme={theme}>
+                    <div className={classes.root}>
+                        <Grid
+                            container
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <Pagination count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
+                        </Grid>
+
+                    </div>
+                </ThemeProvider>
             </div>
 
         </React.Fragment>

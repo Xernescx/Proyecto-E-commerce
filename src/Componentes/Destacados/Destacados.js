@@ -44,15 +44,21 @@ export default function SimpleContainer() {
 
 
   const handleChange = (event, value) => {
-    setloading(true)
+    
 
     console.log(value)
     let ref;
-    if (value < page) {
+    
+    if (value === page) {
+      return
+    }
+    else if (value < page) {
+      
       ref = db.collection("VideoGames").limit(data.porPagina).orderBy("nameSearch").endAt(links[0].nameSearch)
     } else {
       ref = db.collection("VideoGames").limit(data.porPagina).orderBy("nameSearch").startAfter(links[14].nameSearch)
     }
+    setloading(true)
     setPage(value)
     ref.get().then((querySnapshot) => {
       let docs = []
@@ -138,32 +144,35 @@ export default function SimpleContainer() {
 
 
       <div className="destacadosContainer">
-        {links.map(link => {
-          return (
-            <div className="gamesD">
-              <Link className="cover" to={`/product/${link.name}`}>
-                <Grid
-                  container
-                  direction="column"
-                  justify="center"
-                  alignItems="center"
-                >
-                  <div>
-                    <img className="bange" src={link.plataformURL} alt={link.plataform} />
-                    <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
-                    <div className="priceData">
-                      {link.promo && (<spam className="promo">{link.promo}%</spam>)}
-                      {link.promo && (<spam className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</spam>)}
-                      {!link.promo && (<spam className="price">{link.price}€</spam>)}
+        <h1>Destacados</h1>
+        <div>
+          {links.map(link => {
+            return (
+              <div className="gamesD">
+                <Link className="cover" to={`/product/${link.name}`}>
+                  <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <div>
+                      <img className="bange" src={link.plataformURL} alt={link.plataform} />
+                      <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
+                      <div className="priceData">
+                        {link.promo && (<spam className="promo">{link.promo}%</spam>)}
+                        {link.promo && (<spam className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</spam>)}
+                        {!link.promo && (<spam className="price">{link.price}€</spam>)}
 
+                      </div>
                     </div>
-                  </div>
-                  <div className="nameGame ">{link.name}</div>
-                </Grid>
-              </Link>
-            </div>
-          )
-        })}
+                    <div className="nameGame ">{link.name}</div>
+                  </Grid>
+                </Link>
+              </div>
+            )
+          })}
+        </div>
         <ThemeProvider theme={theme}>
           <div className={classes.root}>
             <Grid
