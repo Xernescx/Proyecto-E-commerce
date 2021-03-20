@@ -62,7 +62,7 @@ const App = () => (
         <Route path="/products/:plataform">
             <Products />
         </Route>
-        <Route path="/search/:name">
+        <Route path="/search/?:name">
           <Grid
             container
             direction="row"
@@ -72,7 +72,7 @@ const App = () => (
             <Products />
           </Grid>
         </Route>
-        <Redirect to="/home" />
+        
       </Switch>
       <Footer />
     </Router>

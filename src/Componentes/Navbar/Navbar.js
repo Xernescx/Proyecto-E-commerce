@@ -424,7 +424,7 @@ export default function PrimarySearchAppBar() {
         {renderMenu}
       </ThemeProvider>
       {search && (
-        <Redirect to={`/search/name=${search.toLowerCase()}`} />
+        <Redirect to={`/search/?name=${search.toLowerCase()}`} />
       )}
     </div>
 

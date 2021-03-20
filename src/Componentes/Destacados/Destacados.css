@@ -162,6 +162,7 @@
 @media screen and (max-width: 950px){
     .destacadosContainer{
         width: 100%;
+        margin-right: 0%;
         
     }
 .gamesD {

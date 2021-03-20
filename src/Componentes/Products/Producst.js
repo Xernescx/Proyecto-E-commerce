@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect, } from 'react';
 import { Link, useParams } from 'react-router-dom'
+import useQuery from '../../hooks/useQuery';    
 import { db } from '../FireBase/Firebase'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     list: {
         width: "auto",
         background: "#212529",
+        color: "rgba(255, 255, 255, 0.7)",
     },
     fullList: {
         width: 'auto',
@@ -98,9 +100,27 @@ export default function SimpleContainer() {
 
 
     let nameV = useParams()
-    console.log(nameV)
+    
     let search;
     let search2;
+    let query = useQuery();
+    console.log(query.get("name"));
+    
+
+    const handleChange2 = (event) => {
+       
+        if(event.target.checked === true){
+            setChecked(event.target.checked);
+            window.history.pushState(null, "", event.target.value);
+        }else{
+            setChecked(event.target.checked);
+            
+        }
+        
+        /* console.log(checked) */
+       
+    };
+
     const handleChange = (event, value) => {
 
         /* console.log(value) */
@@ -206,7 +226,7 @@ export default function SimpleContainer() {
             setLink(docs)
             setPage(1)
             setloading(false);
-            console.log(docs)
+           /*  console.log(docs) */
 
 
             db.collection(" genders")
@@ -245,9 +265,6 @@ export default function SimpleContainer() {
         )
     }
 
-    const handleChange2 = (event) => {
-        setChecked(event.target.checked);
-    };
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -263,16 +280,15 @@ export default function SimpleContainer() {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
             })}
             role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
+            
         >
             <List>
-                <p><Checkbox onChange={handleChange2} />Steam</p>
-                <p><Checkbox onChange={handleChange2} />EpicGames</p>
-                <p><Checkbox onChange={handleChange2} />Origin</p>
-                <p><Checkbox onChange={handleChange2} />U-play</p>
-                <p><Checkbox onChange={handleChange2} />GoG</p>
-                <p><Checkbox onChange={handleChange2} />Battle.net</p>
+                <p><Checkbox value="/search/p=Steam" onChange={handleChange2} />Steam</p>
+                <p><Checkbox value="/search/p=Epic store" onChange={handleChange2} />EpicGames</p>
+                <p><Checkbox value="/search/p=Origin" onChange={handleChange2} />Origin</p>
+                <p><Checkbox value="/search/p=U-play" onChange={handleChange2} />U-play</p>
+                <p><Checkbox value="/search/p=GoG" onChange={handleChange2} />GoG</p>
+                <p><Checkbox value="/search/p=Battle" onChange={handleChange2} />Battle.net</p>
 
 
             </List>
@@ -280,7 +296,7 @@ export default function SimpleContainer() {
             <List>
                 {genders.map(gender => {
                     return (
-                        <p><Checkbox key={gender} onChange={handleChange2} />{gender}</p>
+                        <p><Checkbox key={gender + 1} value={`/search/g=${gender}`} onChange={handleChange2} />{gender}</p>
                     )
 
                 })}
@@ -307,18 +323,18 @@ export default function SimpleContainer() {
             </div>
             <div className="gendersBar">
 
-                <p><Checkbox value="Steam" onChange={handleChange2} />Steam</p>
-                <p><Checkbox value="Epic store" onChange={handleChange2} />EpicGames</p>
-                <p><Checkbox value="Origin" onChange={handleChange2} />Origin</p>
-                <p><Checkbox value="U-play" onChange={handleChange2} />U-play</p>
-                <p><Checkbox value="GoG" onChange={handleChange2} />GoG</p>
-                <p><Checkbox value="Battle" onChange={handleChange2} />Battle.net</p>
+                <p><Checkbox value="/search/p=Steam" onChange={handleChange2} />Steam</p>
+                <p><Checkbox value="/search/p=Epic store" onChange={handleChange2} />EpicGames</p>
+                <p><Checkbox value="/search/p=Origin" onChange={handleChange2} />Origin</p>
+                <p><Checkbox value="/search/p=U-play" onChange={handleChange2} />U-play</p>
+                <p><Checkbox value="/search/p=GoG" onChange={handleChange2} />GoG</p>
+                <p><Checkbox value="/search/p=Battle" onChange={handleChange2} />Battle.net</p>
 
                 <Divider className={classes.diriver} />
 
                 {genders.map(gender => {
                     return (
-                        <p><Checkbox key={gender} value={gender} onChange={handleChange2} />{gender}</p>
+                        <p><Checkbox key={gender} value={`/search/g=${gender}`} onChange={handleChange2} />{gender}</p>
                     )
 
                 })}
@@ -361,7 +377,7 @@ export default function SimpleContainer() {
                             justify="center"
                             alignItems="center"
                         >
-                            <Pagination   classes={{ ul: classes.ul }} count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
+                            <Pagination classes={{ ul: classes.ul }} count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
                         </Grid>
 
                     </div>
