@@ -12,7 +12,6 @@ const Register1 = () => {
     const { register, errors, handleSubmit, watch} = useForm({});
     const password = useRef({});
     password.current = watch("password", "");
-    const email = useRef({});
 
 
 

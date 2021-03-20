@@ -18,11 +18,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import firebase from 'firebase/app';
+import Badge from '@material-ui/core/Badge';
 
-/* import Badge from '@material-ui/core/Badge';
-import MenuIcon from '@material-ui/icons/Menu';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications'; */
 import { db, /* auth */ } from '../FireBase/Firebase'
 
 const useStyles = makeStyles((theme) => ({
@@ -103,7 +100,7 @@ const theme = createMuiTheme({
       main: '#212529'
     },
     secondary: {
-      main: '#ffffffb3'
+      main: '#ac4caf'
     }
   }
 })
@@ -128,8 +125,7 @@ export default function PrimarySearchAppBar() {
   const updateSearch = e => {
     /* console.log(e.target.value) */
   }
-  let name1
-  const [userState, setUserState] = useState()
+
 
 
 
@@ -138,21 +134,26 @@ export default function PrimarySearchAppBar() {
 
 
   useEffect(() => {
-    
-     if (window.localStorage.getItem("user") === null) {
+
+    if (window.localStorage.getItem("user") === null) {
       setLogstate(true);
       console.log("no hay log");
 
     } else {
       setLogstate(false)
       console.log("si hay log");
-    } 
-    firebase.auth().onAuthStateChanged(function (user) {
+      firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        
       } else {
+        setLogstate(true);
         window.localStorage.clear("user");
       }
     })
+
+    }
+    
+    
   }, [logState]);
 
 
@@ -277,15 +278,17 @@ export default function PrimarySearchAppBar() {
         )}
         {!logState && (
           <div>
-            <MenuItem>
-              <IconButton aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit" >
-                <ShoppingCartIcon />
-              </IconButton>
-              <p>Carrito</p>
-            </MenuItem>
+            <NavLink className='navLinkMenu' to='/car'>
+              <MenuItem>
+                <IconButton aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit" >
+                  <ShoppingCartIcon badgeContent={4} />
+                </IconButton>
+                <p>Carrito</p>
+              </MenuItem>
+            </NavLink>
             <MenuItem onClick={handleProfileMenuOpen}>
               <IconButton
                 aria-label="account of current user"
@@ -352,8 +355,8 @@ export default function PrimarySearchAppBar() {
                     </li>
                     <li>
                       <NavLink className='navLinkMenu' to="/login">
-                        <IconButton 
-                          
+                        <IconButton
+
                           aria-controls="primary-search-account-menu"
                           aria-haspopup="true"
                           color="inherit" >
@@ -380,12 +383,15 @@ export default function PrimarySearchAppBar() {
                       </IconButton>
                     </li>
                     <li>
-                      <IconButton aria-label="account of current user"
-                        aria-controls="primary-search-account-menu"
-                        aria-haspopup="true"
-                        color="inherit" >
-                        <ShoppingCartIcon />
-                      </IconButton>
+                      <NavLink className='navLinkMenu' to='/car'>
+                        <IconButton aria-label="account of current user"
+                          aria-controls="primary-search-account-menu"
+                          aria-haspopup="true"
+                          color="inherit" >
+                        <Badge badgeContent={4} color="secondary">
+                          <ShoppingCartIcon  /></Badge>
+                        </IconButton>
+                      </NavLink>
                     </li>
                   </ul>
                 </div>

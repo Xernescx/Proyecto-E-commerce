@@ -44,16 +44,16 @@ export default function SimpleContainer() {
 
 
   const handleChange = (event, value) => {
-    
+
 
     console.log(value)
     let ref;
-    
+
     if (value === page) {
       return
     }
     else if (value < page) {
-      
+
       ref = db.collection("VideoGames").limit(data.porPagina).orderBy("nameSearch").endAt(links[0].nameSearch)
     } else {
       ref = db.collection("VideoGames").limit(data.porPagina).orderBy("nameSearch").startAfter(links[14].nameSearch)
@@ -141,14 +141,13 @@ export default function SimpleContainer() {
   return (
     <React.Fragment>
       <CssBaseline />
-
-
       <div className="destacadosContainer">
         <h1>Destacados</h1>
         <div>
           {links.map(link => {
+            
             return (
-              <div className="gamesD">
+              <div className="gamesD" key={link.name}>
                 <Link className="cover" to={`/product/${link.name}`}>
                   <Grid
                     container

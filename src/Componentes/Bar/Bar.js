@@ -1,6 +1,4 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { db } from '../FireBase/Firebase'
 import { Link } from 'react-router-dom'
 import "./Bar.css";
 import Steam from '../IconLogo/steam.png';
@@ -23,34 +21,20 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Bar = () => {
-    const [genders, setGenders] = useState([]);
+    
     const classes = useStyles();
-    useEffect(() => {
-        
-        db.collection(" genders")
-        .orderBy("name", "asc").get().then((querySnapshot) => {
-            let docs = []
-            querySnapshot.forEach((doc) => {
-
-                docs.push(doc.data())
-            });
-            setGenders(docs)
-        });
-
-
-    }, [])
-
+    
 
 
     return (
         <div className="Bar " >
-            <Link to="/products/"><h1>All</h1></Link>
-            <Link to={`/products/Steam`}><img src={Steam} all={Steam} /></Link>
-            <Link to={`/products/Epic store`}><img src={Epic} all={Epic} /></Link>
-            <Link to={`/products/Origin`}><img src={Orinin} all={Orinin} /></Link>
-            <Link to={`/products/Battle`}><img src={Battle} all={Battle} /></Link>
-            <Link to={`/products/GoG`}><img src={Gog} all={Gog} /></Link>
-            <Link to={`/products/U-play`}><img src={Uplay} all={Uplay} /></Link>
+            <Link to="/product"><h1>All</h1></Link>
+            <Link to={`/products/Steam`}><img src={Steam} alt="Steam" /></Link>
+            <Link to={`/products/Epic store`}><img src={Epic} alt="Epic" /></Link>
+            <Link to={`/products/Origin`}><img src={Orinin} alt="Orinin" /></Link>
+            <Link to={`/products/Battle`}><img src={Battle} alt="Battle" /></Link>
+            <Link to={`/products/GoG`}><img src={Gog} alt="Gog" /></Link>
+            <Link to={`/products/U-play`}><img src={Uplay} alt="Uplay" /></Link>
             < IconButton >< YouTubeIcon className={`iconButtonYoutube primero ${classes.root}`} /></IconButton>
             < IconButton >< FacebookIcon className={`iconButtonFacebook ${classes.root}`} /></IconButton>
             < IconButton >< TwitterIcon className={`iconButtonTwitter ${classes.root}`}/></IconButton>

@@ -16,7 +16,7 @@ import Profile from './Componentes/Profile';
 import NewGame from './Componentes/NewGame'
 import ProductsName from './Componentes/ProductsName'
 import Products from './Componentes/Pages/Profucts'
-import Carrito from './Component/Carrito'
+import Carrito from './Componentes/Carrito'
 
 const App = () => (
 
@@ -49,11 +49,12 @@ const App = () => (
             <ProductsName />
           </Grid>
         </Route>
-        <Route path="/product">
-            <Products />
-        </Route>
+        
         <Route path="/car">
             <Carrito />
+        </Route>
+        <Route path="/product">
+            <Products />
         </Route>
         <Route path="/products/:plataform">
             <Products />

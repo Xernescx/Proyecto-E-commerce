@@ -109,7 +109,7 @@ export default function SimpleContainer() {
         let ref;
         ////////////////////////////////////////
         if(nameV.name === undefined){
-            search = ""
+            search = "";
             ref = db.collection("VideoGames").where("nameSearch", ">=", search)
         }else{
             search = nameV.name;
@@ -117,7 +117,7 @@ export default function SimpleContainer() {
         }
         /////////////////////////////////////////
         if(nameV.plataform === undefined){
-            search2 = ""
+            search2 = "";
             
             
         }else{
@@ -189,7 +189,7 @@ export default function SimpleContainer() {
             <div className="destacadosContainer">
                 {links.map(link => {
                     return (
-                        <div className="gamesD">
+                        <div className="gamesD" key={link.name}>
                             <Link className="cover" to={`/product/${link.name}`}>
                                 <Grid
                                     container

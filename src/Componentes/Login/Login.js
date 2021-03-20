@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import './Login.css';
 import ReportIcon from '@material-ui/icons/Report';
-import { db, auth } from '../FireBase/Firebase'
+import { auth } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
 
@@ -16,7 +16,7 @@ const Login = () => {
     const [error, setError] = useState(null);
     const [errorp, setErrorp] = useState(null);
 
-    const { register, errors, handleSubmit, watch } = useForm({});
+    const { register, errors, handleSubmit } = useForm({});
     const onSubmit = async data => {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
     .then(() => {
@@ -29,8 +29,6 @@ const Login = () => {
     })
     .catch((error) => {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
     });
         console.log(formState);
     };
@@ -45,7 +43,7 @@ const Login = () => {
 
     const login = React.useCallback(async () => {
         try {
-            const res = await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
+            await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
                /*  console.log("logeado parece") */
                 window.localStorage.setItem('user', JSON.stringify(formState));
                 /* console.log(window.localStorage.getItem('user')); */

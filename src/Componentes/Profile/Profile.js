@@ -1,15 +1,14 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './Profile.css'
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
-import ReportIcon from '@material-ui/icons/Report';
 import { db, auth } from '../FireBase/Firebase'
 /* import TextField from '@material-ui/core/TextField'; */
 
 const Profile = () => {
 
-    const { register, errors, handleSubmit, watch } = useForm({});
+    const { register, handleSubmit } = useForm({});
     var name1, email1, lastName1, date1, password1, country1;
     const [userState, setUserState] = useState({
         name: "",
@@ -51,7 +50,7 @@ const Profile = () => {
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                console.log(user)
+                /* console.log(user) */
                 /* console.log("todo correcto por aqui"); */
             } else {
                 if (window.localStorage.getItem("user") === null) {
@@ -100,11 +99,11 @@ const Profile = () => {
         });
     }, [])
         
-     const login = React.useCallback(async () => {
+     const login = useCallback(async () => {
         try {
             const res = await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
-                console.log("logeado parece")
-                console.log(window.localStorage.getItem('user'));
+                /* console.log("logeado parece")
+                console.log(window.localStorage.getItem('user')); */
             })
         } catch (error) {
             console.log(error.code)

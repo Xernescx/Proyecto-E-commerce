@@ -112,7 +112,7 @@ export default function SimpleContainer() {
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     setInfo(doc.data())
-                    console.log(info)
+                    /* console.log(info) */
                 });
             });
 
@@ -147,8 +147,8 @@ export default function SimpleContainer() {
     }
 
     return (
-        <div className="text">
-            <div className="contenido">
+        <div className="text" >
+            <div className="contenido" >
                 <Grid
                     container
                     direction="row"
@@ -185,7 +185,7 @@ export default function SimpleContainer() {
                         <div className="infoGenderDiv">
                             {info.genders.map(gender => {
                                 return (
-                                    <a href="#"><p className="infoGender">{gender}</p></a>
+                                    <a href="#" key={gender}><p className="infoGender">{gender}</p></a>
                                 )
                             }
                             )}
@@ -233,14 +233,14 @@ export default function SimpleContainer() {
                     </div>
                 </Grid>
                 <div>
-                    <iframe height="340" src={info.urlVideo} frameBorder="0"
+                    <iframe height="340" src={info.urlVideo} frameBorder="0" title={info.name}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen></iframe>
                     <div className={classes.root}>
                         <GridList className={classes.gridList} id="barScroll" cellHeight={130} cols={3.5} >
                             {info.imageArray.map((images) => (
                                 <GridListTile key={images}>
-                                    <img onClick={activateModal} src={images} alt={info.name + "image"} />
+                                    <img key= "images" onClick={activateModal} src={images} alt={info.name + "image"} />
                                     <GridListTileBar
                                         classes={{
                                             root: classes.titleBar,
@@ -262,7 +262,7 @@ export default function SimpleContainer() {
                             open={open.open}
                             onClose={closeModal}
                         >
-                            <img src={open.currentImg} className={classes.images} />
+                            <img src={open.currentImg} className={classes.images} alt={info.name}/>
                         </Modal>
                     </div>
                     <div className="textContent">
