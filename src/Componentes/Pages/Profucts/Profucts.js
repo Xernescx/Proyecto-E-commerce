@@ -14,6 +14,7 @@ const Home = () => {
                 justify="center"
                 alignItems="center"
             > 
+                
                 <hr/>
                 <Products />
             </Grid>
