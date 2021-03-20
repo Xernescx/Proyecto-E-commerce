@@ -201,9 +201,9 @@ export default function SimpleContainer() {
                                         <img className="bange" src={link.plataformURL} alt={link.plataform} />
                                         <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
                                         <div className="priceData">
-                                            {link.promo && (<spam className="promo">{link.promo}%</spam>)}
-                                            {link.promo && (<spam className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</spam>)}
-                                            {!link.promo && (<spam className="price">{link.price}€</spam>)}
+                                            {link.promo && (<span className="promo">{link.promo}%</span>)}
+                                            {link.promo && (<span className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</span>)}
+                                            {!link.promo && (<span className="price">{link.price}€</span>)}
 
                                         </div>
                                     </div>

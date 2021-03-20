@@ -1,0 +1,51 @@
+.carrito{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #212529;
+    width: 50%;
+    border-radius: 8px;
+    color: white;
+}
+.carDiv{
+    border-top: 5px solid #ac4caf ;
+        
+    
+}
+.aCar{
+    width:20%
+}
+.carImage{
+    width:100%
+}
+
+.priceCar{
+    height: 40%;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.totalCar{
+    text-align: center;
+    border-top: 5px solid #ac4caf ;
+
+}
+.textCar{
+    
+    width:80%;
+    text-align:center;
+    padding-bottom: 5px;
+}
+.carTitle{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 5px solid #ac4caf;
+}
+
+@media screen and (max-width: 640px) {
+    .carrito{
+        width: 100%;
+    }
+    
+  }

@@ -46,7 +46,6 @@ const Profile = () => {
             });
     };
 
-    var uid;
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {

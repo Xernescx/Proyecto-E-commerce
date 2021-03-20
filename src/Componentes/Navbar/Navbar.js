@@ -107,6 +107,8 @@ const theme = createMuiTheme({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+  const userJ = JSON.parse(window.localStorage.getItem("user"));
+  const [carrito, setCarrito] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [logState, setLogstate] = useState(true);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -135,6 +137,9 @@ export default function PrimarySearchAppBar() {
 
 
   useEffect(() => {
+    
+    
+
 
     if (window.localStorage.getItem("user") === null) {
       setLogstate(true);
@@ -143,6 +148,18 @@ export default function PrimarySearchAppBar() {
     } else {
       setLogstate(false)
       console.log("si hay log");
+      
+      db.collection("users").where("email", "==", userJ.email)
+      .orderBy("carrito", "asc").get().then((querySnapshot) => {
+
+        querySnapshot.forEach((doc) => {
+
+        setCarrito(doc.data().carrito)
+        console.log(doc.data().carrito.length)
+
+        });
+
+      })
     }
 
   }, [logState]);
@@ -276,7 +293,7 @@ export default function PrimarySearchAppBar() {
                   aria-controls="primary-search-account-menu"
                   aria-haspopup="true"
                   color="inherit" >
-                  <Badge badgeContent={4} color="secondary">
+                  <Badge badgeContent={carrito.length} color="secondary">
                     <ShoppingCartIcon />
                   </Badge>
                 </IconButton>
@@ -382,7 +399,7 @@ export default function PrimarySearchAppBar() {
                           aria-controls="primary-search-account-menu"
                           aria-haspopup="true"
                           color="inherit" >
-                          <Badge badgeContent={4} color="secondary">
+                          <Badge badgeContent={carrito.length} color="secondary">
                             <ShoppingCartIcon /></Badge>
                         </IconButton>
                       </NavLink>

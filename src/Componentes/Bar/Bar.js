@@ -12,35 +12,135 @@ import IconButton from '@material-ui/core/IconButton';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    fontSize:"87px"
+    fontSize: "87px"
 
   },
+  fab: {
+    margin: theme.spacing(2),
+  },
+  absolute: {
+    position: 'fixed',
+    background: "#ac4caf",
+    bottom: "5%",
+    left: "5%"
+
+
+  },
+  list: {
+    width: 100,
+    background: "#212529",
+  },
+  fullList: {
+    width: 'auto',
+    
+  },
+
+  title: {
+    textDecoration: "none",
+    color: "rgba(255, 255, 255, 0.7)",
+    textAlign: "center",
+    fontSize: "50px"
+
+  }
 }))
 
 const Bar = () => {
-    
-    const classes = useStyles();
-    
+
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+
+    left: false,
+
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+      
+
+      <Link to="/product"><h1 className={classes.title}>All</h1></Link>
+        <Link to={`/products/Steam`}><img src={Steam} alt="Steam" /></Link>
+        <Link to={`/products/Epic store`}><img src={Epic} alt="Epic" /></Link>
+        <Link to={`/products/Origin`}><img src={Orinin} alt="Orinin" /></Link>
+        <Link to={`/products/Battle`}><img src={Battle} alt="Battle" /></Link>
+        <Link to={`/products/GoG`}><img src={Gog} alt="Gog" /></Link>
+        <Link to={`/products/U-play`}><img src={Uplay} alt="Uplay" /></Link>
+        
+      </List>
+      <Divider />
+      <List>
+      < IconButton >< YouTubeIcon className={`iconButtonYoutube primero ${classes.root}`} /></IconButton>
+        < IconButton >< FacebookIcon className={`iconButtonFacebook ${classes.root}`} /></IconButton>
+        < IconButton >< TwitterIcon className={`iconButtonTwitter ${classes.root}`} /></IconButton>
+      </List>
+    </div>
+  );
 
 
-    return (
-        <div className="Bar " >
-            <Link to="/product"><h1>All</h1></Link>
-            <Link to={`/products/Steam`}><img src={Steam} alt="Steam" /></Link>
-            <Link to={`/products/Epic store`}><img src={Epic} alt="Epic" /></Link>
-            <Link to={`/products/Origin`}><img src={Orinin} alt="Orinin" /></Link>
-            <Link to={`/products/Battle`}><img src={Battle} alt="Battle" /></Link>
-            <Link to={`/products/GoG`}><img src={Gog} alt="Gog" /></Link>
-            <Link to={`/products/U-play`}><img src={Uplay} alt="Uplay" /></Link>
-            < IconButton >< YouTubeIcon className={`iconButtonYoutube primero ${classes.root}`} /></IconButton>
-            < IconButton >< FacebookIcon className={`iconButtonFacebook ${classes.root}`} /></IconButton>
-            < IconButton >< TwitterIcon className={`iconButtonTwitter ${classes.root}`}/></IconButton>
+  return (
+    <div>
+      <div className="addIcon">
+        {['left'].map((anchor) => (
+          <React.Fragment key={anchor}>
             
-        </div>
-    )
+            <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+              {list(anchor)}
+            </Drawer>
+            <Tooltip onClick={toggleDrawer(anchor, true)} className={classes.absolute} style={{ zIndex: 3 }} title="Add" aria-label="add">
+              <Fab color="primary" aria-label="add">
+                <AddIcon />
+              </Fab>
+            </Tooltip>
+          </React.Fragment>
+        ))}
+      </div>
+
+      <div className="Bar " >
+
+        <Link to="/product"><h1>All</h1></Link>
+        <Link to={`/products/Steam`}><img src={Steam} alt="Steam" /></Link>
+        <Link to={`/products/Epic store`}><img src={Epic} alt="Epic" /></Link>
+        <Link to={`/products/Origin`}><img src={Orinin} alt="Orinin" /></Link>
+        <Link to={`/products/Battle`}><img src={Battle} alt="Battle" /></Link>
+        <Link to={`/products/GoG`}><img src={Gog} alt="Gog" /></Link>
+        <Link to={`/products/U-play`}><img src={Uplay} alt="Uplay" /></Link>
+        < IconButton >< YouTubeIcon className={`iconButtonYoutube primero ${classes.root}`} /></IconButton>
+        < IconButton >< FacebookIcon className={`iconButtonFacebook ${classes.root}`} /></IconButton>
+        < IconButton >< TwitterIcon className={`iconButtonTwitter ${classes.root}`} /></IconButton>
+
+      </div>
+    </div>
+  )
 
 
 }

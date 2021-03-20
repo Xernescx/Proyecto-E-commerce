@@ -2,13 +2,13 @@ import React from 'react';
 import Destacados from '../../Destacados'
 import Bar from '../../Bar';
 import Grid from '@material-ui/core/Grid';
-import ProductsName from '../../ProductsName'
+
 
 
 const Home = () => {
     return (
         <div>
-             
+
             <Grid
                 container
                 direction="row"
@@ -18,11 +18,11 @@ const Home = () => {
 
                 <Bar />
                 <hr />
-                
-                   
-                 
+
+
+
                 <Destacados />
-                
+
             </Grid>
         </div>
     )

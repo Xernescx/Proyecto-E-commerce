@@ -193,3 +193,30 @@
 .textContent p{
     
 }
+
+@media screen and (max-width: 780px) {
+    .text{
+       
+        width: 100%;
+    
+        
+    }
+    .contenido h1{  
+        width: 80%;
+        margin-top: 1px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    
+    }
+
+    .productImage{
+        
+        width: 100%;
+    }
+
+    .info{
+        width: 100%;
+        height: 100%;
+    }
+}

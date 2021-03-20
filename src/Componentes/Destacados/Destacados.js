@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -25,6 +26,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#ac4caf'
+      
     }
 
   },
@@ -140,7 +142,7 @@ export default function SimpleContainer() {
 
   return (
     <React.Fragment>
-      <CssBaseline />
+      <CssBaseline zIndex="tooltip" />
       <div className="destacadosContainer">
         <div className="presentacion">
           <Grid
@@ -149,7 +151,7 @@ export default function SimpleContainer() {
             justify="center"
             alignItems="center"
           >
-            <iframe title="lugar" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8086.398453993333!2d-8.413570333663609!3d43.365349489822265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x26192fb5b3328d58!2sPraza%20Angel%20Ron%20Fraga!5e0!3m2!1ses!2ses!4v1616230522736!5m2!1ses!2ses" width="300" height="300"  loading="lazy"></iframe>
+            <iframe title="lugar" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8086.398453993333!2d-8.413570333663609!3d43.365349489822265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x26192fb5b3328d58!2sPraza%20Angel%20Ron%20Fraga!5e0!3m2!1ses!2ses!4v1616230522736!5m2!1ses!2ses" width="250" height="300"  loading="lazy"></iframe>
             
             <p>Bievenido, somos una tienda de juegos totalmente original, no nos copiamos para nada de Insta Gaming, vendemos juegos de todas las plataformas de pc y con todos los generos</p>
           </Grid>
@@ -160,7 +162,7 @@ export default function SimpleContainer() {
           {links.map(link => {
 
             return (
-              <div className="gamesD" key={link.name}>
+              <div className="gamesD" key={link.name}  style={{zIndex: 1}}>
                 <Link className="cover" to={`/product/${link.name}`}>
                   <Grid
                     container
@@ -172,9 +174,9 @@ export default function SimpleContainer() {
                       <img className="bange" src={link.plataformURL} alt={link.plataform} />
                       <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
                       <div className="priceData">
-                        {link.promo && (<spam className="promo">{link.promo}%</spam>)}
-                        {link.promo && (<spam className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</spam>)}
-                        {!link.promo && (<spam className="price">{link.price}€</spam>)}
+                        {link.promo && (<span className="promo">{link.promo}%</span>)}
+                        {link.promo && (<span className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</span>)}
+                        {!link.promo && (<span className="price">{link.price}€</span>)}
 
                       </div>
                     </div>

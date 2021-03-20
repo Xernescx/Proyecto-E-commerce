@@ -17,7 +17,7 @@ import NewGame from './Componentes/NewGame'
 import ProductsName from './Componentes/ProductsName'
 import Products from './Componentes/Pages/Profucts'
 import Carrito from './Componentes/Carrito'
-
+import Bar from './Componentes/Bar';
 const App = () => (
 
   <div className="main-container">
@@ -46,17 +46,21 @@ const App = () => (
             justify="center"
             alignItems="center"
           >
+            <Bar />
+            <hr />
             <ProductsName />
           </Grid>
         </Route>
         
-        <Route path="/car">
+        <Route exact path="/car">
             <Carrito />
         </Route>
         <Route path="/product">
+          
             <Products />
         </Route>
         <Route path="/products/:plataform">
+            
             <Products />
 
         </Route>

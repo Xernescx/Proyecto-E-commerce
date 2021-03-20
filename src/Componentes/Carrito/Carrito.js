@@ -4,11 +4,12 @@ import firebase from 'firebase/app';
 import { db, auth } from '../FireBase/Firebase'
 import { Link } from 'react-router-dom'
 import "./Carrito.css";
-import { ThemeProvider } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-
+import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import IconButton from '@material-ui/core/IconButton';
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -21,16 +22,26 @@ const theme = createMuiTheme({
 
 })
 
+const useStyles = makeStyles((theme) => ({
+  title: {
+    color: "#ac4caf",
+  },
+
+}));
+
 export default function SimpleContainer() {
+  const classes = useStyles();
   const userJ = JSON.parse(window.localStorage.getItem("user"));
   const [links, setLink] = useState([]);
   const [loading, setloading] = useState(true);
+  const [priceFin, setpriceFin] = useState(0);
 
   useEffect(() => {
-    setloading(true)
+    setLink([])
+
     let user = firebase.auth().currentUser;
     if (user != null) {
-      
+
     } else {
       if (window.localStorage.getItem("user") === null) {
         window.location = '/home';
@@ -39,31 +50,63 @@ export default function SimpleContainer() {
         login();
       }
     }
-
     db.collection("users").where("email", "==", userJ.email)
       .orderBy("carrito", "asc").get().then((querySnapshot) => {
-        let docs = [];
+
         querySnapshot.forEach((doc) => {
-          
+
           doc.data().carrito.forEach(element => {
-            db.collection("VideoGames").where("name", "==", element).get().then((querySnapshot1) => {
-              querySnapshot1.forEach((doc2) => {
-                docs.push(doc2.data())
-              })
-              
-            })
+
+
+            db.collection("VideoGames")
+              .where("name", "==", element).get().then((querySnapshot) => {
+                querySnapshot.forEach((doc1) => {
+
+                  console.log(doc1.data())
+
+                  setLink(links => [...links, doc1.data()])
+                });
+
+
+
+
+              });
 
           });
 
         });
-        setLink(docs)
-        /* console.log(docs) */
-        console.log(links) 
 
       });
+
+      
+
+    /* console.log(links) */
     setloading(false);
     
   }, [])
+
+  function removeItemFromArr ( arr, item ) {
+    var i = arr.indexOf( item );
+    arr.splice( i, 1 );
+}
+
+  const deleteCarList = (a) => {
+    setloading(true);
+    console.log(a)
+    removeItemFromArr(links, a );
+    console.log(links)
+    db.collection("users").doc(firebase.auth().currentUser.uid).update({
+        carrito: firebase.firestore.FieldValue.arrayRemove(a)
+    }).then(() => {
+        console.log("Document successfully updated!");
+    })
+    .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+    });
+    setloading(true);
+};
+  
 
   const login = React.useCallback(async () => {
     console.log('Login')
@@ -80,7 +123,7 @@ export default function SimpleContainer() {
 
   if (loading === true) {
     return (
-      <div className="loading">
+      <div className="carrito">
 
 
         <ThemeProvider theme={theme}>
@@ -100,32 +143,49 @@ export default function SimpleContainer() {
   }
 
   return (
-    <div className="carrito " >
-      
-      {links.map(link => {
-            console.log('pepe')
-            return (
-              <div className="gamesD" key={link.name}>
-                <Link className="cover" to={`/product/${link.name}`}>
-                
-                    <div>
-                      <img className="bange" src={link.plataformURL} alt={link.plataform} />
-                      <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
-                      <div className="priceData">
-                        {link.promo && (<spam className="promo">{link.promo}%</spam>)}
-                        {link.promo && (<spam className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</spam>)}
-                        {!link.promo && (<spam className="price">{link.price}€</spam>)}
+    <Grid
+      container
+      justify="center"
+      alignItems="center"
+    >
+      <div className="carrito " >
 
-                      </div>
-                    </div>
-                    <div className="nameGame ">{link.name}</div>
-                  
+        {links.map(link => {
+          /*  console.log('pepe') */
+          return (
+            <div className="carDiv" key={link.name}>
+              <Grid
+                container
+                direction="row"
+
+              >
+                <Link className="aCar" to={`/product/${link.name}`}>
+                  <img className="carImage" alt={link.name} title={link.name} src={link.covePage} />
                 </Link>
-              </div>
-            )
-            
-          })}
-    </div>
+                <div className="textCar">
+                  <div>
+                    <p className="carTitle">{link.name}</p>
+                  </div>
+
+                  <p className="priceCar">{link.promo && (((link.price - (link.price * link.promo) / 100)).toFixed(2))}{!link.promo && (link.price)}€</p>
+                  <IconButton  onClick={() => deleteCarList(link.name)}>
+                    <DeleteSweepIcon  className={classes.title} />
+                  </IconButton>
+                </div>
+
+              </Grid>
+
+            </div>
+          )
+
+        })}
+
+
+
+
+
+      </div>
+    </Grid>
   );
 
 

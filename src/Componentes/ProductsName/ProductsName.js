@@ -95,13 +95,18 @@ export default function SimpleContainer() {
     const putCar = () => {
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
             carrito: firebase.firestore.FieldValue.arrayUnion(info.name),
+
+            
         }).then(() => {
             console.log("Document successfully updated!");
+            window.location.href ="/car"
         })
         .catch((error) => {
             // The document probably doesn't exist.
             console.error("Error updating document: ", error);
         });
+        
+
 
     }
 
@@ -150,6 +155,7 @@ export default function SimpleContainer() {
         <div className="text" >
             <div className="contenido" >
                 <Grid
+                
                     container
                     direction="row"
                     alignItems="flex-start"
