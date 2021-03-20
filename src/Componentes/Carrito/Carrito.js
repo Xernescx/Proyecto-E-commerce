@@ -150,7 +150,7 @@ export default function SimpleContainer() {
     >
       <div className="carrito " >
 
-        {links.map(link => {
+        { links.length > 0 ? (links.map(link => {
           /*  console.log('pepe') */
           return (
             <div className="carDiv" key={link.name}>
@@ -178,7 +178,9 @@ export default function SimpleContainer() {
             </div>
           )
 
-        })}
+        })): (
+          <p className="Error404">No se han econtrado resultados</p>
+        )}
 
 
 

@@ -214,6 +214,13 @@
         
         width: 100%;
     }
+    .productImage img{
+        object-fit: cover;
+        object-position: 50% -0%;
+        height: 50vh;
+
+        width: 100%;
+    }
 
     .info{
         width: 100%;

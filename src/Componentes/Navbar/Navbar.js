@@ -127,8 +127,7 @@ export default function PrimarySearchAppBar() {
   const updateSearch = e => {
     /* console.log(e.target.value) */
   }
-  let name1
-  const [userState, setUserState] = useState()
+
 
 
 
@@ -425,7 +424,7 @@ export default function PrimarySearchAppBar() {
         {renderMenu}
       </ThemeProvider>
       {search && (
-        <Redirect to={`/search/${search.toLowerCase()}`} />
+        <Redirect to={`/search/name=${search.toLowerCase()}`} />
       )}
     </div>
 

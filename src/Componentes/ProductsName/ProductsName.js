@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translateZ(0)',
     },
     images: {
-        width: "60%",
+        width: "90%",
     },
     title: {
         color: "#ac4caf",

@@ -7,6 +7,16 @@
   pointer-events: none;
 }
 
+
+.Error404{
+  padding-top: 20%;
+  padding-bottom: 20%;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -41,6 +51,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+body {
+  height: 100%;
 }
 
 .main-container {

@@ -11,12 +11,13 @@ import Pagination from '@material-ui/lab/Pagination';
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
+
+  ul: {
+    "& .MuiPaginationItem-root": {
       marginTop: theme.spacing(2),
-      color: "#ffff",
-    },
-  },
+      color: "rgba(255, 255, 255, 0.7)"
+    }
+  }
 }));
 
 const theme = createMuiTheme({
@@ -194,7 +195,7 @@ export default function SimpleContainer() {
               justify="center"
               alignItems="center"
             >
-              <Pagination count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
+              <Pagination  classes={{ ul: classes.ul }} count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
             </Grid>
 
           </div>

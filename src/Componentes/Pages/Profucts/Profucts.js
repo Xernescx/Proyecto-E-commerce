@@ -1,6 +1,4 @@
 import React from 'react';
-import Destacados from '../../Destacados'
-import Bar from '../../Bar';
 import Grid from '@material-ui/core/Grid';
 import Products from '../../Products'
 
@@ -15,7 +13,7 @@ const Home = () => {
                 alignItems="center"
             > 
                 
-                <hr/>
+                
                 <Products />
             </Grid>
         </div>

@@ -18,11 +18,6 @@ import Fab from '@material-ui/core/Fab';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -89,12 +84,12 @@ const Bar = () => {
       
 
       <Link to="/product"><h1 className={classes.title}>All</h1></Link>
-        <Link to={`/products/Steam`}><img src={Steam} alt="Steam" /></Link>
-        <Link to={`/products/Epic store`}><img src={Epic} alt="Epic" /></Link>
-        <Link to={`/products/Origin`}><img src={Orinin} alt="Orinin" /></Link>
-        <Link to={`/products/Battle`}><img src={Battle} alt="Battle" /></Link>
-        <Link to={`/products/GoG`}><img src={Gog} alt="Gog" /></Link>
-        <Link to={`/products/U-play`}><img src={Uplay} alt="Uplay" /></Link>
+        <Link to={`/products/p=Steam`}><img src={Steam} alt="Steam" /></Link>
+        <Link to={`/products/p=Epic store`}><img src={Epic} alt="Epic" /></Link>
+        <Link to={`/products/p=Origin`}><img src={Orinin} alt="Orinin" /></Link>
+        <Link to={`/products/p=Battle`}><img src={Battle} alt="Battle" /></Link>
+        <Link to={`/products/p=GoG`}><img src={Gog} alt="Gog" /></Link>
+        <Link to={`/products/p=U-play`}><img src={Uplay} alt="Uplay" /></Link>
         
       </List>
       <Divider />
@@ -128,12 +123,12 @@ const Bar = () => {
       <div className="Bar " >
 
         <Link to="/product"><h1>All</h1></Link>
-        <Link to={`/products/Steam`}><img src={Steam} alt="Steam" /></Link>
-        <Link to={`/products/Epic store`}><img src={Epic} alt="Epic" /></Link>
-        <Link to={`/products/Origin`}><img src={Orinin} alt="Orinin" /></Link>
-        <Link to={`/products/Battle`}><img src={Battle} alt="Battle" /></Link>
-        <Link to={`/products/GoG`}><img src={Gog} alt="Gog" /></Link>
-        <Link to={`/products/U-play`}><img src={Uplay} alt="Uplay" /></Link>
+        <Link to={`/products/p=Steam`}><img src={Steam} alt="Steam" /></Link>
+        <Link to={`/products/p=Epic store`}><img src={Epic} alt="Epic" /></Link>
+        <Link to={`/products/p=Origin`}><img src={Orinin} alt="Orinin" /></Link>
+        <Link to={`/products/p=Battle`}><img src={Battle} alt="Battle" /></Link>
+        <Link to={`/products/p=GoG`}><img src={Gog} alt="Gog" /></Link>
+        <Link to={`/products/p=U-play`}><img src={Uplay} alt="Uplay" /></Link>
         < IconButton >< YouTubeIcon className={`iconButtonYoutube primero ${classes.root}`} /></IconButton>
         < IconButton >< FacebookIcon className={`iconButtonFacebook ${classes.root}`} /></IconButton>
         < IconButton >< TwitterIcon className={`iconButtonTwitter ${classes.root}`} /></IconButton>

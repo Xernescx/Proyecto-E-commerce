@@ -60,9 +60,7 @@ const App = () => (
             <Products />
         </Route>
         <Route path="/products/:plataform">
-            
             <Products />
-
         </Route>
         <Route path="/search/:name">
           <Grid
