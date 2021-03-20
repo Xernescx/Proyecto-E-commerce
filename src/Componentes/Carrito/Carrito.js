@@ -30,7 +30,7 @@ export default function SimpleContainer() {
     setloading(true)
     let user = firebase.auth().currentUser;
     if (user != null) {
-
+      
     } else {
       if (window.localStorage.getItem("user") === null) {
         window.location = '/home';
@@ -50,6 +50,7 @@ export default function SimpleContainer() {
               querySnapshot1.forEach((doc2) => {
                 docs.push(doc2.data())
               })
+              
             })
 
           });
@@ -61,9 +62,11 @@ export default function SimpleContainer() {
 
       });
     setloading(false);
+    
   }, [])
 
   const login = React.useCallback(async () => {
+    console.log('Login')
     try {
       const res = await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
         /* console.log("logeado parece") */
@@ -100,7 +103,7 @@ export default function SimpleContainer() {
     <div className="carrito " >
       
       {links.map(link => {
-            console.log(links.length)
+            console.log('pepe')
             return (
               <div className="gamesD" key={link.name}>
                 <Link className="cover" to={`/product/${link.name}`}>
@@ -120,6 +123,7 @@ export default function SimpleContainer() {
                 </Link>
               </div>
             )
+            
           })}
     </div>
   );

@@ -125,7 +125,8 @@ export default function PrimarySearchAppBar() {
   const updateSearch = e => {
     /* console.log(e.target.value) */
   }
-
+  let name1
+  const [userState, setUserState] = useState()
 
 
 
@@ -142,18 +143,8 @@ export default function PrimarySearchAppBar() {
     } else {
       setLogstate(false)
       console.log("si hay log");
-      firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        
-      } else {
-        setLogstate(true);
-        window.localStorage.clear("user");
-      }
-    })
-
     }
-    
-    
+
   }, [logState]);
 
 
@@ -276,6 +267,7 @@ export default function PrimarySearchAppBar() {
             </NavLink>
           </div>
         )}
+        
         {!logState && (
           <div>
             <NavLink className='navLinkMenu' to='/car'>
@@ -284,7 +276,9 @@ export default function PrimarySearchAppBar() {
                   aria-controls="primary-search-account-menu"
                   aria-haspopup="true"
                   color="inherit" >
-                  <ShoppingCartIcon badgeContent={4} />
+                  <Badge badgeContent={4} color="secondary">
+                    <ShoppingCartIcon />
+                  </Badge>
                 </IconButton>
                 <p>Carrito</p>
               </MenuItem>
@@ -388,8 +382,8 @@ export default function PrimarySearchAppBar() {
                           aria-controls="primary-search-account-menu"
                           aria-haspopup="true"
                           color="inherit" >
-                        <Badge badgeContent={4} color="secondary">
-                          <ShoppingCartIcon  /></Badge>
+                          <Badge badgeContent={4} color="secondary">
+                            <ShoppingCartIcon /></Badge>
                         </IconButton>
                       </NavLink>
                     </li>

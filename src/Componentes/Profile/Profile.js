@@ -62,10 +62,7 @@ const Profile = () => {
             }
             var user = firebase.auth().currentUser;
             if (user != null) {
-                email1 = user.email;
-                console.log(email1);
-                uid = user.uid;  
-                console.log(uid)                 
+                email1 = user.email;  
             }
 
             db.collection("users").where("email", "==", email1)
@@ -85,15 +82,7 @@ const Profile = () => {
                             date: date1,
                             password: password1
                         })
-                        setFormState({
-                            ...formState,
-                            email: email1,
-                            name: name1,
-                            lastName: lastName1,
-                            country: country1,
-                            date: date1,
-                            password: password1
-                        })
+                        
                     });
                 });
         });

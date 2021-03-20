@@ -40,7 +40,7 @@ export default function SimpleContainer() {
     const [data, setdata] = React.useState({
         total: 0,
         paginas: 0,
-        porPagina: 15,
+        porPagina: 18,
     });
 
 
@@ -78,7 +78,7 @@ export default function SimpleContainer() {
         else if (value < page) {
             ref = ref2.limit(data.porPagina).orderBy("nameSearch").endAt(links[0].nameSearch)
         } else {    
-            ref = ref2.limit(data.porPagina).orderBy("nameSearch").startAfter(links[14].nameSearch)
+            ref = ref2.limit(data.porPagina).orderBy("nameSearch").startAfter(links[links.length - 1].nameSearch)
         }
         setloading(true)
         setPage(value)
@@ -132,7 +132,7 @@ export default function SimpleContainer() {
             console.log(res.size) 
             data.paginas = Math.ceil((data.total / data.porPagina))
         })
-        ref.orderBy("nameSearch", "asc").limit(15).get().then((querySnapshot) => {
+        ref.orderBy("nameSearch", "asc").limit(data.porPagina).get().then((querySnapshot) => {
             let docs = []
             
             querySnapshot.forEach((doc) => {

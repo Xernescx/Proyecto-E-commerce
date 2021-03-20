@@ -8,17 +8,21 @@ import ProductsName from '../../ProductsName'
 const Home = () => {
     return (
         <div>
-            
+             
             <Grid
                 container
                 direction="row"
                 justify="center"
                 alignItems="center"
-            >   
-            
+            >
+
                 <Bar />
-                <hr/>
+                <hr />
+                
+                   
+                 
                 <Destacados />
+                
             </Grid>
         </div>
     )
