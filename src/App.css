@@ -9,11 +9,12 @@
 
 
 .Error404{
-  padding-top: 20%;
+  padding-top: 30%;
   padding-bottom: 20%;
   text-align: center;
   color: white;
   font-size: 20px;
+  width: 500px
 
 }
 

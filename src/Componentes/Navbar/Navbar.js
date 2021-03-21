@@ -142,11 +142,11 @@ export default function PrimarySearchAppBar() {
 
     if (window.localStorage.getItem("user") === null) {
       setLogstate(true);
-      console.log("no hay log");
+      /* console.log("no hay log"); */
 
     } else {
       setLogstate(false)
-      console.log("si hay log");
+      /* console.log("si hay log"); */
       
       db.collection("users").where("email", "==", userJ.email)
       .orderBy("carrito", "asc").get().then((querySnapshot) => {
@@ -154,7 +154,7 @@ export default function PrimarySearchAppBar() {
         querySnapshot.forEach((doc) => {
 
         setCarrito(doc.data().carrito)
-        console.log(doc.data().carrito.length)
+        /* console.log(doc.data().carrito.length) */
 
         });
 
@@ -424,7 +424,7 @@ export default function PrimarySearchAppBar() {
         {renderMenu}
       </ThemeProvider>
       {search && (
-        <Redirect to={`/search/?name=${search.toLowerCase()}`} />
+        <Redirect to={`/search?name=${search.toLowerCase()}`} />
       )}
     </div>
 

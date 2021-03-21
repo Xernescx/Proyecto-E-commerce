@@ -55,14 +55,10 @@ const App = () => (
         <Route exact path="/car">
             <Carrito />
         </Route>
-        <Route path="/product">
-          
+        {/* <Route path="/search">  :plataform 
             <Products />
-        </Route>
-        <Route path="/products/:plataform">
-            <Products />
-        </Route>
-        <Route path="/search/?:name">
+        </Route> */}
+        <Route path="/search" >  {/*:name :plataform */}
           <Grid
             container
             direction="row"
@@ -72,7 +68,7 @@ const App = () => (
             <Products />
           </Grid>
         </Route>
-        
+        <Redirect to="/home" />
       </Switch>
       <Footer />
     </Router>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, } from 'react';
 import { Link, useParams } from 'react-router-dom'
-import useQuery from '../../hooks/useQuery';    
+import useQuery from '../../hooks/useQuery';
 import { db } from '../FireBase/Firebase'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -17,6 +17,7 @@ import Divider from '@material-ui/core/Divider';
 import clsx from 'clsx';
 import Checkbox from '@material-ui/core/Checkbox';
 import './Products.css'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -80,14 +81,11 @@ export default function SimpleContainer() {
 
     const classes = useStyles();
     const [checked, setChecked] = useState(true);
-
     const [links, setLink] = useState([]);
     const [loading, setloading] = useState(true);
     const [page, setPage] = React.useState(1)
     const [genders, setGenders] = useState([])
-    const [plataform, setPlataform] = useState([]);
     const [state, setState] = useState({
-
         left: false,
 
     });
@@ -99,26 +97,28 @@ export default function SimpleContainer() {
 
 
 
-    let nameV = useParams()
-    
+     let nameV = useParams()
+
     let search;
     let search2;
+    let search3;
     let query = useQuery();
-    console.log(query.get("name"));
-    
+
+
+
 
     const handleChange2 = (event) => {
-       
-        if(event.target.checked === true){
+
+        if (event.target.checked === true) {
             setChecked(event.target.checked);
-            window.history.pushState(null, "", event.target.value);
-        }else{
+            /* window.history.pushState(null, "", event.target.value); */
+        } else {
             setChecked(event.target.checked);
-            
+
         }
-        
+
         /* console.log(checked) */
-       
+
     };
 
     const handleChange = (event, value) => {
@@ -127,22 +127,27 @@ export default function SimpleContainer() {
         let ref;
         let ref2;
         ////////////////////////////////////////
-        if (nameV.name === undefined) {
+        if (query.get('name') === null) {
             search = ""
             ref2 = db.collection("VideoGames").where("nameSearch", ">=", search)
         } else {
-            search = nameV.name;
+            search = query.get('name');
             ref2 = db.collection("VideoGames").where("nameSearch", ">=", search)
         }
         /////////////////////////////////////////
-        if (nameV.plataform === undefined) {
+        if (query.get('plataform') === null) {
             search2 = ""
 
-
         } else {
-            search2 = nameV.plataform;
+            search2 = query.get('plataform')
             ref2 = db.collection("VideoGames").where("nameSearch", ">=", search).where("plataform", "==", search2)
 
+        }
+        if(query.get('gender')===null){
+            search3 = ""
+        }else{
+            search3 = query.get('gender')
+            ref2 = db.collection("VideoGames").where("nameSearch", ">=", search).where("genders", "array-contains", search3)
         }
         if (value === page) {
             return
@@ -180,23 +185,29 @@ export default function SimpleContainer() {
 
     useEffect(() => {
         let ref;
+
         ////////////////////////////////////////
-        if (nameV.name === undefined) {
+        if (query.get('name') === null) {
             search = "";
             ref = db.collection("VideoGames").where("nameSearch", ">=", search)
         } else {
-            search = nameV.name;
+            search = query.get('name')
             ref = db.collection("VideoGames").where("nameSearch", ">=", search)
         }
         /////////////////////////////////////////
-        if (nameV.plataform === undefined) {
+        if (query.get('plataform') === null) {
             search2 = "";
 
 
         } else {
-            search2 = nameV.plataform;
+            search2 = query.get('plataform')
             ref = db.collection("VideoGames").where("nameSearch", ">=", search).where("plataform", "==", search2)
 
+        }if(query.get('gender')===null){
+            search3 = ""
+        }else{
+            search3 = query.get('gender')
+            ref = db.collection("VideoGames").where("nameSearch", ">=", search).where("genders", "array-contains", search3)
         }
         /////////////////////////////////////////
         /* console.log(nameV) */
@@ -226,10 +237,17 @@ export default function SimpleContainer() {
             setLink(docs)
             setPage(1)
             setloading(false);
-           /*  console.log(docs) */
+            /*  console.log(docs) */
 
 
-            db.collection(" genders")
+            
+
+        });
+
+    }, [nameV])
+
+    useEffect(() => {
+        db.collection(" genders")
                 .orderBy("name", "asc").get().then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         setGenders(genders => [...genders, doc.data().name])
@@ -237,10 +255,7 @@ export default function SimpleContainer() {
                     });
                 })
 
-
-        });
-
-    }, [nameV])
+    }, [])
 
 
 
@@ -280,15 +295,15 @@ export default function SimpleContainer() {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
             })}
             role="presentation"
-            
+
         >
             <List>
-                <p><Checkbox value="/search/p=Steam" onChange={handleChange2} />Steam</p>
-                <p><Checkbox value="/search/p=Epic store" onChange={handleChange2} />EpicGames</p>
-                <p><Checkbox value="/search/p=Origin" onChange={handleChange2} />Origin</p>
-                <p><Checkbox value="/search/p=U-play" onChange={handleChange2} />U-play</p>
-                <p><Checkbox value="/search/p=GoG" onChange={handleChange2} />GoG</p>
-                <p><Checkbox value="/search/p=Battle" onChange={handleChange2} />Battle.net</p>
+                <Link className="enlacesLink" to="/search?plataform=Steam">         <p>{/* <Checkbox value="/search?plataform=Steam" onChange={handleChange2} />      */}       Steam</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=Epic store">   <p>{/* <Checkbox value="/search?plataform=Epic store" onChange={handleChange2} /> */}       EpicGames</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=Origin">       <p>{/* <Checkbox value="/search?plataform=Origin" onChange={handleChange2} />     */}       Origin</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=U-play">       <p>{/* <Checkbox value="/search?plataform=U-play" onChange={handleChange2} />     */}       U-play</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=GoG">          <p>{/* <Checkbox value="/search?plataform=GoG" onChange={handleChange2} />        */}       GoG</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=Battle">       <p>{/* <Checkbox value="/search?plataform=Battle" onChange={handleChange2} />     */}       Battle.net</p></Link>
 
 
             </List>
@@ -296,7 +311,7 @@ export default function SimpleContainer() {
             <List>
                 {genders.map(gender => {
                     return (
-                        <p><Checkbox key={gender + 1} value={`/search/g=${gender}`} onChange={handleChange2} />{gender}</p>
+                        <Link className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
                     )
 
                 })}
@@ -323,18 +338,23 @@ export default function SimpleContainer() {
             </div>
             <div className="gendersBar">
 
-                <p><Checkbox value="/search/p=Steam" onChange={handleChange2} />Steam</p>
-                <p><Checkbox value="/search/p=Epic store" onChange={handleChange2} />EpicGames</p>
-                <p><Checkbox value="/search/p=Origin" onChange={handleChange2} />Origin</p>
-                <p><Checkbox value="/search/p=U-play" onChange={handleChange2} />U-play</p>
-                <p><Checkbox value="/search/p=GoG" onChange={handleChange2} />GoG</p>
-                <p><Checkbox value="/search/p=Battle" onChange={handleChange2} />Battle.net</p>
+                <Link className="enlacesLink" to="/search?plataform=Steam">       <p >{/* <Checkbox value="/search?plataform=Steam" onChange={handleChange2} />      */}   Steam</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=Epic store">  <p>{/* <Checkbox value="/search?plataform=Epic store" onChange={handleChange2} /> */}   EpicGames</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=Origin">     <p>{/* <Checkbox value="/search?plataform=Origin" onChange={handleChange2} />     */}   Origin</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=U-play">     <p>{/* <Checkbox value="/search?plataform=U-play" onChange={handleChange2} />     */}    U-play</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=GoG">        <p>{/* <Checkbox value="/search?plataform=GoG" onChange={handleChange2} />        */}   GoG</p></Link>
+                <Link className="enlacesLink" to="/search?plataform=Battle">      <p>{/* <Checkbox value="/search?plataform=Battle" onChange={handleChange2} />     */}   Battle.net</p></Link>
+
+
+
+
+
 
                 <Divider className={classes.diriver} />
 
                 {genders.map(gender => {
                     return (
-                        <p><Checkbox key={gender} value={`/search/g=${gender}`} onChange={handleChange2} />{gender}</p>
+                        <Link className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
                     )
 
                 })}

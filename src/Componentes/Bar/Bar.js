@@ -83,13 +83,13 @@ const Bar = () => {
       <List>
       
 
-      <Link to="/product"><h1 className={classes.title}>All</h1></Link>
-        <Link to={`/products/p=Steam`}><img src={Steam} alt="Steam" /></Link>
-        <Link to={`/products/p=Epic store`}><img src={Epic} alt="Epic" /></Link>
-        <Link to={`/products/p=Origin`}><img src={Orinin} alt="Orinin" /></Link>
-        <Link to={`/products/p=Battle`}><img src={Battle} alt="Battle" /></Link>
-        <Link to={`/products/p=GoG`}><img src={Gog} alt="Gog" /></Link>
-        <Link to={`/products/p=U-play`}><img src={Uplay} alt="Uplay" /></Link>
+      <Link to="/search?"><h1 className={classes.title}>All</h1></Link>
+        <Link to={`/search?plataform=Steam`}><img src={Steam} alt="Steam" /></Link>
+        <Link to={`/search?plataform=Epic store`}><img src={Epic} alt="Epic" /></Link>
+        <Link to={`/search?plataform=Origin`}><img src={Orinin} alt="Orinin" /></Link>
+        <Link to={`/search?plataform=Battle`}><img src={Battle} alt="Battle" /></Link>
+        <Link to={`/search?plataform=GoG`}><img src={Gog} alt="Gog" /></Link>
+        <Link to={`/search?plataform=U-play`}><img src={Uplay} alt="Uplay" /></Link>
         
       </List>
       <Divider />
@@ -122,13 +122,13 @@ const Bar = () => {
 
       <div className="Bar " >
 
-        <Link to="/product"><h1>All</h1></Link>
-        <Link to={`/products/p=Steam`}><img src={Steam} alt="Steam" /></Link>
-        <Link to={`/products/p=Epic store`}><img src={Epic} alt="Epic" /></Link>
-        <Link to={`/products/p=Origin`}><img src={Orinin} alt="Orinin" /></Link>
-        <Link to={`/products/p=Battle`}><img src={Battle} alt="Battle" /></Link>
-        <Link to={`/products/p=GoG`}><img src={Gog} alt="Gog" /></Link>
-        <Link to={`/products/p=U-play`}><img src={Uplay} alt="Uplay" /></Link>
+        <Link to="/search?"><h1>All</h1></Link>
+        <Link to={`/search?plataform=Steam`}><img src={Steam} alt="Steam" /></Link>
+        <Link to={`/search?plataform=Epic store`}><img src={Epic} alt="Epic" /></Link>
+        <Link to={`/search?plataform=Origin`}><img src={Orinin} alt="Orinin" /></Link>
+        <Link to={`/search?plataform=Battle`}><img src={Battle} alt="Battle" /></Link>
+        <Link to={`/search?plataform=GoG`}><img src={Gog} alt="Gog" /></Link>
+        <Link to={`/search?plataform=U-play`}><img src={Uplay} alt="Uplay" /></Link>
         < IconButton >< YouTubeIcon className={`iconButtonYoutube primero ${classes.root}`} /></IconButton>
         < IconButton >< FacebookIcon className={`iconButtonFacebook ${classes.root}`} /></IconButton>
         < IconButton >< TwitterIcon className={`iconButtonTwitter ${classes.root}`} /></IconButton>
