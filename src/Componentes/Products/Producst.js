@@ -311,7 +311,7 @@ export default function SimpleContainer() {
             <List>
                 {genders.map(gender => {
                     return (
-                        <Link className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
+                        <Link key={gender} className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
                     )
 
                 })}
@@ -354,7 +354,7 @@ export default function SimpleContainer() {
 
                 {genders.map(gender => {
                     return (
-                        <Link className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
+                        <Link key={gender + 1} className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
                     )
 
                 })}

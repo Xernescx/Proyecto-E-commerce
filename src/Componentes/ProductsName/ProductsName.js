@@ -191,7 +191,8 @@ export default function SimpleContainer() {
                         <div className="infoGenderDiv">
                             {info.genders.map(gender => {
                                 return (
-                                    <a href="#" key={gender}><p className="infoGender">{gender}</p></a>
+                                    
+                                    <Link key={gender} className="enlacesLink" to={`/search?gender=${gender}`}><p className="infoGender">{gender}</p></Link>
                                 )
                             }
                             )}

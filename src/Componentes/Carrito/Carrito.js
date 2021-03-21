@@ -104,7 +104,7 @@ export default function SimpleContainer() {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
     });
-    setloading(true);
+    setloading(false);
 };
   
 
