@@ -1,14 +1,74 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import './Profile.css'
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
 import { db, auth } from '../FireBase/Firebase'
-/* import TextField from '@material-ui/core/TextField'; */
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import {
+    MuiPickersUtilsProvider, KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+        "& .MuiOutlinedInput-input": {
+            color: "white"
+        },
+        '& .MuiInputBase-root': {
+            color: 'white',
+        },
+        "& .MuiInputLabel-root": {
+            color: "rgb(184, 180, 180)"
+        },
+        "& .MuiInputLabel-root.Mui-focused": {
+            color: "purple"
+        },
+
+        '& .MuiInput-underline:before': {
+            borderBottomColor: 'rgb(184, 180, 180)',
+        },
+
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#ac4caf',
+        },
+
+
+
+    },
+}));
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#ac4caf',
+        },
+        secondary: {
+            main: '#ac4caf'
+
+        }
+
+    },
+
+})
+
+
 
 const Profile = () => {
-
+    const [loading, setloading] = useState(true);
+    const classes = useStyles();
     const { register, handleSubmit } = useForm({});
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
     var name1, email1, lastName1, date1, password1, country1;
     const [userState, setUserState] = useState({
         name: "",
@@ -31,15 +91,16 @@ const Profile = () => {
     const userJ = JSON.parse(window.localStorage.getItem("user"));
     //console.log(userJ.email, userJ.password)
     const onSubmit = async data => {
-            console.log(formState)
-            db.collection("users").doc(firebase.auth().currentUser.uid).update({
-                name: formState.name,
-                lastName: formState.lastName,   
-                country: formState.country,
-                date1: formState.date,
-            }).then(() => {
-                console.log("Document successfully updated!");
-            })
+        console.log(formState)
+
+        db.collection("users").doc(firebase.auth().currentUser.uid).update({
+
+            name: formState.name,
+            lastName: formState.lastName,
+            country: formState.country
+        }).then(() => {
+            console.log("Document successfully updated!");
+        })
             .catch((error) => {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
@@ -47,6 +108,7 @@ const Profile = () => {
     };
 
     useEffect(() => {
+        setloading(true);
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 /* console.log(user) */
@@ -61,7 +123,7 @@ const Profile = () => {
             }
             var user = firebase.auth().currentUser;
             if (user != null) {
-                email1 = user.email;  
+                email1 = user.email;
             }
 
             db.collection("users").where("email", "==", email1)
@@ -69,7 +131,6 @@ const Profile = () => {
                     querySnapshot.forEach((doc) => {
                         name1 = doc.data().name
                         lastName1 = doc.data().lastName;
-                        date1 = doc.data().date
                         password1 = doc.data().password
                         country1 = doc.data().country
                         setUserState({
@@ -81,13 +142,19 @@ const Profile = () => {
                             date: date1,
                             password: password1
                         })
-                        
+                        setSelectedDate(doc.data().date)
+                        setFormState({ 
+                            name: doc.data().name,
+                            country: doc.data().country,
+                            lastName: doc.data().lastName,
+                        })
                     });
                 });
         });
+        setloading(false);
     }, [])
-        
-     const login = useCallback(async () => {
+
+    const login = useCallback(async () => {
         try {
             const res = await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
                 /* console.log("logeado parece")
@@ -96,63 +163,113 @@ const Profile = () => {
         } catch (error) {
             console.log(error.code)
         }
-    }) 
+    })
+
+
+    if (loading === true) {
+        return (
+            <div className="loading">
+                <ThemeProvider theme={theme}>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <div>
+                            <CircularProgress theme={theme} />
+                        </div>
+                    </Grid>
+                </ThemeProvider>
+            </div>
+        )
+    }
+
     return (
         <div className="formulario">
-            <div className="log-form ">
-                <form onSubmit={handleSubmit(onSubmit)} >
+            <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+            >
+                <div className="log-form ">
+                    <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
 
-                    <label className="labelForm" >Correo         
-            
 
-                        <input className="inputForm" onChange={handleChange}
-                        placeholder="correo@gmail.com" 
-                        type="text" 
-                        name="email" 
-                        disabled
-                        defaultValue={userState.email}
+
+                        <TextField underline={false}
+                            className={classes.sortFormLabel}
+                            id="standard-required"
+                            label="email"
+                            name="email"
+                            value={userState.email}
+                            onChange={handleChange}
+                            disabled
+                            InputProps={{
+                                className: classes.input
+                            }}
+
                             ref={register({
+                                name: "email",
                                 required: "Parametro requerido.",
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                     message: "Caracteres no validos."
                                 },
-                            })}
-                            
-                        /></label>
-                    <br/>
-                    <label className="labelForm" id="name">Nombre
-                    <input className="inputForm"
-                            defaultValue={userState.name}
-                            onChange={handleChange}
-                            type="text"
-                            name="name"
-                        /></label>
-                    <br />
-                    <label className="labelForm" id="lastName">Apellido      
 
-                    <input className="inputForm"  
-                    onChange={handleChange}  
-                    type="text" 
-                    name="lastName"
-                    defaultValue={userState.lastName}
-                    /></label>
-                    <br />
-                    <label className="labelForm" id="date">Fecha de nacimiento            
-                    
-                    <input className="inputForm" 
-                    onChange={handleChange}  type="date"
-                    name="date"
-                    defaultValue={userState.date}  
-                    ref={register({
-                        required: "Fecha de nacimiento requerdia.",
-                        
-                    })}
-                    /></label>
-                    <br />
-                    <label className="labelForm" >   Pais </label>
-                    <div className="select">
-                        <select id="country" name="country" className="inputForm"  onChange={handleChange} >
+                            })}
+
+                        />
+                        <br />
+
+                        <TextField label="name" name="name"
+                            InputLabelProps={{ shrink: true }}
+                            defaultValue={userState.name}
+                            placeholder={userState.name}
+                            onChange={handleChange.bind(this)}
+
+                        />
+
+
+                        <br />
+
+                        <TextField label="lastName" name="lastName"
+                            InputLabelProps={{ shrink: true }}
+                            defaultValue={userState.lastName}
+                            placeholder={userState.lastName}
+                            onChange={handleChange}
+                        />
+
+                        <br />
+                        <MuiPickersUtilsProvider color="primary" utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                disabled
+                                margin="normal"
+                                id="date-picker-dialog"
+                                label="Date picker dialog"
+                                format="dd/MM/yyyy"
+                                value={selectedDate}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                                ref={register({
+                                    required: "Fecha de nacimiento requerdia.",
+
+                                })}
+                            />
+
+                        </MuiPickersUtilsProvider>
+                        <br />
+                        <InputLabel htmlFor="age-native-simple">Pais</InputLabel>
+                        <Select
+                            native
+                            onChange={handleChange}
+                            inputProps={{
+                                name: 'country',
+                                id: 'age-native-simple',
+                            }}
+                        >
                             <option select value={userState.country}>{userState.country}</option>
                             <option disabled value={userState.country}>-----------------------------</option>
                             <option value="Afghanistan" >Afghanistan</option>
@@ -399,13 +516,19 @@ const Profile = () => {
                             <option value="Yemen">Yemen</option>
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
-                        </select>
-                    </div>
-                    <br />
-
-                    <button className="btn" type="submit" >Actualizar</button>
-                </form>
-            </div>
+                        </Select>
+                        <br />
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <button className="btn" type="submit" >Actualizar</button>
+                        </Grid>
+                    </form>
+                </div>
+            </Grid>
         </div>
     )
 

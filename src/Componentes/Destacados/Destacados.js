@@ -9,7 +9,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
-
+const styles = theme => ({
+  multilineColor:{
+      color:'white'
+  }
+});
 const useStyles = makeStyles((theme) => ({
 
   ul: {
@@ -145,18 +149,6 @@ export default function SimpleContainer() {
     <React.Fragment>
       <CssBaseline zIndex="tooltip" />
       <div className="destacadosContainer">
-        <div className="presentacion">
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <iframe title="lugar" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8086.398453993333!2d-8.413570333663609!3d43.365349489822265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x26192fb5b3328d58!2sPraza%20Angel%20Ron%20Fraga!5e0!3m2!1ses!2ses!4v1616230522736!5m2!1ses!2ses" width="250" height="300"  loading="lazy"></iframe>
-            
-            <p>Bievenido, somos una tienda de juegos totalmente original, no nos copiamos para nada de Insta Gaming, vendemos juegos de todas las plataformas de pc y con todos los generos</p>
-          </Grid>
-        </div>
         <h1>Destacados</h1>
 
         <div>
