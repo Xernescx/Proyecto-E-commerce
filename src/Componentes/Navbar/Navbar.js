@@ -104,7 +104,7 @@ const theme = createMuiTheme({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
-  const userJ = JSON.parse(window.localStorage.getItem("user"));
+  const userJ = JSON.parse(window.sessionStorage.getItem("user"));
   const [carrito, setCarrito] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [logState, setLogstate] = useState(true);
@@ -137,7 +137,7 @@ export default function PrimarySearchAppBar() {
     
 
 
-    if (window.localStorage.getItem("user") === null) {
+    if (window.sessionStorage.getItem("user") === null) {
       setLogstate(true);
       /* console.log("no hay log"); */
 
@@ -167,7 +167,7 @@ export default function PrimarySearchAppBar() {
     firebase.auth().signOut().then(() => {
       /* console.log('hola buenas') */
       window.location = '/home';
-      window.localStorage.clear("user");
+      window.sessionStorage.clear("user");
     }).catch((error) => {
       /*  console.log('no pos yiyi') */
     });

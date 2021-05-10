@@ -91,7 +91,7 @@ const Login = () => {
         try {
             await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
                 /*  console.log("logeado parece") */
-                window.localStorage.setItem('user', JSON.stringify(formState));
+                window.sessionStorage.setItem('user', JSON.stringify(formState));
                 /* console.log(window.localStorage.getItem('user')); */
                 window.location = '/home';
 

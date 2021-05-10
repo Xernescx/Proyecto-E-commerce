@@ -18,6 +18,8 @@ import ProductsName from './Componentes/ProductsName'
 import Products from './Componentes/Products'
 import Carrito from './Componentes/Carrito'
 import Bar from './Componentes/Bar';
+import GpuFomr from './Componentes/GpuFomr/GpuFomr';
+import CpuForm from './Componentes/CpuForm/CpuForm';
 const App = () => (
 
   <div className="main-container">
@@ -25,13 +27,13 @@ const App = () => (
       <Navbar />
       <Switch>
         <Route path="/home" >
-        <Grid
+          <Grid
             container
             direction="row"
             justify="center"
             alignItems="center"
           >
-          <Destacados />
+            <Destacados />
           </Grid>
         </Route>
         <Route path="/Login">
@@ -58,9 +60,9 @@ const App = () => (
             <ProductsName />
           </Grid>
         </Route>
-        
+
         <Route exact path="/car">
-            <Carrito />
+          <Carrito />
         </Route>
         {/* <Route path="/search">  :plataform 
             <Products />
@@ -73,6 +75,26 @@ const App = () => (
             alignItems="center"
           >
             <Products />
+          </Grid>
+        </Route>
+        <Route path="/FomrGpu" >  {/*:name :plataform */}
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <GpuFomr />
+          </Grid>
+        </Route>
+        <Route path="/FomrCpu" >  {/*:name :plataform */}
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <CpuForm />
           </Grid>
         </Route>
         <Redirect to="/home" />

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleContainer() {
   const classes = useStyles();
-  const userJ = JSON.parse(window.localStorage.getItem("user"));
+  const userJ = JSON.parse(window.sessionStorage.getItem("user"));
   const [links, setLink] = useState([]);
   const [loading, setloading] = useState(true);
 

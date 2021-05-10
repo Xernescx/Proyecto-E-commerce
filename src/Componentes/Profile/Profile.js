@@ -113,8 +113,8 @@ const Profile = () => {
             if (user) {
                 /* console.log(user) */
                 /* console.log("todo correcto por aqui"); */
-            } else {
-                if (window.localStorage.getItem("user") === null) {
+            } else {    
+                if (window.sessionStorage.getItem("user") === null) {
                     window.location = '/home';
                 } else {
                     /* console.log("si hay log"); */

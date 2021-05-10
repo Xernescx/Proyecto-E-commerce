@@ -91,22 +91,22 @@ export default function SimpleContainer() {
             setLogstate(false)
             console.log("si hay log");
         }
-    }, []); 
+    }, []);
 
     const putCar = () => {
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
             carrito: firebase.firestore.FieldValue.arrayUnion(info.name),
 
-            
+
         }).then(() => {
             console.log("Document successfully updated!");
-            window.location.href ="/car"
+            window.location.href = "/car"
         })
-        .catch((error) => {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-        });
-        
+            .catch((error) => {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+
 
 
     }
@@ -118,12 +118,12 @@ export default function SimpleContainer() {
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     setInfo(doc.data())
-                    /* console.log(info) */
+                     console.log(doc.id) 
                 });
             });
 
         setloading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const activateModal = (images) => {
@@ -157,7 +157,7 @@ export default function SimpleContainer() {
         <div className="text" >
             <div className="contenido" >
                 <Grid
-                
+
                     container
                     direction="row"
                     alignItems="flex-start"
@@ -193,7 +193,7 @@ export default function SimpleContainer() {
                         <div className="infoGenderDiv">
                             {info.genders.map(gender => {
                                 return (
-                                    
+
                                     <Link key={gender} className="enlacesLink" to={`/search?gender=${gender}`}><p className="infoGender">{gender}</p></Link>
                                 )
                             }
@@ -221,19 +221,19 @@ export default function SimpleContainer() {
                                     {logState && (
                                         <Link className="carritoImg" to="/login">
                                             <p className="buttonCar">
-                                            Añadir al carrito<AddShoppingCartIcon />
+                                                Añadir al carrito<AddShoppingCartIcon />
                                             </p>
-                                            
+
                                         </Link>
                                     )}
                                     {!logState && (
                                         <Link className="carritoImg" to="#">
-                                        <p onClick={putCar} className="buttonCar">
-                                        Añadir al carrito<AddShoppingCartIcon />
-                                        </p>
-                                        
-                                    </Link>
-                                        
+                                            <p onClick={putCar} className="buttonCar">
+                                                Añadir al carrito<AddShoppingCartIcon />
+                                            </p>
+
+                                        </Link>
+
                                     )}
 
                                 </Grid>
@@ -249,7 +249,7 @@ export default function SimpleContainer() {
                         <GridList className={classes.gridList} id="barScroll" cellHeight={130} cols={3.5} >
                             {info.imageArray.map((images) => (
                                 <GridListTile key={images}>
-                                    <img key= "images" onClick={activateModal} src={images} alt={info.name + "image"} />
+                                    <img key={[5]} onClick={activateModal} src={images} alt={info.name + "image"} />
                                     <GridListTileBar
                                         classes={{
                                             root: classes.titleBar,
@@ -271,7 +271,7 @@ export default function SimpleContainer() {
                             open={open.open}
                             onClose={closeModal}
                         >
-                            <img src={open.currentImg} className={classes.images} alt={info.name}/>
+                            <img src={open.currentImg} className={classes.images} alt={info.name} />
                         </Modal>
                     </div>
                     <div className="textContent">

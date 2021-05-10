@@ -23,12 +23,12 @@
 
 .loading{
     background-color: #212529;
-    width: 100%;
-    margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom:20px;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 2%;
     height: 1050px;
-    
+    border-radius: 8px;
 }
 
 .loading div{

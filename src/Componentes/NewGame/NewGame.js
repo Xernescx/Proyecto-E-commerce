@@ -5,10 +5,14 @@ import { db } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NewGame = () => {
     const classes = useStyles();
-    
+
     const { register, /* errors, */ handleSubmit } = useForm({});
 
     const state = {
@@ -88,6 +92,8 @@ const NewGame = () => {
     const [formState, setFormState] = useState(state);
     const [genders2, setGenders2] = useState([])
     const [genders, setGenders] = useState([])
+    const [gpu, setGpu] = useState([])
+    const [cpu, setCpu] = useState([])
     const handleChange = event => {
         setFormState({
             ...formState,
@@ -140,6 +146,31 @@ const NewGame = () => {
                 });
             })
 
+        db.collection("Gpu").get().then((querySnapshot) => {
+                let data = [];
+                querySnapshot.forEach((doc) => {
+                    
+                    data.push({
+                    id: doc.id,
+                    name: doc.data().name 
+                    })
+                    setGpu(data)
+                });
+                console.log(gpu )
+            });
+
+            db.collection("Cpu").get().then((querySnapshot) => {
+                let data = [];
+                querySnapshot.forEach((doc) => {
+                    
+                    data.push({
+                    id: doc.id,
+                    name: doc.data().name 
+                    })
+                    setCpu(data)
+                });
+                console.log(cpu )
+            });
 
     }, [])
 
@@ -190,14 +221,14 @@ const NewGame = () => {
                 date: formState.date,
                 covePage: urlImagen,
                 requerimentsMin: {
-                    cpuMin: formState.cpuMin,
+                    cpuMin: db.collection("Cpu").doc(formState.cpuMin),
                     ramMin: formState.ramMin,
-                    gpuMin: formState.gpuMin,
+                    gpuMin: db.collection("Gpu").doc(formState.gpuMin),
                 },
                 requerimentsMax: {
-                    cpuMax: formState.cpuMax,
+                    cpuMax: db.collection("Cpu").doc(formState.cpuMax),
                     ramMax: formState.ramMax,
-                    gpuMax: formState.gpuMax,
+                    gpuMax: db.collection("Gpu").doc(formState.gpuMax),
                 },
                 plataform: formState.plataform,
                 plataformURL: plataformURL2,
@@ -229,7 +260,7 @@ const NewGame = () => {
     }, [imagen, formState, imagens])
 
     return (
-        <div className="formulario">
+        <div  className="formulario">
             <Grid
                 container
                 direction="row"
@@ -259,14 +290,14 @@ const NewGame = () => {
                         <br />
 
                         <label className="labelForm">imagen de portadas
-                    <input className="btn" onChange={changeImagen}
+                            <input  onChange={changeImagen}
                                 type="file"
                                 name="imageOne"
                             ></input>
                         </label>
                         <br />
                         <label className="labelForm">imagenasondoasugkbdas
-                    <input onChange={changeImagens}
+                            <input onChange={changeImagens}
                                 type="file"
                                 name="imageOne"
                                 multiple
@@ -284,28 +315,91 @@ const NewGame = () => {
                             ref={register}
                         />
                         <br />
-                        <TextField label="CpuMin" name="cpuMin"
-                            onChange={handleChange}
-                            ref={register}
-                        />
+                        <FormControl className={classes.root}>
+                            <InputLabel id="demo-simple-select-label">Cpi Min</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                defaultValue = ""
+                                onChange={handleChange}
+                                name="cpuMin"
+                            >
+                                <option select value=""  ></option>
+                                { cpu.map(cpu =>{
+                                    return(
+                                        <option key={cpu.id.toLowerCase()} value={cpu.id}>{cpu.name}</option>
+                                    )
+                                    
+                                })}
+                            </Select>
+                        </FormControl>
+
 
                         <br />
-                        <TextField label="CpuMax" name="cpuMax"
-                            onChange={handleChange}
-                            ref={register}
-                        />
+                        <FormControl className={classes.root}>
+                            <InputLabel id="demo-simple-select-label">Cpi Max</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                defaultValue = ""
+                                onChange={handleChange}
+                                name="cpuMax"
+                            >
+                                <option value="" select ></option>
+                                { cpu.map(cpu =>{
+                                    return(
+                                        <option key={cpu.id} value={cpu.id}>{cpu.name}</option>
+                                    )
+                                    
+                                })
+                                    
+                                }
+                            </Select>
+                        </FormControl>
 
-                        <br />
-                        <TextField label="GpuMin" name="gpuMin"
-                            onChange={handleChange}
-                            ref={register}
-                        />
 
-                        <br />
-                        <TextField label="GpuMax" name="gpuMax"
-                            onChange={handleChange}
-                            ref={register}
-                        />
+                       <FormControl className={classes.root}>
+                            <InputLabel id="demo-simple-select-label">Gpi Max</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                defaultValue = ""
+                                onChange={handleChange}
+                                name="gpuMax"
+                            >
+                                <option value="" select ></option>
+                                { gpu.map(gpu =>{
+                                    return(
+                                        <option key={gpu.id} value={gpu.id}>{gpu.name}</option>
+                                    )
+                                    
+                                })
+                                    
+                                }
+                            </Select>
+                        </FormControl>
+
+
+                       <FormControl className={classes.root}>
+                            <InputLabel id="demo-simple-select-label">Gpi Min</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                defaultValue = ""
+                                onChange={handleChange}
+                                name="gpuMin"
+                            >
+                                <option value="" select ></option>
+                                { gpu.map(gpu =>{
+                                    return(
+                                        <option key={gpu.id} value={gpu.id}>{gpu.name}</option>
+                                    )
+                                    
+                                })
+                                    
+                                }
+                            </Select>
+                        </FormControl>
 
                         <br />
                         <TextField label="RamMax" name="ramMax"
@@ -338,7 +432,7 @@ const NewGame = () => {
                         />
 
                         <label className="labelForm" id="date">Fecha de salida
-                    <input className="inputForm"
+                            <input className="inputForm"
                                 onChange={handleChange} type="date"
                                 name="date"
                                 ref={register({

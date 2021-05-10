@@ -5,6 +5,7 @@
 }
 
 .log-form{
+  
   margin-top: 10px;
   margin-bottom: 10px;
   padding-top: 50px;
@@ -12,7 +13,7 @@
   padding-left: 90px;
   padding-right: 80px;
   
-  width: 400px;
+  width: 80%;
   background-color: #212529;
 }
 
@@ -46,7 +47,7 @@ option{
   font-size: 10px;
 }
 
-@media screen and (max-width: 408px){
+@media screen and (max-width: 600px){
   .log-form{
     padding-top: 50px;
   padding-bottom: 50px;
