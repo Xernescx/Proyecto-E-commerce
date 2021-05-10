@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
+      width: '50%',
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -51,10 +52,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(3),
       width: '40%',
     },
-    '&:hover': {
-      width: '50%',
-
-    }
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -161,6 +158,7 @@ export default function PrimarySearchAppBar() {
       })
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logState]);
 
 

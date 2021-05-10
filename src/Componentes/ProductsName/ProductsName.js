@@ -75,6 +75,7 @@ export default function SimpleContainer() {
 
     const [info, setInfo] = useState(null);
     const [open, setOpen] = React.useState({ open: false, currentImg: null });
+    // eslint-disable-next-line no-unused-vars
     const [loading, setloading] = useState(true);
     const [logState, setLogstate] = useState(true);
     const classes = useStyles();
@@ -122,6 +123,7 @@ export default function SimpleContainer() {
             });
 
         setloading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const activateModal = (images) => {

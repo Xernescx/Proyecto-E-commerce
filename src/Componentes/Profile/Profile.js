@@ -121,14 +121,22 @@ const Profile = () => {
                     login();
                 }
             }
-            var user = firebase.auth().currentUser;
             if (user != null) {
                 email1 = user.email;
             }
 
             db.collection("users").where("email", "==", email1)
                 .onSnapshot((querySnapshot) => {
+                    
                     querySnapshot.forEach((doc) => {
+                        /* if(doc.data().preuba){
+                            doc.data().preuba.get().then(result => {
+                                console.log(result.data()) 
+                            })
+                        } */
+                        console.log(doc.data().preuba);
+                        console.log(doc);
+
                         name1 = doc.data().name
                         lastName1 = doc.data().lastName;
                         password1 = doc.data().password
@@ -143,7 +151,7 @@ const Profile = () => {
                             password: password1
                         })
                         setSelectedDate(doc.data().date)
-                        setFormState({ 
+                        setFormState({
                             name: doc.data().name,
                             country: doc.data().country,
                             lastName: doc.data().lastName,
@@ -156,7 +164,7 @@ const Profile = () => {
 
     const login = useCallback(async () => {
         try {
-            const res = await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
+            await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
                 /* console.log("logeado parece")
                 console.log(window.localStorage.getItem('user')); */
             })

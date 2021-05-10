@@ -1,7 +1,6 @@
 .Bar{
-
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 15px;
     margin-bottom: 10px;
     text-align: center;
     background-color: #212529;
@@ -9,7 +8,8 @@
     flex-direction: column;
     color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 12px;
+    width: 80%;
   ;
 }
 

@@ -1,4 +1,7 @@
-
+.direcion{
+    display: flex;
+    flex-direction: row;
+}
 
 .destacadosContainer{
     height: 100%;
@@ -6,8 +9,8 @@
     margin-bottom: 10px;
     display: inline-block;
     background-color: #212529;
-    min-width: 70%; 
-    max-width: 70%;
+    width: 80%;
+    
     margin-right: 2%;
     border-radius: 8px;
     
@@ -39,7 +42,7 @@
     padding: 10px;
     color: white;
     transition: .1s;
-    width: calc(17.2% - 10px);
+    width: calc(17% - 10px);
     display: inline-block;
     position: relative;
     z-index: 1  ;
@@ -91,7 +94,6 @@
     position: absolute;
     width: 100%;
     bottom: 0px;
-   
     border-radius: 8px;
 }
 

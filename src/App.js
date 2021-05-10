@@ -9,13 +9,13 @@ import Grid from '@material-ui/core/Grid';
 import './Componentes/FireBase/Firebase';
 import Navbar from './Componentes/Navbar';
 import Footer from './Componentes/Footer';
-import Home from './Componentes/Pages/Home';
+import Destacados from './Componentes/Destacados';
 import Login from './Componentes/Login'
 import Register from './Componentes/Register'
 import Profile from './Componentes/Profile';
 import NewGame from './Componentes/NewGame'
 import ProductsName from './Componentes/ProductsName'
-import Products from './Componentes/Pages/Profucts'
+import Products from './Componentes/Products'
 import Carrito from './Componentes/Carrito'
 import Bar from './Componentes/Bar';
 const App = () => (
@@ -25,7 +25,14 @@ const App = () => (
       <Navbar />
       <Switch>
         <Route path="/home" >
-          <Home />
+        <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+          <Destacados />
+          </Grid>
         </Route>
         <Route path="/Login">
           <Login />

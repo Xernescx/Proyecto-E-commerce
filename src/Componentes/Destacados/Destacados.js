@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useState, useEffect } from 'react';
 import './Destacados.css';
@@ -8,12 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import Bar from '../Bar';
 
-const styles = theme => ({
-  multilineColor:{
-      color:'white'
-  }
-});
 const useStyles = makeStyles((theme) => ({
 
   ul: {
@@ -43,10 +40,11 @@ export default function SimpleContainer() {
   const [links, setLink] = useState([]);
   const [loading, setloading] = useState(true);
   const [page, setPage] = React.useState(1)
+  // eslint-disable-next-line no-unused-vars
   const [data, setdata] = React.useState({
     total: 0,
     paginas: 0,
-    porPagina: 12,
+    porPagina: 18,
   });
 
 
@@ -148,7 +146,11 @@ export default function SimpleContainer() {
   return (
     <React.Fragment>
       <CssBaseline zIndex="tooltip" />
+      
       <div className="destacadosContainer">
+        <div className="direcion">
+      <Bar />
+      <div>
         <h1>Destacados</h1>
 
         <div>
@@ -192,8 +194,9 @@ export default function SimpleContainer() {
 
           </div>
         </ThemeProvider>
+        </div>
       </div>
-
+      </div>
     </React.Fragment>
   );
 }

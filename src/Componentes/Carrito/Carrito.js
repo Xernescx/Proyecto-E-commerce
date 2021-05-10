@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
@@ -34,7 +35,6 @@ export default function SimpleContainer() {
   const userJ = JSON.parse(window.localStorage.getItem("user"));
   const [links, setLink] = useState([]);
   const [loading, setloading] = useState(true);
-  const [priceFin, setpriceFin] = useState(0);
 
   useEffect(() => {
     setLink([])
@@ -83,6 +83,7 @@ export default function SimpleContainer() {
     /* console.log(links) */
     setloading(false);
     
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function removeItemFromArr ( arr, item ) {
@@ -111,7 +112,7 @@ export default function SimpleContainer() {
   const login = React.useCallback(async () => {
     console.log('Login')
     try {
-      const res = await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
+      await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
         /* console.log("logeado parece") */
         /*  console.log(window.localStorage.getItem('user')); */
       })

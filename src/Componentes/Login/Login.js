@@ -1,14 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import './Login.css';
-import ReportIcon from '@material-ui/icons/Report';
 import { auth } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
-import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -87,6 +86,7 @@ const Login = () => {
         })
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const login = React.useCallback(async () => {
         try {
             await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {

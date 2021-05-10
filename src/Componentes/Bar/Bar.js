@@ -22,7 +22,7 @@ import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    fontSize: "87px"
+    fontSize: "60px"
 
   },
   fab: {

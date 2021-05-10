@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useState, useEffect, } from 'react';
 import { Link, useParams } from 'react-router-dom'
@@ -15,7 +16,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import clsx from 'clsx';
-import Checkbox from '@material-ui/core/Checkbox';
+/* import Checkbox from '@material-ui/core/Checkbox'; */
 import './Products.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +81,7 @@ const theme = createMuiTheme({
 export default function SimpleContainer() {
 
     const classes = useStyles();
+    // eslint-disable-next-line no-unused-vars
     const [checked, setChecked] = useState(true);
     const [links, setLink] = useState([]);
     const [loading, setloading] = useState(true);
@@ -89,6 +91,7 @@ export default function SimpleContainer() {
         left: false,
 
     });
+    // eslint-disable-next-line no-unused-vars
     const [data, setdata] = React.useState({
         total: 0,
         paginas: 0,
@@ -97,7 +100,7 @@ export default function SimpleContainer() {
 
 
 
-     let nameV = useParams()
+    let nameV = useParams()
 
     let search;
     let search2;
@@ -107,6 +110,7 @@ export default function SimpleContainer() {
 
 
 
+    // eslint-disable-next-line no-unused-vars
     const handleChange2 = (event) => {
 
         if (event.target.checked === true) {
@@ -143,9 +147,9 @@ export default function SimpleContainer() {
             ref2 = db.collection("VideoGames").where("nameSearch", ">=", search).where("plataform", "==", search2)
 
         }
-        if(query.get('gender')===null){
+        if (query.get('gender') === null) {
             search3 = ""
-        }else{
+        } else {
             search3 = query.get('gender')
             ref2 = db.collection("VideoGames").where("nameSearch", ">=", search).where("genders", "array-contains", search3)
         }
@@ -203,9 +207,9 @@ export default function SimpleContainer() {
             search2 = query.get('plataform')
             ref = db.collection("VideoGames").where("nameSearch", ">=", search).where("plataform", "==", search2)
 
-        }if(query.get('gender')===null){
+        } if (query.get('gender') === null) {
             search3 = ""
-        }else{
+        } else {
             search3 = query.get('gender')
             ref = db.collection("VideoGames").where("nameSearch", ">=", search).where("genders", "array-contains", search3)
         }
@@ -240,7 +244,7 @@ export default function SimpleContainer() {
             /*  console.log(docs) */
 
 
-            
+
 
         });
 
@@ -248,12 +252,12 @@ export default function SimpleContainer() {
 
     useEffect(() => {
         db.collection(" genders")
-                .orderBy("name", "asc").get().then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        setGenders(genders => [...genders, doc.data().name])
-                        /* console.log(doc.data().name) */
-                    });
-                })
+            .orderBy("name", "asc").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    setGenders(genders => [...genders, doc.data().name])
+                    /* console.log(doc.data().name) */
+                });
+            })
 
     }, [])
 
@@ -336,74 +340,77 @@ export default function SimpleContainer() {
                     </React.Fragment>
                 ))}
             </div>
-            <div className="gendersBar">
 
-                <Link className="enlacesLink" to="/search?plataform=Steam">       <p >{/* <Checkbox value="/search?plataform=Steam" onChange={handleChange2} />      */}   Steam</p></Link>
-                <Link className="enlacesLink" to="/search?plataform=Epic store">  <p>{/* <Checkbox value="/search?plataform=Epic store" onChange={handleChange2} /> */}   EpicGames</p></Link>
-                <Link className="enlacesLink" to="/search?plataform=Origin">     <p>{/* <Checkbox value="/search?plataform=Origin" onChange={handleChange2} />     */}   Origin</p></Link>
-                <Link className="enlacesLink" to="/search?plataform=U-play">     <p>{/* <Checkbox value="/search?plataform=U-play" onChange={handleChange2} />     */}    U-play</p></Link>
-                <Link className="enlacesLink" to="/search?plataform=GoG">        <p>{/* <Checkbox value="/search?plataform=GoG" onChange={handleChange2} />        */}   GoG</p></Link>
-                <Link className="enlacesLink" to="/search?plataform=Battle">      <p>{/* <Checkbox value="/search?plataform=Battle" onChange={handleChange2} />     */}   Battle.net</p></Link>
-
-
-
-
-
-
-                <Divider className={classes.diriver} />
-
-                {genders.map(gender => {
-                    return (
-                        <Link key={gender + 1} className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
-                    )
-
-                })}
-
-            </div>
 
             <div className="destacadosContainer">
-                {links.length > 0 ? (links.map(link => {
-                    return (
-                        <div className="gamesD" key={link.name}>
-                            <Link className="cover" to={`/product/${link.name}`}>
+            <div className="direcion">
+                    <div>
+                        <div className="gendersBar">
+
+                            <Link className="enlacesLink" to="/search?plataform=Steam">       <p >{/* <Checkbox value="/search?plataform=Steam" onChange={handleChange2} />      */}   Steam</p></Link>
+                            <Link className="enlacesLink" to="/search?plataform=Epic store">  <p>{/* <Checkbox value="/search?plataform=Epic store" onChange={handleChange2} /> */}   EpicGames</p></Link>
+                            <Link className="enlacesLink" to="/search?plataform=Origin">     <p>{/* <Checkbox value="/search?plataform=Origin" onChange={handleChange2} />     */}   Origin</p></Link>
+                            <Link className="enlacesLink" to="/search?plataform=U-play">     <p>{/* <Checkbox value="/search?plataform=U-play" onChange={handleChange2} />     */}    U-play</p></Link>
+                            <Link className="enlacesLink" to="/search?plataform=GoG">        <p>{/* <Checkbox value="/search?plataform=GoG" onChange={handleChange2} />        */}   GoG</p></Link>
+                            <Link className="enlacesLink" to="/search?plataform=Battle">      <p>{/* <Checkbox value="/search?plataform=Battle" onChange={handleChange2} />     */}   Battle.net</p></Link>
+
+
+                            <Divider className={classes.diriver} />
+
+                            {genders.map(gender => {
+                                return (
+                                    <Link key={gender + 1} className="enlacesLink" to={`/search?gender=${gender}`}><p>{/* <Checkbox key={gender + 1} value={`/search/${gender}`} onChange={handleChange2} /> */}{gender}</p></Link>
+                                )
+
+                            })}
+
+                        </div>
+                    </div>
+                    <div>
+                        {links.length > 0 ? (links.map(link => {
+                            return (
+                                <div className="gamesD" key={link.name}>
+                                    <Link className="cover" to={`/product/${link.name}`}>
+                                        <Grid
+                                            container
+                                            direction="column"
+                                            justify="center"
+                                            alignItems="center"
+                                        >
+                                            <div>
+                                                <img className="bange" src={link.plataformURL} alt={link.plataform} />
+                                                <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
+                                                <div className="priceData">
+                                                    {link.promo && (<span className="promo">{link.promo}%</span>)}
+                                                    {link.promo && (<span className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</span>)}
+                                                    {!link.promo && (<span className="price">{link.price}€</span>)}
+
+                                                </div>
+                                            </div>
+                                            <div className="nameGame ">{link.name}</div>
+                                        </Grid>
+                                    </Link>
+                                </div>
+                            )
+                        })) : (
+                            <p className="Error404">No se han econtrado resultados</p>
+                        )}
+                        <ThemeProvider theme={theme}>
+                            <div className={classes.root}>
                                 <Grid
                                     container
-                                    direction="column"
                                     justify="center"
                                     alignItems="center"
                                 >
-                                    <div>
-                                        <img className="bange" src={link.plataformURL} alt={link.plataform} />
-                                        <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
-                                        <div className="priceData">
-                                            {link.promo && (<span className="promo">{link.promo}%</span>)}
-                                            {link.promo && (<span className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</span>)}
-                                            {!link.promo && (<span className="price">{link.price}€</span>)}
-
-                                        </div>
-                                    </div>
-                                    <div className="nameGame ">{link.name}</div>
+                                    <Pagination classes={{ ul: classes.ul }} count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
                                 </Grid>
-                            </Link>
-                        </div>
-                    )
-                })) : (
-                    <p className="Error404">No se han econtrado resultados</p>
-                )}
-                <ThemeProvider theme={theme}>
-                    <div className={classes.root}>
-                        <Grid
-                            container
-                            justify="center"
-                            alignItems="center"
-                        >
-                            <Pagination classes={{ ul: classes.ul }} count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
-                        </Grid>
 
+                            </div>
+                        </ThemeProvider>
                     </div>
-                </ThemeProvider>
+               
             </div>
-
+            </div>
         </React.Fragment>
     );
 }
