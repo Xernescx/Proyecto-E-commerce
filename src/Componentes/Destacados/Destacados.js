@@ -28,7 +28,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#ac4caf'
-      
+
     }
 
   },
@@ -145,57 +145,59 @@ export default function SimpleContainer() {
 
   return (
     <React.Fragment>
-      <CssBaseline zIndex="tooltip" />
-      
+      <CssBaseline  />
+
       <div className="destacadosContainer">
         <div className="direcion">
-      <Bar />
-      <div>
-        <h1>Destacados</h1>
-
-        <div>
-          {links.map(link => {
-
-            return (
-              <div className="gamesD" key={link.name}  style={{zIndex: 1}}>
-                <Link className="cover" to={`/product/${link.name}`}>
-                  <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <div>
-                      <img className="bange" src={link.plataformURL} alt={link.plataform} />
-                      <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
-                      <div className="priceData">
-                        {link.promo && (<span className="promo">{link.promo}%</span>)}
-                        {link.promo && (<span className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</span>)}
-                        {!link.promo && (<span className="price">{link.price}€</span>)}
-
-                      </div>
-                    </div>
-                    <div className="nameGame ">{link.name}</div>
-                  </Grid>
-                </Link>
-              </div>
-            )
-          })}
-        </div>
-        <ThemeProvider theme={theme}>
-          <div className={classes.root}>
-            <Grid
-              container
-              justify="center"
-              alignItems="center"
-            >
-              <Pagination  classes={{ ul: classes.ul }} count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
-            </Grid>
-
+          <div className="barDiv">
+            <Bar />
           </div>
-        </ThemeProvider>
+        <div>
+            <h1>Destacados</h1>
+
+            <div>
+              {links.map(link => {
+
+                return (
+                  <div className="gamesD" key={link.name} style={{ zIndex: 1 }}>
+                    <Link className="cover" to={`/product/${link.name}`}>
+                      <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                      >
+                        <div>
+                          <img className="bange" src={link.plataformURL} alt={link.plataform} />
+                          <img className="covePage" alt={link.name} title={link.name} src={link.covePage} />
+                          <div className="priceData">
+                            {link.promo && (<span className="promo">{link.promo}%</span>)}
+                            {link.promo && (<span className="price">{((link.price - (link.price * link.promo) / 100)).toFixed(2)}€</span>)}
+                            {!link.promo && (<span className="price">{link.price}€</span>)}
+
+                          </div>
+                        </div>
+                        <div className="nameGame ">{link.name}</div>
+                      </Grid>
+                    </Link>
+                  </div>
+                )
+              })}
+            </div>
+            <ThemeProvider theme={theme}>
+              <div className={classes.root}>
+                <Grid
+                  container
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Pagination classes={{ ul: classes.ul }} count={data.paginas} page={page} variant="outlined" color="primary" onChange={handleChange} />
+                </Grid>
+
+              </div>
+            </ThemeProvider>
+          </div>
         </div>
-      </div>
       </div>
     </React.Fragment>
   );

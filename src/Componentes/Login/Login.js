@@ -112,69 +112,63 @@ const Login = () => {
     })
     return (
         <div className="formulario">
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-            >
-                <div className="log-form">
+                <div className="log-form ">
                     <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
 
 
-                        <ThemeProvider theme={theme}>
-                            {error && <div className="alert"><p>{error}</p></div>}
-                            <TextField underline={false} className={classes.sortFormLabel} id="standard-required" label="email" name="email" 
-                                onChange={handleChange}
-                                InputProps={{
-                                    className: classes.input
-                                }}
+               
+                        {error && <div className="alert"><p>{error}</p></div>}
+                        <TextField underline={false} className={classes.sortFormLabel} id="standard-required" label="email" name="email"
+                            onChange={handleChange}
+                            InputProps={{
+                                className: classes.input
+                            }}
 
-                                ref={register({
-                                    name: 'email',
-                                    required: "Parametro requerido.",
-                                    pattern: {
-                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: "Caracteres no validos."
-                                    },
+                            ref={register({
+                                name: 'email',
+                                required: "Parametro requerido.",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: "Caracteres no validos."
+                                },
 
-                                })}
+                            })}
 
-                            />
+                        />
 
-                            
-                            {errorp && <div className="alert"><p>{errorp}</p></div>}
-                            {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
-                            <TextField
-                                onChange={handleChange}
-                                id="standard-password-input"
-                                label="password"
-                                type="password"
-                                name="password"
-                                autoComplete="current-password"
-                                InputProps={{
-                                    className: classes.multilineColor
-                                }}
-                                ref={register({
-                                    name: "standard-password",
-                                    required: "Parametro requerido.",
 
-                                })}
-                            />
+                        {errorp && <div className="alert"><p>{errorp}</p></div>}
+                        {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
+                        <TextField
+                            onChange={handleChange}
+                            id="standard-password-input"
+                            label="password"
+                            type="password"
+                            name="password"
+                            autoComplete="current-password"
+                            InputProps={{
+                                className: classes.multilineColor
+                            }}
+                            ref={register({
+                                name: "standard-password",
+                                required: "Parametro requerido.",
 
-                            {/* <a class="forgot" href="#"> Aun no tienes cuenta? registrate</a> */}
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                alignItems="center"
-                            >
-                                <button className="btn" type="submit">Entrar</button>
-                            </Grid>
-                        </ThemeProvider>
-                    </form>
-                </div>
-            </Grid>
+                            })}
+                        />
+
+                        {/* <a class="forgot" href="#"> Aun no tienes cuenta? registrate</a> */}
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <button className="btn" type="submit">Entrar</button>
+                        </Grid>
+                  
+                </form>
+            </div>
+
         </div>
     )
 

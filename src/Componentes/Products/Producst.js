@@ -344,7 +344,7 @@ export default function SimpleContainer() {
 
             <div className="destacadosContainer">
             <div className="direcion">
-                    <div>
+                    <div className="barDiv">
                         <div className="gendersBar">
 
                             <Link className="enlacesLink" to="/search?plataform=Steam">       <p >{/* <Checkbox value="/search?plataform=Steam" onChange={handleChange2} />      */}   Steam</p></Link>

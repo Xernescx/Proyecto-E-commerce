@@ -61,7 +61,13 @@ body {
 .main-container {
     position: relative;
     min-height: 100vh;
+    
  
+}
+
+.containerBody{
+  display: flex;
+  justify-content: center;
 }
 
 html,

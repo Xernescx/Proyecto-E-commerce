@@ -10,15 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        '& > *': {
+        '& >*': {
             margin: theme.spacing(1),
-            width: '25ch',
+
         },
         "& .MuiOutlinedInput-input": {
             color: "white"
@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme) => ({
 
 
     },
+    check: {
+        color: "fff",
+        '&$checked': {
+            color: "fff",
+        }
+    }
 }));
 
 
@@ -147,30 +153,30 @@ const NewGame = () => {
             })
 
         db.collection("Gpu").get().then((querySnapshot) => {
-                let data = [];
-                querySnapshot.forEach((doc) => {
-                    
-                    data.push({
-                    id: doc.id,
-                    name: doc.data().name 
-                    })
-                    setGpu(data)
-                });
-                console.log(gpu )
-            });
+            let data = [];
+            querySnapshot.forEach((doc) => {
 
-            db.collection("Cpu").get().then((querySnapshot) => {
-                let data = [];
-                querySnapshot.forEach((doc) => {
-                    
-                    data.push({
+                data.push({
                     id: doc.id,
-                    name: doc.data().name 
-                    })
-                    setCpu(data)
-                });
-                console.log(cpu )
+                    name: doc.data().name
+                })
+                setGpu(data)
             });
+            console.log(gpu)
+        });
+
+        db.collection("Cpu").get().then((querySnapshot) => {
+            let data = [];
+            querySnapshot.forEach((doc) => {
+
+                data.push({
+                    id: doc.id,
+                    name: doc.data().name
+                })
+                setCpu(data)
+            });
+            console.log(cpu)
+        });
 
     }, [])
 
@@ -260,202 +266,222 @@ const NewGame = () => {
     }, [imagen, formState, imagens])
 
     return (
-        <div  className="formulario">
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-            >
-                <div className="log-form">
-                    <form className={classes.root} onSubmit={handleSubmit(onSubmit)} id="formulario" >
+        <div className="formulario">
 
-                        <TextField label="Nombre" name="name"
-                            onChange={handleChange}
-                            ref={register}
-                        />
+            <div className="game-form">
+                <form className={classes.root} onSubmit={handleSubmit(onSubmit)} id="formulario" >
+                    <div className="formulario2222">
 
-                        <br />
-                        <TextField id="standard-multiline-static" label="Description" name="description" rows={4}
-                            InputLabelProps={{ shrink: true }}
-                            onChange={handleChange}
-                            ref={register}
-                        />
-                        <br />
-                        <TextField label="Developer" name="developer"
-                            onChange={handleChange}
-                            ref={register}
-                        />
+                        <div className="spaceForm">
+                            <h2 className="tituloForm">Info general</h2>
 
-                        <br />
-
-                        <label className="labelForm">imagen de portadas
-                            <input  onChange={changeImagen}
-                                type="file"
-                                name="imageOne"
-                            ></input>
-                        </label>
-                        <br />
-                        <label className="labelForm">imagenasondoasugkbdas
-                            <input onChange={changeImagens}
-                                type="file"
-                                name="imageOne"
-                                multiple
-                            ></input>
-                        </label>
-                        <br />
-
-                        <TextField label="PLataforma" name="plataform"
-                            onChange={handleChange}
-                            ref={register}
-                        />
-                        <br />
-                        <TextField label="Url video" name="urlVideo"
-                            onChange={handleChange}
-                            ref={register}
-                        />
-                        <br />
-                        <FormControl className={classes.root}>
-                            <InputLabel id="demo-simple-select-label">Cpi Min</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                defaultValue = ""
+                            <TextField label="Nombre" name="name"
                                 onChange={handleChange}
-                                name="cpuMin"
-                            >
-                                <option select value=""  ></option>
-                                { cpu.map(cpu =>{
-                                    return(
-                                        <option key={cpu.id.toLowerCase()} value={cpu.id}>{cpu.name}</option>
-                                    )
-                                    
-                                })}
-                            </Select>
-                        </FormControl>
-
-
-                        <br />
-                        <FormControl className={classes.root}>
-                            <InputLabel id="demo-simple-select-label">Cpi Max</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                defaultValue = ""
-                                onChange={handleChange}
-                                name="cpuMax"
-                            >
-                                <option value="" select ></option>
-                                { cpu.map(cpu =>{
-                                    return(
-                                        <option key={cpu.id} value={cpu.id}>{cpu.name}</option>
-                                    )
-                                    
-                                })
-                                    
-                                }
-                            </Select>
-                        </FormControl>
-
-
-                       <FormControl className={classes.root}>
-                            <InputLabel id="demo-simple-select-label">Gpi Max</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                defaultValue = ""
-                                onChange={handleChange}
-                                name="gpuMax"
-                            >
-                                <option value="" select ></option>
-                                { gpu.map(gpu =>{
-                                    return(
-                                        <option key={gpu.id} value={gpu.id}>{gpu.name}</option>
-                                    )
-                                    
-                                })
-                                    
-                                }
-                            </Select>
-                        </FormControl>
-
-
-                       <FormControl className={classes.root}>
-                            <InputLabel id="demo-simple-select-label">Gpi Min</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                defaultValue = ""
-                                onChange={handleChange}
-                                name="gpuMin"
-                            >
-                                <option value="" select ></option>
-                                { gpu.map(gpu =>{
-                                    return(
-                                        <option key={gpu.id} value={gpu.id}>{gpu.name}</option>
-                                    )
-                                    
-                                })
-                                    
-                                }
-                            </Select>
-                        </FormControl>
-
-                        <br />
-                        <TextField label="RamMax" name="ramMax"
-                            onChange={handleChange}
-                            ref={register}
-                        />
-
-                        <br />
-                        <TextField label="RamMin" name="ramMin"
-                            onChange={handleChange}
-                            ref={register}
-                        />
-                        <br />
-                        <TextField label="sistema operativo" name="so"
-                            onChange={handleChange}
-                            ref={register}
-                        />
-                        <br />
-                        <TextField label="espacio" name="discSpaces"
-                            ref={register}
-                            onChange={handleChange}
-                        />
-
-                        <br />
-
-                        <TextField label="Precio" name="price"
-                            step="0.01"
-                            ref={register}
-                            onChange={handleChange}
-                        />
-
-                        <label className="labelForm" id="date">Fecha de salida
-                            <input className="inputForm"
-                                onChange={handleChange} type="date"
-                                name="date"
-                                ref={register({
-                                })}
+                                ref={register}
                             />
-                        </label>
-                        <br />
-                        {genders2.map(gender => {
-                            return (
-                                <FormControlLabel
-                                    control={<Checkbox key={gender + 1} value={gender} checked={state.checkedA} onChange={onChangeFavorite} name="gender" ref={register} />}
-                                    label={gender}
+                            <br />
 
+                            <TextField id="standard-multiline-static" label="Description" name="description" rows={4}
+                                InputLabelProps={{ shrink: true }}
+                                onChange={handleChange}
+                                ref={register}
+                            />
+                            <br />
+
+                            <TextField label="Developer" name="developer"
+                                onChange={handleChange}
+                                ref={register}
+                            />
+                            <br />
+
+
+                            <label className="file" id="src-file1">imagen de portadas
+                                <input onChange={changeImagen}
+                                    name="src-file1"
+                                    type="file"
+                                    name="imageOne"
+                                ></input>
+                            </label>
+                            <br />
+                            <br />
+                            <label className="file">imagenasondoasugkbdas
+                                <input onChange={changeImagens}
+                                    type="file"
+                                    name="images"
+                                    multiple
+                                ></input>
+                            </label>
+                            <br />
+
+                            <TextField label="PLataforma" name="plataform"
+                                onChange={handleChange}
+                                ref={register}
+                            />
+                            <br />
+
+                            <TextField label="Url video" name="urlVideo"
+                                onChange={handleChange}
+                                ref={register}
+                            />
+                            <br />
+
+
+                            <TextField label="sistema operativo" name="so"
+                                onChange={handleChange}
+                                ref={register}
+                            />
+                            <br />
+
+                            <TextField label="espacio" name="discSpaces"
+                                ref={register}
+                                onChange={handleChange}
+                            />
+                            <br />
+
+                            <TextField label="Precio" name="price"
+                                step="0.01"
+                                ref={register}
+                                onChange={handleChange}
+                            />
+                            <br />
+
+                            <label className="labelForm" id="date">Fecha de salida
+                                <input className="inputForm"
+                                    onChange={handleChange} type="date"
+                                    name="date"
+                                    ref={register({
+                                    })}
                                 />
+                            </label>
+                            <br />
 
-                            )
 
-                        })}
-                        <br />
+                        </div>
+                        <div className="spaceForm requisitos">
+
+                            <div>
+                                <h2 className="tituloForm"> Minimos</h2>
+
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Min</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    defaultValue=""
+                                    onChange={handleChange}
+                                    name="cpuMin"
+                                >
+                                    <option select value=""  ></option>
+                                    {cpu.map(cpu => {
+                                        return (
+                                            <option key={cpu.id.toLowerCase() + 1} value={cpu.id}>{cpu.name}</option>
+                                        )
+                                    })}
+                                </Select>
+                                <br />
+
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Gpu Min</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    defaultValue=""
+                                    onChange={handleChange}
+                                    name="gpuMin"
+                                >
+                                    <option value="" select ></option>
+                                    {gpu.map(gpu => {
+                                        return (
+                                            <option key={gpu.id + 1} value={gpu.id}>{gpu.name}</option>
+                                        )
+                                    })
+                                    }
+                                </Select>
+                                <br />
+
+                                <TextField label="RamMin" name="ramMin"
+                                    onChange={handleChange}
+                                    ref={register}
+                                />
+                                <br />
+
+                            </div>
+                            <div>
+                                <h2 className="tituloForm"> Recomendados</h2>
+
+
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Max</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    defaultValue=""
+                                    onChange={handleChange}
+                                    name="cpuMax"
+                                >
+                                    <option value="" select ></option>
+                                    {cpu.map(cpu => {
+                                        return (
+                                            <option key={cpu.id} value={cpu.id}>{cpu.name}</option>
+                                        )
+                                    })
+                                    }
+                                </Select>
+                                <br />
+
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Gpi Max</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    defaultValue=""
+                                    onChange={handleChange}
+                                    name="gpuMax"
+                                >
+                                    <option value="" select ></option>
+                                    {gpu.map(gpu => {
+                                        return (
+                                            <option key={gpu.id} value={gpu.id}>{gpu.name}</option>
+                                        )
+                                    })
+                                    }
+                                </ Select>
+                                <br />
+
+                                <TextField label="RamMax" name="ramMax"
+                                    onChange={handleChange}
+                                    ref={register}
+                                />
+                                <br />
+
+                            </div>
+                        </div>
+
+                        <div className="spaceForm">
+                            <div className="generosGames">
+                                {genders2.map(gender => {
+                                    return (
+                                        <FormControlLabel
+                                            control={<Checkbox style={{ color: "#ac4caf" }} key={gender + 1} value={gender} checked={state.checkedA} onChange={onChangeFavorite} name="gender" ref={register} />}
+                                            label={<Typography style={{ color: 'rgb(184, 180, 180)' }}>{gender}</Typography>}
+
+                                        />
+
+                                    )
+
+                                })}
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <Grid
+                        container
+
+                        justify="center"
+                        alignItems="center"
+                    >
                         <button className="btn" type="submit" >registrarse</button>
-                    </form>
-                </div>
-            </Grid>
+                    </Grid>
+                </form>
+            </div>
+
         </div>
     )
 

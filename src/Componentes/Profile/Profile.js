@@ -195,12 +195,6 @@ const Profile = () => {
 
     return (
         <div className="formulario">
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-            >
                 <div className="log-form ">
                     <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
 
@@ -536,7 +530,6 @@ const Profile = () => {
                         </Grid>
                     </form>
                 </div>
-            </Grid>
         </div>
     )
 
