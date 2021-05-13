@@ -142,6 +142,7 @@ const CpuForm = props => {
 
             <br />
             <TextField label="SemiConductores" name="semiConductores"
+            step="0.01"
               onChange={handleChange}
               ref={register}
             />
@@ -149,6 +150,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Velocidad Reloc Procesador" name="VelocidadRprocesador"
+            step="0.01"
               onChange={handleChange}
               ref={register}
             />
@@ -164,6 +166,7 @@ const CpuForm = props => {
 
             <br />
             <TextField label="Turbo Gpu" name="turboGPU"
+            step="0.01"
               onChange={handleChange}
               ref={register}
             />
@@ -214,6 +217,7 @@ const CpuForm = props => {
             />
             <br />
             <TextField label="Cache l1" name="cachel1"
+            step="0.01"
               ref={register}
               onChange={handleChange}
             />
@@ -228,6 +232,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Cache L3" name="cachel3"
+            step="0.01"
               ref={register}
               onChange={handleChange}
             />
@@ -249,6 +254,7 @@ const CpuForm = props => {
 
 
             <TextField label="Velocidad Memoria Ram" name="velocidadMemoriaRam"
+            step="0.01"
               ref={register}
               onChange={handleChange}
             />
@@ -262,18 +268,21 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Canales de memoria" name="canalesMemoria"
+            step="0.01"
               onChange={handleChange}
               ref={register}
             />
             <br />
 
             <TextField label="Tamaño de memoria maxima" name="tamañoDeMemoria"
+            step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="Tasa de trasferencias Bus" name="tasaTrasferenciaBus"
+            step="0.01"
               ref={register}
               onChange={handleChange}
             />

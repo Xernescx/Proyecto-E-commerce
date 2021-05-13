@@ -74,6 +74,8 @@ const theme = createMuiTheme({
 export default function SimpleContainer() {
 
     const [info, setInfo] = useState(null);
+    const [requerimentsMax, setrequerimentsMax] = useState(null);
+    const [requerimentsMin, setrequerimentsMin] = useState(null);
     const [open, setOpen] = React.useState({ open: false, currentImg: null });
     // eslint-disable-next-line no-unused-vars
     const [loading, setloading] = useState(true);
@@ -117,14 +119,42 @@ export default function SimpleContainer() {
         db.collection("VideoGames")
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
-                    setInfo(doc.data())
-                     console.log(doc.id) 
+
+                    let a;
+                    let b;
+                    let c;
+                    let d;
+
+                    doc.data().requerimentsMax.gpuMax.get().then(result => {
+
+                        setrequerimentsMax({
+                            ...doc.data().requerimentsMax,
+                            gpuMax: result.data(),
+                        })
+                    })
+
+                    doc.data().requerimentsMax.cpuMax.get().then(result => {
+
+                        setrequerimentsMax({
+                            ...requerimentsMax,
+                            cpuMax: result.data(),
+                        })
+                    })
+
+
+                    setInfo({
+                        ...doc.data(),
+                        requerimentsMax: { null: null },
+                        requerimentsMin: { null: null }
+                    })
+                    console.log(requerimentsMax)
+                    console.log(info)
                 });
             });
 
         setloading(false);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        
+    }, [info, nameV.name, requerimentsMax])
 
     const activateModal = (images) => {
         setOpen({ open: true, currentImg: images })
@@ -293,9 +323,9 @@ export default function SimpleContainer() {
                         <h3>Requisitos Recomendados</h3>
                         <ul>
                             <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {info.requerimentsMax.cpuMax}</li>
+                            <li>Procesador: {/* {requerimentsMax.cpuMax.name} */}</li>
                             <li>RAM: {info.requerimentsMax.ramMax}</li>
-                            <li>GPU: {info.requerimentsMax.gpuMax}</li>
+                            <li>GPU: {/* {requerimentsMax.gpuMax.name} */}</li>
                             <li>Espacio: {info.discSpaces}</li>
                         </ul>
                     </div>

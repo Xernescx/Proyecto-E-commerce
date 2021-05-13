@@ -85,11 +85,11 @@ const NewGame = () => {
         imageArray: {
 
         },
-        video: '',
-        plataform: '',
-        genders: {
+        genders:{
 
         },
+        video: '',
+        plataform: '',
         price: 0,
         promo: 0,
     }
@@ -178,11 +178,15 @@ const NewGame = () => {
             console.log(cpu)
         });
 
-    }, [])
+    }, [cpu, gpu])
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const registro = React.useCallback(async () => {
+        console.log(genders)
         try {
             let imageArray = [];
+            let generos = genders;
+
             let storageRef = firebase.storage();
             console.log(imagens)
             /* console.log(imagen) */
@@ -194,13 +198,13 @@ const NewGame = () => {
                 imageArray.push(urlImagen);
 
             }
-            console.log(imageArray)
+
 
             const newRef = storageRef.ref('images/' + formState.name.toLowerCase()).child(imagen.name); // nombre del archivo
             await newRef.put(imagen);
             let urlImagen = await newRef.getDownloadURL()
             /*  console.log('la ul de la imagen es' + urlImagen); */
-            console.log(formState)
+            console.log(formState.genders)
 
 
             let nameS = formState.name.toLowerCase()
@@ -239,7 +243,7 @@ const NewGame = () => {
                 plataform: formState.plataform,
                 plataformURL: plataformURL2,
                 imageArray,
-                genders,
+                generos,
                 urlVideo: formState.urlVideo,
                 so: formState.so,
                 discSpaces: formState.discSpaces,
@@ -247,23 +251,14 @@ const NewGame = () => {
                 promo: "",
             });
             console.log(formState)
-            /*  const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
-                await db.collection('videoGames').doc(res.user.uid).set({
-                    email: res.user.email,
-                    password: formState.password,
-                    name: formState.name,
-                    lastName: formState.lastName,
-                    date: formState.date,
-                    country: formState.country,
-                    nickname: ''
-                });  */
+
 
 
         } catch (error) {
             console.log(error)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [imagen, formState, imagens])
+    })
 
     return (
         <div className="formulario">
@@ -458,7 +453,7 @@ const NewGame = () => {
                                 {genders2.map(gender => {
                                     return (
                                         <FormControlLabel
-                                            control={<Checkbox style={{ color: "#ac4caf" }} key={gender + 1} value={gender} checked={state.checkedA} onChange={onChangeFavorite} name="gender" ref={register} />}
+                                            control={<Checkbox style={{ color: "#ac4caf" }} key={gender + 1} value={gender}  onChange={onChangeFavorite} name="gender" ref={register} />}
                                             label={<Typography style={{ color: 'rgb(184, 180, 180)' }}>{gender}</Typography>}
 
                                         />
