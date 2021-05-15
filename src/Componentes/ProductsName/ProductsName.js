@@ -74,8 +74,6 @@ const theme = createMuiTheme({
 export default function SimpleContainer() {
 
     const [info, setInfo] = useState(null);
-    const [requerimentsMax, setrequerimentsMax] = useState(null);
-    const [requerimentsMin, setrequerimentsMin] = useState(null);
     const [open, setOpen] = React.useState({ open: false, currentImg: null });
     // eslint-disable-next-line no-unused-vars
     const [loading, setloading] = useState(true);
@@ -119,42 +117,39 @@ export default function SimpleContainer() {
         db.collection("VideoGames")
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
+                    let a = doc.data();
 
-                    let a;
-                    let b;
-                    let c;
-                    let d;
+                    if (doc.data().gpuMax) {
+                        doc.data().gpuMax.get().then((result) => { a.gpuMax = result.data() }
+                        );
+                    }
 
-                    doc.data().requerimentsMax.gpuMax.get().then(result => {
+                    if (doc.data().gpuMin) {
+                        doc.data().gpuMin.get().then((result) => { a.gpuMin = result.data() }
+                        );
+                    }
 
-                        setrequerimentsMax({
-                            ...doc.data().requerimentsMax,
-                            gpuMax: result.data(),
-                        })
-                    })
-
-                    doc.data().requerimentsMax.cpuMax.get().then(result => {
-
-                        setrequerimentsMax({
-                            ...requerimentsMax,
-                            cpuMax: result.data(),
-                        })
-                    })
+                    if (doc.data().cpuMax) {
+                        doc.data().cpuMax.get().then((result) => { a.cpuMax = result.data() }
+                        );
+                    }
+                    if (doc.data().cpuMin) {
+                        doc.data().cpuMin.get().then((result) => { a.cpuMin = result.data() }
+                        );
+                    }
 
 
-                    setInfo({
-                        ...doc.data(),
-                        requerimentsMax: { null: null },
-                        requerimentsMin: { null: null }
-                    })
-                    console.log(requerimentsMax)
+
+                    setInfo(a)
+
                     console.log(info)
                 });
             });
 
         setloading(false);
-        
-    }, [info, nameV.name, requerimentsMax])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const activateModal = (images) => {
         setOpen({ open: true, currentImg: images })
@@ -314,18 +309,18 @@ export default function SimpleContainer() {
                         <h3>Requisitos Minimos</h3>
                         <ul>
                             <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {info.requerimentsMin.cpuMin}</li>
-                            <li>RAM: {info.requerimentsMin.ramMin}</li>
-                            <li>GPU: {info.requerimentsMin.gpuMin}</li>
+                            <li>Procesador: {info.cpuMin.name}</li>
+                            <li>RAM: {info.ramMin}</li>
+                            <li>GPU: {info.gpuMin.name}</li>
                             <li>Espacio: {info.discSpaces}</li>
                         </ul>
                         <br />
                         <h3>Requisitos Recomendados</h3>
                         <ul>
                             <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {/* {requerimentsMax.cpuMax.name} */}</li>
-                            <li>RAM: {info.requerimentsMax.ramMax}</li>
-                            <li>GPU: {/* {requerimentsMax.gpuMax.name} */}</li>
+                            <li>Procesador: {info.cpuMax.name}</li>
+                            <li>RAM: {info.ramMax}</li>
+                            <li>GPU: {info.gpuMax.name}</li>
                             <li>Espacio: {info.discSpaces}</li>
                         </ul>
                     </div>

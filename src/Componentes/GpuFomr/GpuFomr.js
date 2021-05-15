@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import "./GpuFomr.css";
 import { db } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
-import firebase from 'firebase/app';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -243,7 +242,6 @@ const GpuFomr = props => {
 
             <TextField label="Memoria Maxima de Ancho Banda" name="memoriaMaximaAnchoBanda"
             step="0.01"
-              step="0.01"
               ref={register}
               onChange={handleChange}
             />

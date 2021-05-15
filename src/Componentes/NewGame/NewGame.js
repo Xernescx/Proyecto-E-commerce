@@ -85,7 +85,7 @@ const NewGame = () => {
         imageArray: {
 
         },
-        genders:{
+        genders: {
 
         },
         video: '',
@@ -178,14 +178,15 @@ const NewGame = () => {
             console.log(cpu)
         });
 
-    }, [cpu, gpu])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const registro = React.useCallback(async () => {
         console.log(genders)
         try {
             let imageArray = [];
-            let generos = genders;
 
             let storageRef = firebase.storage();
             console.log(imagens)
@@ -230,20 +231,20 @@ const NewGame = () => {
                 developer: formState.developer,
                 date: formState.date,
                 covePage: urlImagen,
-                requerimentsMin: {
-                    cpuMin: db.collection("Cpu").doc(formState.cpuMin),
-                    ramMin: formState.ramMin,
-                    gpuMin: db.collection("Gpu").doc(formState.gpuMin),
-                },
-                requerimentsMax: {
-                    cpuMax: db.collection("Cpu").doc(formState.cpuMax),
-                    ramMax: formState.ramMax,
-                    gpuMax: db.collection("Gpu").doc(formState.gpuMax),
-                },
+
+                cpuMin: db.collection("Cpu").doc(formState.cpuMin),
+                ramMin: formState.ramMin,
+                gpuMin: db.collection("Gpu").doc(formState.gpuMin),
+
+
+                cpuMax: db.collection("Cpu").doc(formState.cpuMax),
+                ramMax: formState.ramMax,
+                gpuMax: db.collection("Gpu").doc(formState.gpuMax),
+
                 plataform: formState.plataform,
                 plataformURL: plataformURL2,
                 imageArray,
-                generos,
+                genders,
                 urlVideo: formState.urlVideo,
                 so: formState.so,
                 discSpaces: formState.discSpaces,
@@ -294,7 +295,8 @@ const NewGame = () => {
                                 <input onChange={changeImagen}
                                     name="src-file1"
                                     type="file"
-                                    name="imageOne"
+                                    // eslint-disable-next-line react/jsx-no-duplicate-props
+                                    name="covePage"
                                 ></input>
                             </label>
                             <br />
@@ -453,7 +455,7 @@ const NewGame = () => {
                                 {genders2.map(gender => {
                                     return (
                                         <FormControlLabel
-                                            control={<Checkbox style={{ color: "#ac4caf" }} key={gender + 1} value={gender}  onChange={onChangeFavorite} name="gender" ref={register} />}
+                                            control={<Checkbox style={{ color: "#ac4caf" }} key={gender + 1} value={gender} onChange={onChangeFavorite} name="gender" ref={register} />}
                                             label={<Typography style={{ color: 'rgb(184, 180, 180)' }}>{gender}</Typography>}
 
                                         />

@@ -5,7 +5,7 @@ import { auth } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
-import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,17 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#ac4caf',
-        },
-        secondary: {
-            main: '#fff',
 
-        }
-    }
-})
 
 const Login = () => {
     const classes = useStyles();
@@ -112,60 +102,60 @@ const Login = () => {
     })
     return (
         <div className="formulario">
-                <div className="log-form ">
-                    <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
+            <div className="log-form ">
+                <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
 
 
-               
-                        {error && <div className="alert"><p>{error}</p></div>}
-                        <TextField underline={false} className={classes.sortFormLabel} id="standard-required" label="email" name="email"
-                            onChange={handleChange}
-                            InputProps={{
-                                className: classes.input
-                            }}
 
-                            ref={register({
-                                name: 'email',
-                                required: "Parametro requerido.",
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: "Caracteres no validos."
-                                },
+                    {error && <div className="alert"><p>{error}</p></div>}
+                    <TextField underline={false} className={classes.sortFormLabel} id="standard-required" label="email" name="email"
+                        onChange={handleChange}
+                        InputProps={{
+                            className: classes.input
+                        }}
 
-                            })}
+                        ref={register({
+                            name: 'email',
+                            required: "Parametro requerido.",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Caracteres no validos."
+                            },
 
-                        />
+                        })}
+
+                    />
 
 
-                        {errorp && <div className="alert"><p>{errorp}</p></div>}
-                        {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
-                        <TextField
-                            onChange={handleChange}
-                            id="standard-password-input"
-                            label="password"
-                            type="password"
-                            name="password"
-                            autoComplete="current-password"
-                            InputProps={{
-                                className: classes.multilineColor
-                            }}
-                            ref={register({
-                                name: "standard-password",
-                                required: "Parametro requerido.",
+                    {errorp && <div className="alert"><p>{errorp}</p></div>}
+                    {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
+                    <TextField
+                        onChange={handleChange}
+                        id="standard-password-input"
+                        label="password"
+                        type="password"
+                        name="password"
+                        autoComplete="current-password"
+                        InputProps={{
+                            className: classes.multilineColor
+                        }}
+                        ref={register({
+                            name: "standard-password",
+                            required: "Parametro requerido.",
 
-                            })}
-                        />
+                        })}
+                    />
 
-                        {/* <a class="forgot" href="#"> Aun no tienes cuenta? registrate</a> */}
-                        <Grid
-                            container
-                            direction="row"
-                            justify="center"
-                            alignItems="center"
-                        >
-                            <button className="btn" type="submit">Entrar</button>
-                        </Grid>
-                  
+                    {/* <a class="forgot" href="#"> Aun no tienes cuenta? registrate</a> */}
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <button className="btn" type="submit">Entrar</button>
+                    </Grid>
+
                 </form>
             </div>
 

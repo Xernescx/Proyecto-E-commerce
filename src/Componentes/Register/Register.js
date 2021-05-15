@@ -14,7 +14,7 @@ import {
 
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 
 
 
@@ -50,17 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#ac4caf',
-        },
-        secondary: {
-            main: '#fff',
 
-        }
-    }
-})
 
 const Register1 = () => {
     const { register, errors, handleSubmit, watch } = useForm({});
@@ -133,6 +123,7 @@ const Register1 = () => {
                 lastName: formState.lastName,
                 date: selectedDate,
                 country: formState.country,
+                userType: "ROLE_USER",
             });
 
 
