@@ -6,11 +6,12 @@ import { db, auth } from '../FireBase/Firebase'
 import { Link } from 'react-router-dom'
 import "./Carrito.css";
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import IconButton from '@material-ui/core/IconButton';
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {
