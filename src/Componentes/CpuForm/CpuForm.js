@@ -69,28 +69,29 @@ const CpuForm = props => {
         name: formState.name,
         marca: formState.marca,
         modelo: formState.modelo,
-
+        pcie: formState.pcie,
+        transistores: formState.transistores,
         tdp: parseFloat(formState.tdp),
         semiConductores: parseFloat(formState.semiConductores),
         velocidadRProcesadorTurbo: parseFloat(formState.velocidadRProcesadorTurbo),
-        directx: parseFloat (formState.directx),
-        turboGPU: parseFloat (formState.turboGPU),
-        opencl: parseFloat (formState.opencl),
-        opengl: parseFloat (formState.opengl),
-        velocidadGPU: parseFloat (formState.velocidadGPU),
-        hilos: parseFloat (formState.hilos),
-        cachel2: parseFloat (formState.cachel2),
-        cachel3: parseFloat (formState.cachel3),
-        cachel1: parseFloat (formState.cachel1),
-        multiplicadorR: parseFloat (formState.multiplicadorR),
-        nucleol3: parseFloat (formState.nucleol3),
-        nucleol2: parseFloat (formState.nucleol2),
-        velocidadMemoriaRam: parseFloat (formState.velocidadMemoriaRam),
-        memoriaMaximaAnchoBanda: parseFloat (formState.memoriaMaximaAnchoBanda),
-        canalesMemoria: parseFloat (formState.canalesMemoria),
-        tamañoDeMemoria: parseFloat (formState.tamañoDeMemoria),
-        trasferencias: parseFloat (formState.trasferencias),
-        velocidadRprocesador: parseFloat (formState.VelocidadRprocesador),
+        directx: parseFloat(formState.directx),
+        turboGPU: parseFloat(formState.turboGPU),
+        opencl: parseFloat(formState.opencl),
+        opengl: parseFloat(formState.opengl),
+        velocidadGPU: parseFloat(formState.velocidadGPU),
+        hilos: parseFloat(formState.hilos),
+        cachel2: parseFloat(formState.cachel2),
+        cachel3: parseFloat(formState.cachel3),
+        cachel1: parseFloat(formState.cachel1),
+        multiplicadorR: parseFloat(formState.multiplicadorR),
+        nucleol3: parseFloat(formState.nucleol3),
+        nucleol2: parseFloat(formState.nucleol2),
+        velocidadMemoriaRam: parseFloat(formState.velocidadMemoriaRam),
+        memoriaMaximaAnchoBanda: parseFloat(formState.memoriaMaximaAnchoBanda),
+        canalesMemoria: parseFloat(formState.canalesMemoria),
+        tamañoDeMemoria: parseFloat(formState.tamañoDeMemoria),
+        trasferencias: parseFloat(formState.trasferencias),
+        velocidadRprocesador: parseFloat(formState.VelocidadRprocesador),
 
 
 
@@ -141,19 +142,30 @@ const CpuForm = props => {
 
             <br />
             <TextField label="SemiConductores" name="semiConductores"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
-
             <br />
 
             <TextField label="Velocidad Reloc Procesador" name="VelocidadRprocesador"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
+            <br />
 
+            <TextField label="Potencia de diseño terminco(TDP)" name="tdp"
+              onChange={handleChange}
+              ref={register}
+            />
+            <br />
+
+            <TextField label="Version PCI EXPRESS" name="pcie"
+              onChange={handleChange}
+              step="0.01"
+              ref={register}
+            />
             <br />
 
             <br />
@@ -161,35 +173,47 @@ const CpuForm = props => {
               onChange={handleChange}
               ref={register}
             />
-
-
             <br />
-            <TextField label="Turbo Gpu" name="turboGPU"
-            step="0.01"
-              onChange={handleChange}
-              ref={register}
-            />
 
-            <br />
-            <TextField label="Version OPENCL" name="opencl"
+            <TextField label="Numero de Transistores" name="transistores"
               onChange={handleChange}
-              ref={register}
-            />
-
-            <br />
-            <TextField label="Potencia de diseño terminco(TDP)" name="tdp"
-              onChange={handleChange}
+              step="0.01"
               ref={register}
             />
             <br />
 
-            <TextField label="Version OPENCL" name="opengl"
+            <TextField label="Version OPENGL" name="opengl"
               onChange={handleChange}
               step="0.01"
               ref={register}
             />
 
             <br />
+
+            <br />
+            <TextField label="Version OPENCL" name="opencl"
+              onChange={handleChange}
+              ref={register}
+            />
+            <br />
+
+
+
+
+
+
+            <TextField label="Turbo Gpu" name="turboGPU"
+              step="0.01"
+              onChange={handleChange}
+              ref={register}
+            />
+            <br />
+
+
+
+            
+
+
             <TextField label="velocidad Gpu" name="velocidadGPU"
               step="0.01"
               onChange={handleChange}
@@ -202,42 +226,30 @@ const CpuForm = props => {
               ref={register}
             />
 
-            <br />
-            <TextField label="Velocidada Reloc procesador turbo" name="velocidadRProcesadorTurbo"
-              step="0.01"
-              onChange={handleChange}
-              ref={register}
-            />
-            <br />
+            <br />´
+            
             <TextField label="Cache l2" name="cachel2"
               step="0.01"
               onChange={handleChange}
               ref={register}
             />
             <br />
-            <TextField label="Cache l1" name="cachel1"
-            step="0.01"
-              ref={register}
+
+            <TextField label="Velocidada Reloc procesador turbo" name="velocidadRProcesadorTurbo"
+              step="0.01"
               onChange={handleChange}
+              ref={register}
             />
             <br />
 
-            <TextField label="multipicador de Reloc" name="multiplicadorR"
+            <TextField label="Cache L3" name="cachel3"
               step="0.01"
               ref={register}
               onChange={handleChange}
             />
-
             <br />
-
-            <TextField label="Cache L3" name="cachel3"
-            step="0.01"
-              ref={register}
-              onChange={handleChange}
-            />
-            <br />
-
-            <TextField label="Nucleo L3" name="nucleol3"
+            
+            <TextField label="Cache l1" name="cachel1"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -252,8 +264,27 @@ const CpuForm = props => {
             <br />
 
 
+            <TextField label="Nucleo L3" name="nucleol3"
+              step="0.01"
+              ref={register}
+              onChange={handleChange}
+            />
+            <br />
+
+            <TextField label="multipicador de Reloc" name="multiplicadorR"
+              step="0.01"
+              ref={register}
+              onChange={handleChange}
+            />
+
+            <br />
+
+            
+
+           
+
             <TextField label="Velocidad Memoria Ram" name="velocidadMemoriaRam"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
@@ -267,21 +298,21 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Canales de memoria" name="canalesMemoria"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
             <br />
 
             <TextField label="Tamaño de memoria maxima" name="tamañoDeMemoria"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="Tasa de trasferencias Bus" name="tasaTrasferenciaBus"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />

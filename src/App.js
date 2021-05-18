@@ -64,11 +64,11 @@ const App = () => (
             <Products />
         </Route>
 
-        <Route path="/FomrGpu" >  {/*:name :plataform */}
+        <Route path="/FormGpu" >  {/*:name :plataform */}
             <GpuFomr />
         </Route>
 
-        <Route path="/FomrCpu" >  {/*:name :plataform */}
+        <Route path="/FormCpu" >  {/*:name :plataform */}
             <CpuForm />
         </Route>
 

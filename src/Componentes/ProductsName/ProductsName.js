@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translateZ(0)',
     },
     images: {
-        width: "90%",
+        width: "70%",
     },
     title: {
         color: "#ac4caf",
@@ -274,7 +274,7 @@ export default function SimpleContainer() {
                         <GridList className={classes.gridList} id="barScroll" cellHeight={130} cols={3.5} >
                             {info.imageArray.map((images) => (
                                 <GridListTile key={images}>
-                                    <img key={[5]} onClick={activateModal} src={images} alt={info.name + "image"} />
+                                    <img key={[5]} onClick={() => activateModal(images)} src={images} alt={info.name + "image"} />
                                     <GridListTileBar
                                         classes={{
                                             root: classes.titleBar,
@@ -309,18 +309,18 @@ export default function SimpleContainer() {
                         <h3>Requisitos Minimos</h3>
                         <ul>
                             <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {info.cpuMin.name}</li>
+                            <li>Procesador: {info.cpuMin && info.cpuMin.name}</li>
                             <li>RAM: {info.ramMin}</li>
-                            <li>GPU: {info.gpuMin.name}</li>
+                            <li>GPU: {info.gpuMin && info.gpuMin.name}</li>
                             <li>Espacio: {info.discSpaces}</li>
                         </ul>
                         <br />
                         <h3>Requisitos Recomendados</h3>
                         <ul>
                             <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {info.cpuMax.name}</li>
+                            <li>Procesador: {info.cpuMax && info.cpuMax.name}</li>
                             <li>RAM: {info.ramMax}</li>
-                            <li>GPU: {info.gpuMax.name}</li>
+                            <li>GPU: {info.gpuMax && info.gpuMax.name}</li>
                             <li>Espacio: {info.discSpaces}</li>
                         </ul>
                     </div>
