@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '30ch',
     },
     "& .MuiOutlinedInput-input": {
       color: "white"
@@ -211,7 +211,7 @@ const CpuForm = props => {
 
 
 
-            
+
 
 
             <TextField label="velocidad Gpu" name="velocidadGPU"
@@ -227,7 +227,7 @@ const CpuForm = props => {
             />
 
             <br />´
-            
+
             <TextField label="Cache l2" name="cachel2"
               step="0.01"
               onChange={handleChange}
@@ -248,7 +248,7 @@ const CpuForm = props => {
               onChange={handleChange}
             />
             <br />
-            
+
             <TextField label="Cache l1" name="cachel1"
               step="0.01"
               ref={register}
@@ -279,9 +279,9 @@ const CpuForm = props => {
 
             <br />
 
-            
 
-           
+
+
 
             <TextField label="Velocidad Memoria Ram" name="velocidadMemoriaRam"
               step="0.01"
@@ -318,7 +318,14 @@ const CpuForm = props => {
             />
             <br />
 
-            <button className="btn" type="submit" >registrarse</button>
+            <Grid
+              container
+              
+              justify="center"
+              alignItems="center"
+            >
+              <button className="btn" type="submit" >Registar Cpu</button>
+            </Grid>
           </form>
         </div>
       </Grid>

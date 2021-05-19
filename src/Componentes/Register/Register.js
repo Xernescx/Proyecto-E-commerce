@@ -11,10 +11,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
 import {
     MuiPickersUtilsProvider,
-
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 
@@ -22,8 +21,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
             margin: theme.spacing(1),
-            width: '25ch',
+            width: '28ch',
         },
+
         "& .MuiOutlinedInput-input": {
             color: "white"
         },
@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+    },
+    icon: {
+        color: " #fff",
     },
 }));
 
@@ -123,6 +126,7 @@ const Register1 = () => {
                 lastName: formState.lastName,
                 date: selectedDate,
                 country: formState.country,
+
                 userType: "ROLE_USER",
             });
 
@@ -141,6 +145,13 @@ const Register1 = () => {
             }
         }
 
+        let user = auth.currentUser;
+
+        user.sendEmailVerification().then(function () {
+
+        }).catch(function (error) {
+
+        })
 
 
     })
@@ -153,7 +164,7 @@ const Register1 = () => {
 
 
                 <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
-               
+
                     {error && <div className="alert"><p>{error}</p></div>}
                     {errors.email && <div className="alert"><p>{errors.email.message}</p></div>}
 
@@ -215,31 +226,42 @@ const Register1 = () => {
                     <TextField label="lastName" name="lastName"
                         onChange={handleChange}
                     />
+
+
                     <MuiPickersUtilsProvider color="primary" utils={DateFnsUtils}>
                         {error2 && <div className="alert"><p>{error2}</p></div>}
                         {errors.date && <div className="alert"><p>{errors.date.message}</p></div>}
                         <KeyboardDatePicker
+
                             margin="normal"
                             id="date-picker-dialog"
-                            label="Date picker dialog"
+                            label="Fecha de nacimiento"
                             format="dd/MM/yyyy"
                             value={selectedDate}
                             onChange={handleDateChange}
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }}
+                            classes={{
+                                icon: classes.icon
+                            }}
                             ref={register({
                                 required: "Fecha de nacimiento requerdia.",
-
                             })}
                         />
-
                     </MuiPickersUtilsProvider>
+
                     <InputLabel htmlFor="age-native-simple">Pais</InputLabel>
                     <Select
+                        className={classes.icon}
                         native
                         onChange={handleChange}
+                        classes={{
+                            icon: classes.icon
+                        }}
                         inputProps={{
+
+
                             name: 'country',
                             id: 'age-native-simple',
                         }}
@@ -491,13 +513,11 @@ const Register1 = () => {
                     </Select>
                     <Grid
                         container
-                        justify="flex-end"
+                        justify="center"
                         alignItems="center"
                     >
-
                         <button className="btn" type="submit" >registrarse</button>
                     </Grid>
-                   
                 </form>
 
             </div>

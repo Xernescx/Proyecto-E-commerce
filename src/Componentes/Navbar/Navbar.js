@@ -334,7 +334,7 @@ export default function PrimarySearchAppBar() {
                 </div>
                 <InputBase
                   placeholder="Search…"
-                  fullWidth="true"
+                  fullWidth
                   onKeyDown={handleKeyDown}
                   onChange={updateSearch}
                   classes={{

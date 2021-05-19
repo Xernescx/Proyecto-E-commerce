@@ -5,14 +5,14 @@ import { auth } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
             margin: theme.spacing(1),
-            width: '25ch',
+            width: '28ch',
         },
         "& .MuiOutlinedInput-input": {
             color: "white"
@@ -52,6 +52,7 @@ const Login = () => {
     const [errorp, setErrorp] = useState(null);
 
     const { register, errors, handleSubmit } = useForm({});
+    
     const onSubmit = async data => {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(() => {
@@ -79,20 +80,31 @@ const Login = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const login = React.useCallback(async () => {
         try {
-            await auth.signInWithEmailAndPassword(formState.email, formState.password).then((user) => {
-                /*  console.log("logeado parece") */
+            await auth.signInWithEmailAndPassword(formState.email, formState.password).then(user => {
+                
+                if(user.user.emailVerified){
+                    /*  console.log("logeado parece") */
                 window.sessionStorage.setItem('user', JSON.stringify(formState));
                 /* console.log(window.localStorage.getItem('user')); */
-                window.location = '/home';
+                window.location = '/home'; 
+                }
+                else{
+                    setError("Correo no verificado")
+                    return error;
+                }
 
             })
         } catch (error) {
+            if(error.code === "auth/invalid-email-verified"){
+                setError("Correo no verificado")
+            }
+
             if (error.code === "auth/user-not-found") {
-                setError('Email invalido');
+                setErrorp('Email no registrado');
                 return;
             }
             if (error.code === "auth/wrong-password") {
-                setErrorp('Contraseña incorrecta');
+                setErrorp('Contraseña o Email incorrecta');
                 return;
             }
             /* var errorCode = error.code;
@@ -107,7 +119,6 @@ const Login = () => {
 
 
 
-                    {error && <div className="alert"><p>{error}</p></div>}
                     <TextField underline={false} className={classes.sortFormLabel} id="standard-required" label="email" name="email"
                         onChange={handleChange}
                         InputProps={{
@@ -127,8 +138,7 @@ const Login = () => {
                     />
 
 
-                    {errorp && <div className="alert"><p>{errorp}</p></div>}
-                    {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
+
                     <TextField
                         onChange={handleChange}
                         id="standard-password-input"
@@ -140,7 +150,7 @@ const Login = () => {
                             className: classes.multilineColor
                         }}
                         ref={register({
-                            name: "standard-password",
+
                             required: "Parametro requerido.",
 
                         })}
@@ -155,6 +165,10 @@ const Login = () => {
                     >
                         <button className="btn" type="submit">Entrar</button>
                     </Grid>
+
+                    {errorp && <div className="alert"><p>{errorp}</p></div>}
+                    {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
+                    {error && <div className="alert"><p>{error}</p></div>}
 
                 </form>
             </div>

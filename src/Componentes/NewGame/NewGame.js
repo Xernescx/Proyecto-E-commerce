@@ -233,12 +233,12 @@ const NewGame = () => {
                 covePage: urlImagen,
 
                 cpuMin: db.collection("Cpu").doc(formState.cpuMin),
-                ramMin: formState.ramMin,
+                ramMin: parseFloat(formState.ramMin),
                 gpuMin: db.collection("Gpu").doc(formState.gpuMin),
 
 
                 cpuMax: db.collection("Cpu").doc(formState.cpuMax),
-                ramMax: formState.ramMax,
+                ramMax: parseFloat(formState.ramMax),
                 gpuMax: db.collection("Gpu").doc(formState.gpuMax),
 
                 plataform: formState.plataform,

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '30ch',
     },
     "& .MuiOutlinedInput-input": {
       color: "white"
@@ -73,22 +73,22 @@ const GpuFomr = props => {
         modelo: formState.modelo,
         ram: parseFloat(formState.ram),
         tdp: parseFloat(formState.tdp),
-        transistores: parseFloat (formState.transistores),
-        semiConductores: parseFloat (formState.semiConductores),
-        pciExpress: parseFloat (formState.pciExpress),
-        velocidadRProcesador: parseFloat (formState.velocidadRProcesador),
-        indiceDePixeles: parseFloat (formState.indiceDePixeles),
-        puntoFlotante: parseFloat (formState.puntoFlotante),
-        indiceTextura: parseFloat (formState.indiceTextura),
-        velocidadMemoriaGpu: parseFloat (formState.velocidadMemoriaGpu),
-        unidadesDeTonalidad: parseFloat (formState.unidadesDeTonalidad),
-        velocidadMemoriaEfectiva: parseFloat (formState.velocidadMemoriaEfectiva),
-        memoriaMaximaAnchoBanda: parseFloat (formState.memoriaMaximaAnchoBanda),
-        capacidadBus: parseFloat (formState.capacidadBus),
-        memoriaGDD: parseFloat (formState.memoriaGDD),
-        turboGpu: parseFloat (formState.turboGpu),
-        tmus: parseFloat (formState.tmus),
-        rops: parseFloat (formState.rops),
+        transistores: parseFloat(formState.transistores),
+        semiConductores: parseFloat(formState.semiConductores),
+        pciExpress: parseFloat(formState.pciExpress),
+        velocidadRProcesador: parseFloat(formState.velocidadRProcesador),
+        indiceDePixeles: parseFloat(formState.indiceDePixeles),
+        puntoFlotante: parseFloat(formState.puntoFlotante),
+        indiceTextura: parseFloat(formState.indiceTextura),
+        velocidadMemoriaGpu: parseFloat(formState.velocidadMemoriaGpu),
+        unidadesDeTonalidad: parseFloat(formState.unidadesDeTonalidad),
+        velocidadMemoriaEfectiva: parseFloat(formState.velocidadMemoriaEfectiva),
+        memoriaMaximaAnchoBanda: parseFloat(formState.memoriaMaximaAnchoBanda),
+        capacidadBus: parseFloat(formState.capacidadBus),
+        memoriaGDD: parseFloat(formState.memoriaGDD),
+        turboGpu: parseFloat(formState.turboGpu),
+        tmus: parseFloat(formState.tmus),
+        rops: parseFloat(formState.rops),
 
 
 
@@ -137,7 +137,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Tdp" name="tdp"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
@@ -148,28 +148,28 @@ const GpuFomr = props => {
 
 
             <TextField label="Transistores" name="transistores"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
 
             <br />
             <TextField label="SemiConductores" name="semiConductores"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
 
             <br />
             <TextField label="Pci Express" name="pciExpress"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
 
             <br />
             <TextField label="Velocidad Reloc Procesador" name="velocidadRProcesador"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
@@ -188,7 +188,7 @@ const GpuFomr = props => {
             />
             <br />
             <TextField label="Velocidad Memoria Gpu" name="velocidadMemoriaGpu"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
@@ -205,70 +205,76 @@ const GpuFomr = props => {
 
 
             <TextField label="Unidades De Tonalidad" name="unidadesDeTonalidad"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="unidades de mapeo" name="tmus"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="Turbo Gpu" name="turboGpu"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="Unidades Generacion Salida" name="rops"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
-            
+
 
             <TextField label="Velocidad Memoria Efectiva" name="velocidadMemoriaEfectiva"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="Memoria Maxima de Ancho Banda" name="memoriaMaximaAnchoBanda"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="Ram" name="ram"
-            step="0.01"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
             <br />
 
             <TextField label="capacidad del Bus" name="capacidadBus"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
 
             <TextField label="Memoria GDD" name="memoriaGDD"
-            step="0.01"
+              step="0.01"
               ref={register}
               onChange={handleChange}
             />
             <br />
-
-            <button className="btn" type="submit" >registrarse</button>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <button className="btn" type="submit" >Registrar Gpu</button>
+            </Grid>
           </form>
         </div>
       </Grid>
