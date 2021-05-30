@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,9 +35,13 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiInput-underline:after': {
             borderBottomColor: '#ac4caf',
         },
-
-
-
+    },
+    alert: {
+        width: '100%',
+        "& .MuiAlert-message":{color: 'red',},
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     },
 }));
 
@@ -49,10 +54,8 @@ const Login = () => {
         password: '',
     }
     const [error, setError] = useState(null);
-    const [errorp, setErrorp] = useState(null);
-
     const { register, errors, handleSubmit } = useForm({});
-    
+
     const onSubmit = async data => {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(() => {
@@ -81,30 +84,27 @@ const Login = () => {
     const login = React.useCallback(async () => {
         try {
             await auth.signInWithEmailAndPassword(formState.email, formState.password).then(user => {
-                
-                if(user.user.emailVerified){
+
+                if (user.user.emailVerified) {
                     /*  console.log("logeado parece") */
-                window.sessionStorage.setItem('user', JSON.stringify(formState));
-                /* console.log(window.localStorage.getItem('user')); */
-                window.location = '/home'; 
+                    window.sessionStorage.setItem('user', JSON.stringify(formState));
+                    /* console.log(window.localStorage.getItem('user')); */
+                    window.location = '/home';
                 }
-                else{
-                    setError("Correo no verificado")
+                else {
+                    setError("Correo no verificado, revise su correo")
                     return error;
                 }
 
             })
         } catch (error) {
-            if(error.code === "auth/invalid-email-verified"){
-                setError("Correo no verificado")
-            }
 
             if (error.code === "auth/user-not-found") {
-                setErrorp('Email no registrado');
+                setError('Email no registrado');
                 return;
             }
             if (error.code === "auth/wrong-password") {
-                setErrorp('Contraseña o Email incorrecta');
+                setError('Contraseña o Email incorrecta');
                 return;
             }
             /* var errorCode = error.code;
@@ -166,9 +166,12 @@ const Login = () => {
                         <button className="btn" type="submit">Entrar</button>
                     </Grid>
 
-                    {errorp && <div className="alert"><p>{errorp}</p></div>}
-                    {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
-                    {error && <div className="alert"><p>{error}</p></div>}
+                    <div className={classes.alert}>
+                        {errors.password && <Alert severity="error">{errors.password.message}</Alert>}
+                        {error && <Alert severity="error">{error}</Alert>}
+                    </div>
+
+
 
                 </form>
             </div>

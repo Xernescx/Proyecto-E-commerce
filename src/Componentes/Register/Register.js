@@ -14,7 +14,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,12 +44,23 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiInput-underline:after': {
             borderBottomColor: '#ac4caf',
         },
-
-
-
     },
     icon: {
         color: " #fff",
+    },
+    alert: {
+        width: '100%',
+        "& .MuiAlert-message":{color: 'red',},
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
+    },
+    succes: {
+        width: '100%',
+        "& .MuiAlert-message":{color: 'green',},
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     },
 }));
 
@@ -59,7 +70,7 @@ const Register1 = () => {
     const { register, errors, handleSubmit, watch } = useForm({});
     const password = useRef({});
     password.current = watch("password", "");
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const [selectedDate, setSelectedDate] = useState();
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -80,6 +91,7 @@ const Register1 = () => {
     const classes = useStyles();
     const [error, setError] = useState(null);
     const [formState, setFormState] = useState(state);
+    const [confirmet, setConfirmet] = useState();
 
     const handleChange = event => {
         setFormState({
@@ -126,8 +138,10 @@ const Register1 = () => {
                 lastName: formState.lastName,
                 date: selectedDate,
                 country: formState.country,
-
                 userType: "ROLE_USER",
+                gpu: "",
+                cpu: "",
+                ram: parseInt(0)
             });
 
 
@@ -153,7 +167,7 @@ const Register1 = () => {
 
         })
 
-
+        setConfirmet("Se ha enviado un correo de confimacion")
     })
 
 
@@ -165,10 +179,10 @@ const Register1 = () => {
 
                 <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
 
-                    {error && <div className="alert"><p>{error}</p></div>}
-                    {errors.email && <div className="alert"><p>{errors.email.message}</p></div>}
+                    {error &&  <Alert className={classes.alert}  variant="outlined" severity="error">{error}</Alert>}
+                    {errors.email &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.email.message}</Alert>}
 
-                    <TextField name="email" underline={false} className={classes.sortFormLabel} id="standard-required" label="email" defaultValue="example@gmail.com"
+                    <TextField name="email" underline={false} className={classes.sortFormLabel} id="standard-required" label="Email" 
                         onChange={handleChange}
                         InputProps={{
                             className: classes.input
@@ -185,11 +199,11 @@ const Register1 = () => {
                         })}
 
                     />
-                    {errors.password && <div className="alert"><p>{errors.password.message}</p></div>}
+                    {errors.password &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.password.message}</Alert>}
                     <TextField name="password"
                         onChange={handleChange}
                         id="standard-password-input"
-                        label="password"
+                        label="Password"
                         type="password"
 
                         autoComplete="current-password"
@@ -202,9 +216,9 @@ const Register1 = () => {
 
                         })}
                     />
-                    {errors.confirmPassword && <div className="alert"><p>{errors.confirmPassword.message}</p></div>}
+                    {errors.confirmPassword &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.confirmPassword.message}</Alert>}
                     <TextField
-                        type="password"
+                        type="Password"
                         name="confirmPassword"
                         onChange={handleChange}
                         label="confirmPassword"
@@ -219,18 +233,18 @@ const Register1 = () => {
 
 
 
-                    <TextField label="name" name="name"
+                    <TextField label="Name" name="name"
                         onChange={handleChange}
                     />
 
-                    <TextField label="lastName" name="lastName"
+                    <TextField label="last Name" name="lastName"
                         onChange={handleChange}
                     />
 
 
                     <MuiPickersUtilsProvider color="primary" utils={DateFnsUtils}>
-                        {error2 && <div className="alert"><p>{error2}</p></div>}
-                        {errors.date && <div className="alert"><p>{errors.date.message}</p></div>}
+                        {error2 &&  <Alert className={classes.alert}  variant="outlined" severity="error">{error2}</Alert>}
+                        {errors.date &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.date.message}</Alert>}
                         <KeyboardDatePicker
 
                             margin="normal"
@@ -518,6 +532,10 @@ const Register1 = () => {
                     >
                         <button className="btn" type="submit" >registrarse</button>
                     </Grid>
+
+                    {error &&  <Alert className={classes.alert}  variant="outlined" severity="error">{error}</Alert>}
+                    {errors.email &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.email.message}</Alert>}
+                    {confirmet && <Alert className={classes.succes}  variant="outlined" severity="success">{confirmet}</Alert>}
                 </form>
 
             </div>

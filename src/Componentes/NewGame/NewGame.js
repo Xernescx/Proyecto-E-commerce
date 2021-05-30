@@ -122,6 +122,7 @@ const NewGame = () => {
         setImagens(e.target.files);
         console.log(imagens)
     }
+
     const onSubmit = async data => {
         registro();
     };
@@ -162,7 +163,7 @@ const NewGame = () => {
                 })
                 setGpu(data)
             });
-            console.log(gpu)
+            /* console.log(gpu) */
         });
 
         db.collection("Cpu").get().then((querySnapshot) => {
@@ -175,8 +176,9 @@ const NewGame = () => {
                 })
                 setCpu(data)
             });
-            console.log(cpu)
+           /*  console.log(cpu) */
         });
+        
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -185,10 +187,12 @@ const NewGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const registro = React.useCallback(async () => {
         console.log(genders)
-        try {
+        try {   
             let imageArray = [];
 
             let storageRef = firebase.storage();
+
+
             console.log(imagens)
             /* console.log(imagen) */
             for (let index = 0; index < imagens.length; index++) {

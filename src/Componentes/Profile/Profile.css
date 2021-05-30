@@ -1,0 +1,27 @@
+.profileOrder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.marginProfile{
+    margin: 30px;
+}
+
+.adminControl{
+    display: flex;
+    justify-content:center;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: #212529;
+    text-align: center
+}
+.adminControl a, .adminControl a:hover, .adminControl a:visited, .adminControl a:active{
+    color:black;
+    font-weight: bold;
+    background-color:#a63aaa;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
