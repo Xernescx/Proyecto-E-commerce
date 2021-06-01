@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './Login.css';
-import { auth } from '../FireBase/Firebase'
+import { auth, db } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
@@ -56,9 +56,10 @@ const Login = () => {
     const [error, setError] = useState(null);
     const { register, errors, handleSubmit } = useForm({});
 
-    const onSubmit = async data => {
+    const onSubmit = async data => {//Metodo de auth de firestore
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(() => {
+                
                 // Existing and future Auth states are now persisted in the current
                 // session only. Closing the window would clear any existing state even
                 // if a user forgets to sign out.
@@ -81,15 +82,20 @@ const Login = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const login = React.useCallback(async () => {
+    const login = React.useCallback(async () => { //metodo de login 
         try {
             await auth.signInWithEmailAndPassword(formState.email, formState.password).then(user => {
 
                 if (user.user.emailVerified) {
-                    /*  console.log("logeado parece") */
-                    window.sessionStorage.setItem('user', JSON.stringify(formState));
-                    /* console.log(window.localStorage.getItem('user')); */
-                    window.location = '/home';
+                    db.collection("users").where("email", "==", formState.email).get().then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            window.sessionStorage.setItem('user', JSON.stringify({
+                                email: doc.data().email,
+                                role: doc.data().userType
+                            }));
+                        });
+                    })
+                     window.location = '/home';
                 }
                 else {
                     setError("Correo no verificado, revise su correo")

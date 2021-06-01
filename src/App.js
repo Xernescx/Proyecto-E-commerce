@@ -19,6 +19,7 @@ import Carrito from './Componentes/Carrito'
 import Bar from './Componentes/Bar';
 import GpuFomr from './Componentes/GpuFomr/GpuFomr';
 import CpuForm from './Componentes/CpuForm/CpuForm';
+import Tabla from './Componentes/Tabla';
 const App = () => (
 
   <div className="main-container">
@@ -64,12 +65,24 @@ const App = () => (
             <Products />
         </Route>
 
-        <Route path="/FormGpu" >  {/*:name :plataform */}
+        <Route path="/formGpu" >  
             <GpuFomr />
         </Route>
 
-        <Route path="/FormCpu" >  {/*:name :plataform */}
+        <Route path="/formCpu" >  
             <CpuForm />
+        </Route>
+
+        <Route path="/editGame:id">
+          <NewGame />
+        </Route>
+        
+        <Route path="/table/:variable" >  
+            <Tabla />
+        </Route>
+
+        <Route path="/editGame/:id" >  
+            <NewGame />
         </Route>
 
         <Redirect to="/home" />

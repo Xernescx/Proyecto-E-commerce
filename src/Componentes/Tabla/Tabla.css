@@ -1,0 +1,18 @@
+.buttonAdmin{
+    background-color: rgb(18, 155, 0);
+    padding: 8px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    border-color: rgba(255, 255, 255, 0);
+    color: #fff;
+}
+.buttonAdmin2{
+    background-color: rgb(155, 0, 0);
+    padding: 8px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    border-color: rgba(255, 255, 255, 0);
+    color: #fff;
+}

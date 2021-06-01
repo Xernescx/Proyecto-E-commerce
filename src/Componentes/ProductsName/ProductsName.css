@@ -16,7 +16,19 @@
     text-overflow: ellipsis;
 
 }
+.buttonEdit{
+    background-color: rgb(137, 0, 155);
+    padding: 10px 9px;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    display: flex;
+}
 
+.buttonEdit:link, .buttonEdit:hover, .buttonEdit:visited{
+    color: white;
+    text-decoration: none;
+}
 .productImage{
     width: calc(35% - 10px);
 }

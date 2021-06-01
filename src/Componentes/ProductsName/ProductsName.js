@@ -79,19 +79,11 @@ export default function SimpleContainer() {
     const [loading, setloading] = useState(true);
     const [logState, setLogstate] = useState(true);
     const classes = useStyles();
+    const user = JSON.parse(window.sessionStorage.getItem("user"));
+    const [productoID, setproductoID] = useState();
     let nameV = useParams()
     /* console.log(nameV) */
 
-    useEffect(() => {
-        if (window.localStorage.getItem("user") === null) {
-            setLogstate(true);
-            console.log("no hay log");
-
-        } else {
-            setLogstate(false)
-            console.log("si hay log");
-        }
-    }, []);
 
     const putCar = () => {
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
@@ -113,6 +105,13 @@ export default function SimpleContainer() {
 
 
     useEffect(() => {
+
+        if (window.localStorage.getItem("user") === null) {
+            setLogstate(true);
+
+        } else {
+            setLogstate(false)   
+        }
 
         db.collection("VideoGames")
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
@@ -139,16 +138,14 @@ export default function SimpleContainer() {
                     }
 
 
-
+                    setproductoID(doc.id)
                     setInfo(a)
-
-                    console.log(info)
                 });
             });
 
         setloading(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const activateModal = (images) => {
@@ -234,15 +231,20 @@ export default function SimpleContainer() {
                                 >
                                     {info.promo && (<p className="promoInfo">{info.promo}%</p>)}
                                     <div className="pricesInfo">
+
                                         <Grid
                                             container
                                             direction="column"
                                         >
+
                                             {info.promo && (<spam >{info.price}€</spam>)}
                                             <p>{info.promo && (((info.price - (info.price * info.promo) / 100)).toFixed(2))}
                                                 {!info.promo && (info.price)}€</p>
                                         </Grid>
                                     </div>
+                                    {user.role === "ROLE_ADMIN" && (<Link className="buttonEdit " to={`/editGame/ ${productoID}`} ><div >
+                                        Edit Game
+                                    </div></Link>)}
                                     {logState && (
                                         <Link className="carritoImg" to="/login">
                                             <p className="buttonCar">
@@ -258,6 +260,7 @@ export default function SimpleContainer() {
                                             </p>
 
                                         </Link>
+
 
                                     )}
 

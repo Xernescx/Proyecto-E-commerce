@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import './Profile.css'
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
-import { db, auth } from '../FireBase/Firebase'
+import { db } from '../FireBase/Firebase'
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiInputAdornment-root': {
             color: 'white',
         }
+    },
+    alert: {
+        margin: "2%"
     }
 }));
 
@@ -90,7 +93,6 @@ const Profile = () => {
     const [gpu, setGpu] = useState([])
     const [cpu, setCpu] = useState([])
     const [gpuU, setGpuU] = useState({})
-    const [cpuU, setCpuU] = useState({})
 
     const handleChange = event => {
         setFormState({
@@ -106,8 +108,7 @@ const Profile = () => {
         })
 
     }
-    const userJ = JSON.parse(window.localStorage.getItem("user"));
-    //console.log(userJ.email, userJ.password)
+  
 
 
     const onSubmit = async data => {
@@ -138,7 +139,7 @@ const Profile = () => {
                     window.location = '/home';
                 } else {
                     /* console.log("si hay log"); */
-                    login();
+                    window.location = '/home';
                 }
             }
             if (user != null) {
@@ -223,16 +224,7 @@ const Profile = () => {
         setloading(false);
     }, [])
 
-    const login = useCallback(async () => {
-        try {
-            await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
-                /* console.log("logeado parece")
-                console.log(window.localStorage.getItem('user')); */
-            })
-        } catch (error) {
-            /*  console.log(error.code) */
-        }
-    })
+   
 
     const pcUser = () => {
         console.log(form1State)
@@ -271,7 +263,7 @@ const Profile = () => {
 
     return (
         <div>
-            <Alert severity="warning">Ram en GB, si quiere poner en mb use 0. los mb que tenga </Alert>
+            <Alert className={classes.alert} severity="warning">Ram en GB, si quiere poner en mb use 0. los mb que tenga </Alert>
 
             <Grid
                 container
@@ -283,18 +275,16 @@ const Profile = () => {
                     <div className="log-form ">
                         <form className={classes.root}  >
 
-                            <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Min</InputLabel>
-
+                            <InputLabel className={classes.root} >Cpu Min</InputLabel>
                             <Select
                                 native
                                 inputProps={{
                                     name: 'cpu',
-                                    id: 'demo-simple-select',
                                 }}
                                 onChange={formChange}
                                 name="cpu"
                             >
-                                <option select value={gpuU.id}>{gpuU.name}</option>
+                                <option select="true" value={gpuU.id}>{gpuU.name}</option>
                                 <option disabled value="">-----------------------------</option>
                                 {cpu.map(cpu => {
                                     return (
@@ -316,17 +306,17 @@ const Profile = () => {
                                 }}
                             />
 
-                            <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Min</InputLabel>
+                            <InputLabel className={classes.root} >Cpu Min</InputLabel>
                             <Select
                                 native
 
                                 inputProps={{
                                     name: 'gpu',
-                                    id: 'demo-simple-select',
+
                                 }}
                                 onChange={formChange}
                             >
-                                <option select value={gpuU.id}>{gpuU.name}</option>
+                                <option select="true" value={gpuU.id}>{gpuU.name}</option>
                                 <option disabled value="">-----------------------------</option>
                                 {gpu.map(gpu => {
                                     return (
@@ -350,19 +340,19 @@ const Profile = () => {
                     </div>
                 </div>
                 {userState.role === "ROLE_ADMIN" && (<div className="adminControl marginProfile">
-                                <Link href="/FormGpu">New Gpu</Link>
-                                <Link href="/FormCpu">New Cpu</Link>
-                                <Link href="/newGame">New Game</Link>
-                                <Link href="#">Usuarios</Link>
-                                <Link href="#">Pedidos</Link>
+                    <Link href="/FormGpu">New Gpu</Link>
+                    <Link href="/FormCpu">New Cpu</Link>
+                    <Link href="/newGame">New Game</Link>
+                    <Link href="/table/users">Usuarios</Link>
+                    <Link href="/table/pedidos">Pedidos</Link>
 
-                </div>)} 
+                </div>)}
 
                 <div className="formulario marginProfile" >
                     <div className="log-form ">
                         <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
 
-                            <TextField underline={false}
+                            <TextField
                                 className={classes.sortFormLabel}
                                 id="standard-required"
                                 label="Email"
@@ -434,7 +424,7 @@ const Profile = () => {
                                     id: 'age-native-simple',
                                 }}
                             >
-                                <option select value={userState.country}>{userState.country}</option>
+                                <option select="true" value={userState.country}>{userState.country}</option>
                                 <option disabled value={userState.country}>-----------------------------</option>
                                 <option value="Afghanistan" >Afghanistan</option>
                                 <option value="Åland Islands">Åland Islands</option>

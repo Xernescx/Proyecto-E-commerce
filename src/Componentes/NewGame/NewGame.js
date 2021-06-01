@@ -374,7 +374,7 @@ const NewGame = () => {
                                     <option select value=""  ></option>
                                     {cpu.map(cpu => {
                                         return (
-                                            <option key={cpu.id.toLowerCase() + 1} value={cpu.id}>{cpu.name}</option>
+                                            <option key={cpu.name.toLowerCase()} value={cpu.id}>{cpu.name}</option>
                                         )
                                     })}
                                 </Select>
@@ -391,7 +391,7 @@ const NewGame = () => {
                                     <option value="" select ></option>
                                     {gpu.map(gpu => {
                                         return (
-                                            <option key={gpu.id + 1} value={gpu.id}>{gpu.name}</option>
+                                            <option key={gpu.name.toLowerCase() } value={gpu.id}>{gpu.name}</option>
                                         )
                                     })
                                     }
@@ -420,7 +420,7 @@ const NewGame = () => {
                                     <option value="" select ></option>
                                     {cpu.map(cpu => {
                                         return (
-                                            <option key={cpu.id} value={cpu.id}>{cpu.name}</option>
+                                            <option key={cpu.name} value={cpu.id}>{cpu.name}</option>
                                         )
                                     })
                                     }
@@ -438,7 +438,7 @@ const NewGame = () => {
                                     <option value="" select ></option>
                                     {gpu.map(gpu => {
                                         return (
-                                            <option key={gpu.id} value={gpu.id}>{gpu.name}</option>
+                                            <option key={gpu.name} value={gpu.id}>{gpu.name}</option>
                                         )
                                     })
                                     }

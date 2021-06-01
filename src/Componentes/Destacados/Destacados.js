@@ -119,7 +119,7 @@ export default function SimpleContainer() {
       setloading(false);
       /* console.log(docs) */
     });
-    console.log(links)
+    /* console.log(links) */
   }, [])
 
 
