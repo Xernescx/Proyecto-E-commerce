@@ -222,6 +222,7 @@ const Profile = () => {
             /*  console.log(cpu) */
         });
         setloading(false);
+        console.log()
     }, [])
 
    
@@ -299,11 +300,14 @@ const Profile = () => {
                                 className={classes.color}
                                 label="Ram"
                                 type="number"
-                                name="ram"
-                                defaultValue={useState.ram}
+                                defaultValue="ram"
+                                value={userState.ram}
+                                InputLabelProps={{ shrink: true }}
                                 InputProps={{
                                     className: classes.multilineColor
                                 }}
+
+                                
                             />
 
                             <InputLabel className={classes.root} >Cpu Min</InputLabel>
@@ -378,7 +382,7 @@ const Profile = () => {
                             <br />
 
                             <TextField label="Nombre" name="name"
-
+                                InputLabelProps={{ shrink: true }}
                                 defaultValue={userState.name}
                                 placeholder={userState.name}
                                 onChange={handleChange.bind(this)}
@@ -389,7 +393,7 @@ const Profile = () => {
                             <br />
 
                             <TextField label="Apellido" name="lastName"
-
+                                InputLabelProps={{ shrink: true }}
                                 defaultValue={userState.lastName}
                                 placeholder={userState.lastName}
                                 onChange={handleChange}
@@ -403,6 +407,7 @@ const Profile = () => {
                                     id="date-picker-dialog"
                                     label="Date picker dialog"
                                     format="dd/MM/yyyy"
+                                    helperText={''} 
                                     value={selectedDate}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',

@@ -98,7 +98,7 @@ const Login = () => {
 
                     setTimeout(function () {
                         window.location = '/home';
-                    }, 100)
+                    }, 1000)
 
                 }
                 else {

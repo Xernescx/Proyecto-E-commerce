@@ -85,6 +85,7 @@ const Register1 = () => {
         name: '',
         lastName: '',
         date: '',
+        country: "Afghanistan",
         nickname: ''
     }
     const [error2, setError2] = useState(null);
@@ -131,9 +132,10 @@ const Register1 = () => {
             
             console.log(n) */
 
-            const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
+            const res =  await auth.createUserWithEmailAndPassword(formState.email, formState.password)
+
             await db.collection('users').doc(res.user.uid).set({
-                email: res.user.email,
+                email: formState.email,
                 name: formState.name,
                 lastName: formState.lastName,
                 date: selectedDate,
@@ -161,6 +163,10 @@ const Register1 = () => {
 
         let user = auth.currentUser;
 
+       
+
+
+        
         user.sendEmailVerification().then(function () {
 
         }).catch(function (error) {
@@ -182,7 +188,7 @@ const Register1 = () => {
                     {error &&  <Alert className={classes.alert}  variant="outlined" severity="error">{error}</Alert>}
                     {errors.email &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.email.message}</Alert>}
 
-                    <TextField name="email" underline={false} className={classes.sortFormLabel} id="standard-required" label="Email" 
+                    <TextField name="email"  className={classes.sortFormLabel} id="standard-required" label="Email" 
                         onChange={handleChange}
                         InputProps={{
                             className: classes.input
@@ -256,13 +262,10 @@ const Register1 = () => {
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',
                             }}
-                            classes={{
-                                icon: classes.icon
-                            }}
                             ref={register({
                                 required: "Fecha de nacimiento requerdia.",
                             })}
-                        />
+                        /> 
                     </MuiPickersUtilsProvider>
 
                     <InputLabel htmlFor="age-native-simple">Pais</InputLabel>
@@ -280,7 +283,7 @@ const Register1 = () => {
                             id: 'age-native-simple',
                         }}
                     >
-                        <option value="Afghanistan" >Afghanistan</option>
+                        <option select="true" value="Afghanistan" >Afghanistan</option>
                         <option value="Åland Islands">Åland Islands</option>
                         <option value="Albania">Albania</option>
                         <option value="Algeria">Algeria</option>
