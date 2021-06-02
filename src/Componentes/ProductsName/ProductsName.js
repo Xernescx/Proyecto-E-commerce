@@ -74,6 +74,10 @@ const theme = createMuiTheme({
 export default function SimpleContainer() {
 
     const [info, setInfo] = useState(null);
+    const [infoGPUmax, setInfoGPUmax] = useState(null);
+    const [infoGPUmin, setInfoGPUmin] = useState(null);
+    const [infoCPUmax, setInfoCPUmax] = useState(null);
+    const [infoCPUmin, setInfoCPUmin] = useState(null);
     const [open, setOpen] = React.useState({ open: false, currentImg: null });
     // eslint-disable-next-line no-unused-vars
     const [loading, setloading] = useState(true);
@@ -110,7 +114,7 @@ export default function SimpleContainer() {
             setLogstate(true);
 
         } else {
-            setLogstate(false)   
+            setLogstate(false)
         }
 
         db.collection("VideoGames")
@@ -118,25 +122,29 @@ export default function SimpleContainer() {
                 querySnapshot.forEach((doc) => {
                     let a = doc.data();
 
-                    if (doc.data().gpuMax) {
-                        doc.data().gpuMax.get().then((result) => { a.gpuMax = result.data() }
+                    buscarComponenetes();
+
+                    async function buscarComponenetes() {
+
+                        await doc.data().gpuMax.get().then((result) => { setInfoGPUmax(result.data()) }
+                        );
+
+
+
+                        await doc.data().gpuMin.get().then((result) => { setInfoGPUmin(result.data()) }
+                        );
+
+
+
+                        await doc.data().cpuMax.get().then((result) => { setInfoCPUmax(result.data()) }
+                        );
+
+
+                        await doc.data().cpuMin.get().then((result) => { setInfoCPUmin(result.data()) }
                         );
                     }
 
-                    if (doc.data().gpuMin) {
-                        doc.data().gpuMin.get().then((result) => { a.gpuMin = result.data() }
-                        );
-                    }
-
-                    if (doc.data().cpuMax) {
-                        doc.data().cpuMax.get().then((result) => { a.cpuMax = result.data() }
-                        );
-                    }
-                    if (doc.data().cpuMin) {
-                        doc.data().cpuMin.get().then((result) => { a.cpuMin = result.data() }
-                        );
-                    }
-
+                    
 
                     setproductoID(doc.id)
                     setInfo(a)
@@ -242,7 +250,7 @@ export default function SimpleContainer() {
                                                 {!info.promo && (info.price)}€</p>
                                         </Grid>
                                     </div>
-                                    {user.role === "ROLE_ADMIN" && (<Link className="buttonEdit " to={`/editGame/ ${productoID}`} ><div >
+                                    {!logState && user.role === "ROLE_ADMIN" && (<Link className="buttonEdit " to={`/editGame/ ${productoID}`} ><div >
                                         Edit Game
                                     </div></Link>)}
                                     {logState && (
@@ -312,18 +320,18 @@ export default function SimpleContainer() {
                         <h3>Requisitos Minimos</h3>
                         <ul>
                             <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {info.cpuMin && info.cpuMin.name}</li>
-                            <li>RAM: {info.ramMin}</li>
-                            <li>GPU: {info.gpuMin && info.gpuMin.name}</li>
+                            <li>Procesador: {infoCPUmin && infoCPUmin.name}</li>
+                            <li>RAM: {info.ramMin} GB</li>
+                            <li>GPU: {infoGPUmin && infoGPUmin.name}</li>
                             <li>Espacio: {info.discSpaces}</li>
                         </ul>
                         <br />
                         <h3>Requisitos Recomendados</h3>
                         <ul>
                             <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {info.cpuMax && info.cpuMax.name}</li>
-                            <li>RAM: {info.ramMax}</li>
-                            <li>GPU: {info.gpuMax && info.gpuMax.name}</li>
+                            <li>Procesador: {infoCPUmax && infoCPUmax.name}</li>
+                            <li>RAM: {info.ramMax} GB</li>
+                            <li>GPU: {infoGPUmax && infoGPUmax.name}</li>
                             <li>Espacio: {info.discSpaces}</li>
                         </ul>
                     </div>

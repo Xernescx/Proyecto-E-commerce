@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     alert: {
         width: '100%',
-        "& .MuiAlert-message":{color: 'red',},
+        "& .MuiAlert-message": { color: 'red', },
         '& > * + *': {
             marginTop: theme.spacing(2),
         },
@@ -59,7 +59,7 @@ const Login = () => {
     const onSubmit = async data => {//Metodo de auth de firestore
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(() => {
-                
+
                 // Existing and future Auth states are now persisted in the current
                 // session only. Closing the window would clear any existing state even
                 // if a user forgets to sign out.
@@ -70,7 +70,7 @@ const Login = () => {
             .catch((error) => {
                 // Handle Errors here.
             });
-        console.log(formState);
+        
     };
 
     const [formState, setFormState] = useState(initalStateValue);
@@ -95,7 +95,11 @@ const Login = () => {
                             }));
                         });
                     })
-                     window.location = '/home';
+
+                    setTimeout(function () {
+                        window.location = '/home';
+                    }, 100)
+
                 }
                 else {
                     setError("Correo no verificado, revise su correo")
@@ -156,7 +160,7 @@ const Login = () => {
                             className: classes.multilineColor
                         }}
                         ref={register({
-
+                            name: "password",
                             required: "Parametro requerido.",
 
                         })}
