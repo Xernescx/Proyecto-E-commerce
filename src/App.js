@@ -20,73 +20,89 @@ import Bar from './Componentes/Bar';
 import GpuFomr from './Componentes/GpuFomr/GpuFomr';
 import CpuForm from './Componentes/CpuForm/CpuForm';
 import Tabla from './Componentes/Tabla';
+import TablaPedidos from './Componentes/TablaPedidos';
+
+
+const isAuthenticated = () => {
+  const token = window.sessionStorage.getItem("user")
+
+  if (token !== undefined) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 const App = () => (
 
   <div className="main-container">
     <Router>
       <Navbar />
       <div className="containerBody">
-      <Switch>
-
-        <Route path="/home" >
+        <Switch>
+          {/* Parte publica */}
+          <Route path="/home" >
             <Destacados />
-        </Route>
+          </Route>
 
-        <Route path="/Login">
-          <Login />
-        </Route>
+          <Route path="/Login">
+            <Login />
+          </Route>
 
-        <Route path="/register">
-          <Register />
-        </Route>
-
-        <Route path="/profile">
-          <Profile />
-        </Route>
-
-        <Route path="/newGame">
-          <NewGame />
-        </Route>
-
-        <Route path="/product/:name">
+          <Route path="/product/:name">
             <Bar />
-            
             <ProductsName />
-        </Route>
+          </Route>
 
-        <Route exact path="/car">
-          <Carrito />
-        </Route>
-        {/* <Route path="/search">  :plataform 
+          <Route path="/search" >
             <Products />
-        </Route> */}
+          </Route>
 
-        <Route path="/search" >  {/*:name :plataform */}
-            <Products />
-        </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
 
-        <Route path="/formGpu" >  
-            <GpuFomr />
-        </Route>
+          {/* Parte usuario */}
+          <Route path="/profile">
+            <Profile />
+          </Route>
 
-        <Route path="/formCpu" >  
-            <CpuForm />
-        </Route>
+          <Route exact path="/car">
+            <Carrito />
+          </Route>
 
-        <Route path="/editGame:id">
-          <NewGame />
-        </Route>
-        
-        <Route path="/table/:variable" >  
-            <Tabla />
-        </Route>
+          <Route exact path="/pedidos">
+            <TablaPedidos />
+          </Route>
 
-        <Route path="/editGame/:id" >  
+
+           {/* Parte administradro */}
+          <Route path="/newGame">
             <NewGame />
-        </Route>
+          </Route>
 
-        <Redirect to="/home" />
-      </Switch>
+          <Route path="/formGpu" >
+            <GpuFomr />
+          </Route>
+
+          <Route path="/formCpu" >
+            <CpuForm />
+          </Route>
+
+          <Route path="/editGame:id">
+            <NewGame />
+          </Route>
+
+          <Route path="/table/:variable" >
+            <Tabla />
+          </Route>
+
+          <Route path="/editGame/:id" >
+            <NewGame />
+          </Route>
+
+          <Redirect to="/home" />
+        </Switch>
       </div>
       <Footer />
     </Router>

@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import { Typography } from '@material-ui/core';
+import { parse } from 'date-fns';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -254,6 +255,7 @@ const NewGame = () => {
                 discSpaces: formState.discSpaces,
                 price: formState.price,
                 promo: "",
+                stock:  parseFloat(formState.stock),
             });
             console.log(formState)
 
@@ -295,7 +297,7 @@ const NewGame = () => {
                             <br />
 
 
-                            <label className="file" id="src-file1">imagen de portadas
+                            <label className="file" id="src-file1">imagen de portada
                                 <input onChange={changeImagen}
                                     name="src-file1"
                                     type="file"
@@ -305,7 +307,7 @@ const NewGame = () => {
                             </label>
                             <br />
                             <br />
-                            <label className="file">imagenasondoasugkbdas
+                            <label className="file">Imagenes
                                 <input onChange={changeImagens}
                                     type="file"
                                     name="images"
@@ -345,6 +347,14 @@ const NewGame = () => {
                                 onChange={handleChange}
                             />
                             <br />
+
+                            <TextField label="Stock" name="stock"
+                                
+                                ref={register}
+                                onChange={handleChange}
+                            />
+                            <br />
+
 
                             <label className="labelForm" id="date">Fecha de salida
                                 <input className="inputForm"

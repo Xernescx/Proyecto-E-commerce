@@ -74,6 +74,7 @@ const theme = createMuiTheme({
 export default function SimpleContainer() {
 
     const [info, setInfo] = useState(null);
+    const [id, setID] = useState(null);
     const [infoGPUmax, setInfoGPUmax] = useState(null);
     const [infoGPUmin, setInfoGPUmin] = useState(null);
     const [infoCPUmax, setInfoCPUmax] = useState(null);
@@ -96,21 +97,30 @@ export default function SimpleContainer() {
 
         }).then(() => {
             console.log("Document successfully updated!");
-            window.location.href = "/car"
+
         })
             .catch((error) => {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
             });
 
+        db.collection("VideoGames").doc(id).update({
+            stock: parseFloat(info.stock - 1),
 
+        }).then(() => {
+            console.log("Document successfully updated!");
+
+        }).catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
 
     }
 
 
     useEffect(() => {
 
-        if (window.localStorage.getItem("user") === null) {
+        if (window.sessionStorage.getItem("user") === null) {
             setLogstate(true);
 
         } else {
@@ -120,6 +130,7 @@ export default function SimpleContainer() {
         db.collection("VideoGames")
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
+                    let id = doc.id;
                     let a = doc.data();
 
                     buscarComponenetes();
@@ -144,10 +155,11 @@ export default function SimpleContainer() {
                         );
                     }
 
-                    
+
 
                     setproductoID(doc.id)
                     setInfo(a)
+                    setID(id)
                 });
             });
 
@@ -263,9 +275,17 @@ export default function SimpleContainer() {
                                     )}
                                     {!logState && (
                                         <Link className="carritoImg" to="#">
-                                            <p onClick={putCar} className="buttonCar">
-                                                Añadir al carrito<AddShoppingCartIcon />
-                                            </p>
+                                            {info.stock > 0 && (
+                                                <p onClick={putCar} className="buttonCar">
+                                                    Añadir al carrito<AddShoppingCartIcon />
+                                                </p>
+                                            )}
+                                            {info.stock === 0 && (
+                                                <p disabled className="buttonCar">
+                                                    No hay stock
+                                                </p>
+                                            )}
+
 
                                         </Link>
 

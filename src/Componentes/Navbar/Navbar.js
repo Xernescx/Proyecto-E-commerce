@@ -213,6 +213,9 @@ export default function PrimarySearchAppBar() {
       <NavLink className='navLinkMenu' to="/profile">
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       </NavLink>
+      <NavLink className='navLinkMenu' to="/Pedidos">
+        <MenuItem onClick={handleMenuClose}>Historial de pedidos</MenuItem>
+      </NavLink>
       <MenuItem onClick={SingOutMethod}>Sing Out</MenuItem>
     </Menu>
   );
