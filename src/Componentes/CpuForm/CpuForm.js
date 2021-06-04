@@ -1,11 +1,11 @@
 import React from "react";
-import "./CpuForm.css";
 import { useState } from 'react';
 import { db } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CpuForm = props => {
   const classes = useStyles();
-
+  const [confirmet, setConfirmet] = useState();
   const { register, /* errors, */ handleSubmit } = useForm({});
 
 
@@ -101,7 +101,7 @@ const CpuForm = props => {
 
       });
       console.log(formState)
-
+      setConfirmet("Se Introducido los datos con exito")
 
 
     } catch (error) {
@@ -327,6 +327,7 @@ const CpuForm = props => {
               <button className="btn" type="submit" >Registar Cpu</button>
             </Grid>
           </form>
+          {confirmet && <Alert className={classes.succes} variant="outlined" severity="success">{confirmet}</Alert>}
         </div>
       </Grid>
     </div>

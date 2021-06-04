@@ -13,6 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import { Typography } from '@material-ui/core';
 import { parse } from 'date-fns';
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NewGame = () => {
     const classes = useStyles();
-
+    const [confirmet, setConfirmet] = useState();
     const { register, /* errors, */ handleSubmit } = useForm({});
 
     const state = {
@@ -258,7 +259,7 @@ const NewGame = () => {
                 stock:  parseFloat(formState.stock),
             });
             console.log(formState)
-
+            setConfirmet("Se Introducido los datos con exito")
 
 
         } catch (error) {
@@ -491,6 +492,7 @@ const NewGame = () => {
                         <button className="btn" type="submit" >registrarse</button>
                     </Grid>
                 </form>
+                {confirmet && <Alert className={classes.succes} variant="outlined" severity="success">{confirmet}</Alert>}
             </div>
 
         </div>

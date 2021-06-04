@@ -50,14 +50,14 @@ const useStyles = makeStyles((theme) => ({
     },
     alert: {
         width: '100%',
-        "& .MuiAlert-message":{color: 'red',},
+        "& .MuiAlert-message": { color: 'red', },
         '& > * + *': {
             marginTop: theme.spacing(2),
         },
     },
     succes: {
         width: '100%',
-        "& .MuiAlert-message":{color: 'green',},
+        "& .MuiAlert-message": { color: 'green', },
         '& > * + *': {
             marginTop: theme.spacing(2),
         },
@@ -129,11 +129,8 @@ const Register1 = () => {
                 setError2("Tienes que ser mayor de 18")
                 return;
             }
-            /* console.log(edad)
-            
-            console.log(n) */
 
-            const res =  await auth.createUserWithEmailAndPassword(formState.email, formState.password)
+            const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
 
             await db.collection('users').doc(res.user.uid).set({
                 email: formState.email,
@@ -164,10 +161,10 @@ const Register1 = () => {
 
         let user = auth.currentUser;
 
-       
 
 
-        
+
+
         user.sendEmailVerification().then(function () {
 
         }).catch(function (error) {
@@ -186,10 +183,10 @@ const Register1 = () => {
 
                 <form className={classes.root} onSubmit={handleSubmit(onSubmit)} >
 
-                    {error &&  <Alert className={classes.alert}  variant="outlined" severity="error">{error}</Alert>}
-                    {errors.email &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.email.message}</Alert>}
+                    {error && <Alert className={classes.alert} variant="outlined" severity="error">{error}</Alert>}
+                    {errors.email && <Alert className={classes.alert} variant="outlined" severity="error">{errors.email.message}</Alert>}
 
-                    <TextField name="email"  className={classes.sortFormLabel} id="standard-required" label="Email" 
+                    <TextField name="email" className={classes.sortFormLabel} id="standard-required" label="Email"
                         onChange={handleChange}
                         InputProps={{
                             className: classes.input
@@ -206,7 +203,7 @@ const Register1 = () => {
                         })}
 
                     />
-                    {errors.password &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.password.message}</Alert>}
+                    {errors.password && <Alert className={classes.alert} variant="outlined" severity="error">{errors.password.message}</Alert>}
                     <TextField name="password"
                         onChange={handleChange}
                         id="standard-password-input"
@@ -223,7 +220,7 @@ const Register1 = () => {
 
                         })}
                     />
-                    {errors.confirmPassword &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.confirmPassword.message}</Alert>}
+                    {errors.confirmPassword && <Alert className={classes.alert} variant="outlined" severity="error">{errors.confirmPassword.message}</Alert>}
                     <TextField
                         type="Password"
                         name="confirmPassword"
@@ -250,8 +247,8 @@ const Register1 = () => {
 
 
                     <MuiPickersUtilsProvider color="primary" utils={DateFnsUtils}>
-                        {error2 &&  <Alert className={classes.alert}  variant="outlined" severity="error">{error2}</Alert>}
-                        {errors.date &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.date.message}</Alert>}
+                        {error2 && <Alert className={classes.alert} variant="outlined" severity="error">{error2}</Alert>}
+                        {errors.date && <Alert className={classes.alert} variant="outlined" severity="error">{errors.date.message}</Alert>}
                         <KeyboardDatePicker
 
                             margin="normal"
@@ -266,7 +263,7 @@ const Register1 = () => {
                             ref={register({
                                 required: "Fecha de nacimiento requerdia.",
                             })}
-                        /> 
+                        />
                     </MuiPickersUtilsProvider>
 
                     <InputLabel htmlFor="age-native-simple">Pais</InputLabel>
@@ -537,9 +534,9 @@ const Register1 = () => {
                         <button className="btn" type="submit" >registrarse</button>
                     </Grid>
 
-                    {error &&  <Alert className={classes.alert}  variant="outlined" severity="error">{error}</Alert>}
-                    {errors.email &&  <Alert className={classes.alert}  variant="outlined" severity="error">{errors.email.message}</Alert>}
-                    {confirmet && <Alert className={classes.succes}  variant="outlined" severity="success">{confirmet}</Alert>}
+                    {error && <Alert className={classes.alert} variant="outlined" severity="error">{error}</Alert>}
+                    {errors.email && <Alert className={classes.alert} variant="outlined" severity="error">{errors.email.message}</Alert>}
+                    {confirmet && <Alert className={classes.succes} variant="outlined" severity="success">{confirmet}</Alert>}
                 </form>
 
             </div>

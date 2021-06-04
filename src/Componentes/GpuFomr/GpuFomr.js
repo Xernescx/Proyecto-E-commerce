@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from 'react';
-import "./GpuFomr.css";
 import { db } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Alert from "@material-ui/lab/Alert";
 
 
 
@@ -48,7 +48,7 @@ const GpuFomr = props => {
   const { register, /* errors, */ handleSubmit } = useForm({});
 
 
-
+  const [confirmet, setConfirmet] = useState();
   const [formState, setFormState] = useState();
   const handleChange = event => {
     setFormState({
@@ -97,7 +97,7 @@ const GpuFomr = props => {
 
       });
       console.log(formState)
-
+      setConfirmet("Se Introducido los datos con exito")
 
 
     } catch (error) {
@@ -276,6 +276,7 @@ const GpuFomr = props => {
               <button className="btn" type="submit" >Registrar Gpu</button>
             </Grid>
           </form>
+          {confirmet && <Alert className={classes.succes} variant="outlined" severity="success">{confirmet}</Alert>}
         </div>
       </Grid>
     </div>

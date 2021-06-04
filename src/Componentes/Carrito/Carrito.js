@@ -36,15 +36,17 @@ export default function SimpleContainer() {
   const userJ = JSON.parse(window.sessionStorage.getItem("user"));
   const [links, setLink] = useState([]);
   const [loading, setloading] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
+    let total = 0;
     setLink([])
 
     let user = firebase.auth().currentUser;
     if (user != null) {
 
     } else {
-      if (window.localStorage.getItem("user") === null) {
+      if (window.sessionStorage.getItem("user") === null) {
         window.location = '/home';
       } else {
         /* console.log("si hay log"); */
@@ -62,14 +64,11 @@ export default function SimpleContainer() {
             db.collection("VideoGames")
               .where("name", "==", element).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc1) => {
-
-                  console.log(doc1.data())
-
+                  /* console.log(doc1.data()) */
+                  total = parseFloat(doc1.data().price) + parseFloat(total)
+                  setTotalPrice(total)
                   setLink(links => [...links, doc1.data()])
                 });
-
-
-
 
               });
 
@@ -79,36 +78,52 @@ export default function SimpleContainer() {
 
       });
 
-      
+
 
     /* console.log(links) */
     setloading(false);
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  function removeItemFromArr ( arr, item ) {
-    var i = arr.indexOf( item );
-    arr.splice( i, 1 );
-}
+  function removeItemFromArr(arr, item) {
+    var i = arr.indexOf(item);
+    arr.splice(i, 1);
+  }
 
   const deleteCarList = (a) => {
     setloading(true);
     console.log(a)
-    removeItemFromArr(links, a );
+    removeItemFromArr(links, a);
     console.log(links)
     db.collection("users").doc(firebase.auth().currentUser.uid).update({
-        carrito: firebase.firestore.FieldValue.arrayRemove(a)
+      carrito: firebase.firestore.FieldValue.arrayRemove(a)
     }).then(() => {
-        console.log("Document successfully updated!");
+      console.log("Document successfully updated!");
+      window.location.reload();
     })
-    .catch((error) => {
+      .catch((error) => {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
-    });
+      });
     setloading(false);
-};
-  
+  };
+
+  const comprar = () => {
+    db.collection("users").doc(firebase.auth().currentUser.uid).update({
+      carrito: [],
+
+
+    }).then(() => {
+      console.log("Document successfully updated!");
+
+    })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
+
+  }
 
   const login = React.useCallback(async () => {
     console.log('Login')
@@ -152,7 +167,7 @@ export default function SimpleContainer() {
     >
       <div className="carrito " >
 
-        { links.length > 0 ? (links.map(link => {
+        {links.length > 0 ? (links.map(link => {
           /*  console.log('pepe') */
           return (
             <div className="carDiv" key={link.name}>
@@ -170,8 +185,8 @@ export default function SimpleContainer() {
                   </div>
 
                   <p className="priceCar">{link.promo && (((link.price - (link.price * link.promo) / 100)).toFixed(2))}{!link.promo && (link.price)}€</p>
-                  <IconButton  onClick={() => deleteCarList(link.name)}>
-                    <DeleteSweepIcon  className={classes.title} />
+                  <IconButton onClick={() => deleteCarList(link.name)}>
+                    <DeleteSweepIcon className={classes.title} />
                   </IconButton>
                 </div>
 
@@ -180,15 +195,20 @@ export default function SimpleContainer() {
             </div>
           )
 
-        })): (
+        })) : (
           <p className="Error404">No se han econtrado resultados</p>
         )}
 
 
+        <div className="carritoTotal">
+          <button className="" onClick={comprar} >Comprar</button>
+          <p>Total: {totalPrice} €</p>
 
+        </div>
 
 
       </div>
+
     </Grid>
   );
 

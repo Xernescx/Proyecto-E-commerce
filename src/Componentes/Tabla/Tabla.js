@@ -10,7 +10,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import { useParams } from 'react-router-dom';
 import { db } from '../FireBase/Firebase'
 import { createMuiTheme, Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -72,11 +71,10 @@ export default function EnhancedTable() {
     const classes = useStyles();
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('calories');
-    const [selected, setSelected] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [loading, setloading] = useState(true);
-    let tableType = useParams()
+
 
     const [rows, setRows] = useState([]);
 
@@ -210,6 +208,7 @@ export default function EnhancedTable() {
             userType: "ROLE_ADMIN"
         }).then(() => {
             console.log("Document successfully updated!");
+            window.location.reload();
         })
             .catch((error) => {
                 // The document probably doesn't exist.
@@ -239,14 +238,7 @@ export default function EnhancedTable() {
         setOrderBy(property);
     };
 
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
-    };
+
 
 
     const handleChangePage = (event, newPage) => {
@@ -260,7 +252,7 @@ export default function EnhancedTable() {
 
 
 
-    const isSelected = (name) => selected.indexOf(name) !== -1;
+
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -294,10 +286,9 @@ export default function EnhancedTable() {
                     >
                         <EnhancedTableHead
                             classes={classes}
-                            numSelected={selected.length}
+
                             order={order}
                             orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
                             rowCount={rows.length}
                         />
@@ -305,14 +296,12 @@ export default function EnhancedTable() {
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
+
 
                                     return (
                                         <TableRow
-                                            aria-checked={isItemSelected}
                                             tabIndex={-1}
                                             key={row.name}
-                                            selected={isItemSelected}
                                         >
 
                                             <TableCell >{row.id}</TableCell>

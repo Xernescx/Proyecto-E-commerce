@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import './Login.css';
 import { auth, db } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 import { useForm } from "react-hook-form";
