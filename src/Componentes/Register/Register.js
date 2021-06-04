@@ -74,6 +74,7 @@ const Register1 = () => {
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        /* console.log( date.getDate()+ "/"+ (date.getMonth()+1) + "/"+  date.getFullYear()) */
     };
 
 
@@ -138,7 +139,7 @@ const Register1 = () => {
                 email: formState.email,
                 name: formState.name,
                 lastName: formState.lastName,
-                date: selectedDate,
+                date: selectedDate /* (selectedDate.getDate()+ "/"+ (selectedDate.getMonth()+1) + "/"+  selectedDate.getFullYear()) */,
                 country: formState.country,
                 userType: "ROLE_USER",
                 gpu: "",

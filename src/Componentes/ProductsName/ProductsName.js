@@ -140,16 +140,11 @@ export default function SimpleContainer() {
                         await doc.data().gpuMax.get().then((result) => { setInfoGPUmax(result.data()) }
                         );
 
-
-
                         await doc.data().gpuMin.get().then((result) => { setInfoGPUmin(result.data()) }
                         );
 
-
-
                         await doc.data().cpuMax.get().then((result) => { setInfoCPUmax(result.data()) }
                         );
-
 
                         await doc.data().cpuMin.get().then((result) => { setInfoCPUmin(result.data()) }
                         );

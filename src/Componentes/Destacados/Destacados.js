@@ -39,9 +39,9 @@ export default function SimpleContainer() {
   const classes = useStyles();
   const [links, setLink] = useState([]);
   const [loading, setloading] = useState(true);
-  const [page, setPage] = React.useState(1)
+  const [page, setPage] = useState(1)
   // eslint-disable-next-line no-unused-vars
-  const [data, setdata] = React.useState({
+  const [data, setdata] = useState({
     total: 0,
     paginas: 0,
     porPagina: 18,
