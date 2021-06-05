@@ -151,7 +151,10 @@ const Profile = () => {
                     querySnapshot.forEach((doc) => {
                         /*  console.log(doc.data().preuba);
                          console.log(doc); */
-                        setSelectedDate(doc.data().date)
+
+                         let date = doc.data().date.toDate()
+                         let newDate = date.getDay() + "/"+ date.getMonth() +"/"+date.getFullYear()
+                        setSelectedDate(newDate)
 
 
 

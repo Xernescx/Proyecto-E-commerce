@@ -35,6 +35,8 @@ export default function SimpleContainer() {
   const classes = useStyles();
   const userJ = JSON.parse(window.sessionStorage.getItem("user"));
   const [links, setLink] = useState([]);
+  const [id, setID] = useState({});
+  const [price, setPrice] = useState([]);
   const [loading, setloading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -55,11 +57,11 @@ export default function SimpleContainer() {
     }
     db.collection("users").where("email", "==", userJ.email)
       .orderBy("carrito", "asc").get().then((querySnapshot) => {
-
+        let games = [];
         querySnapshot.forEach((doc) => {
 
           doc.data().carrito.forEach(element => {
-
+          
 
             db.collection("VideoGames")
               .where("name", "==", element).get().then((querySnapshot) => {
@@ -67,18 +69,14 @@ export default function SimpleContainer() {
                   /* console.log(doc1.data()) */
                   total = parseFloat(doc1.data().price) + parseFloat(total)
                   setTotalPrice(total)
+                  games.push({ name: doc1.data().name, price: doc1.data().price})
                   setLink(links => [...links, doc1.data()])
                 });
-
               });
-
           });
-
+          setID(games)
         });
-
       });
-
-
 
     /* console.log(links) */
     setloading(false);
@@ -110,13 +108,32 @@ export default function SimpleContainer() {
   };
 
   const comprar = () => {
+
+    db.collection("pedidos").add({
+      user: db.collection("users").doc(firebase.auth().currentUser.uid),
+      date: new Date(),
+      total: parseFloat(totalPrice),
+      games: id,
+
+
+    }).then(() => {
+      console.log("Document successfully updated!");
+
+    })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+        return;
+      });
+
+
     db.collection("users").doc(firebase.auth().currentUser.uid).update({
       carrito: [],
 
 
     }).then(() => {
       console.log("Document successfully updated!");
-
+      window.location = "/pedidos"
     })
       .catch((error) => {
         // The document probably doesn't exist.

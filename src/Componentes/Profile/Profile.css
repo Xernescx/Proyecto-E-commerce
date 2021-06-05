@@ -14,7 +14,8 @@
     flex-direction: column;
     border-radius: 10px;
     background-color: #212529;
-    text-align: center
+    text-align: center;
+    height: 360px;
 }
 .adminControl a, .adminControl a:hover, .adminControl a:visited, .adminControl a:active{
     color:black;
