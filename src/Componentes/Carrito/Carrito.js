@@ -112,40 +112,6 @@ export default function SimpleContainer() {
     setloading(false);
   };
 
-  /* const comprar = () => {
-
-    db.collection("pedidos").add({
-      user: db.collection("users").doc(firebase.auth().currentUser.uid),
-      date: new Date(),
-      total: parseFloat(totalPrice),
-      games: id
-
-
-    }).then(() => {
-      console.log("Document successfully updated!");
-
-    })
-      .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-        return;
-      });
-
-
-    db.collection("users").doc(firebase.auth().currentUser.uid).update({
-      carrito: [],
-
-
-    }).then(() => {
-      console.log("Document successfully updated!");
-      window.location = "/pedidos"
-    })
-      .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      });
-
-  } */
 
   const login = React.useCallback(async () => {
     console.log('Login')

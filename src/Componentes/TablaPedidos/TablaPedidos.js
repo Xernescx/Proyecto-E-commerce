@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { db } from '../FireBase/Firebase'
 import PropTypes from 'prop-types';
-import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,22 +26,10 @@ const useRowStyles = makeStyles({
         },
     },
 });
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#ac4caf',
-        },
-        secondary: {
-            main: '#ac4caf'
-
-        }
-
-    },
-
-})
 
 
-const useStyles = makeStyles((theme) => ({
+
+const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
         margin: "2%"

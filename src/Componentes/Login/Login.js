@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +43,13 @@ const useStyles = makeStyles((theme) => ({
             marginTop: theme.spacing(2),
         },
     },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 }));
+
 
 
 
@@ -53,8 +60,9 @@ const Login = () => {
         password: '',
     }
     const [error, setError] = useState(null);
+    const [send, setSend] = useState();
     const { register, errors, handleSubmit } = useForm({});
-
+    const [open, setOpen] = React.useState({ open: false });
     const onSubmit = async data => {//Metodo de auth de firestore
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(() => {
@@ -69,7 +77,7 @@ const Login = () => {
             .catch((error) => {
                 // Handle Errors here.
             });
-        
+
     };
 
     const [formState, setFormState] = useState(initalStateValue);
@@ -78,6 +86,25 @@ const Login = () => {
             ...formState,
             [event.target.name]: event.target.value,
         })
+    }
+
+    const activateModal = () => {
+        setOpen({ open: true })
+    }
+
+    const closeModal = () => {
+        setOpen({ open: false })
+    }
+
+    const forgotPassword = (email) => {
+        let auth = firebase.auth();
+        let emailAddress = email;
+
+        auth.sendPasswordResetEmail(emailAddress).then(function () {
+           setSend("Se ha enviado un correo a tu cuenta")
+        }).catch(function (error) {
+            // An error happened.
+        });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -174,6 +201,36 @@ const Login = () => {
                     >
                         <button className="btn" type="submit">Entrar</button>
                     </Grid>
+                    <p className="forgot" onClick={activateModal}>Se me olvido mi contraseña</p>
+                    <Modal
+                        className={classes.modal}
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        open={open.open}
+                        onClose={closeModal}
+                    >
+                        <div className={classes.root + " modalStyle"}>
+
+                            <TextField underline={false} className={classes.sortFormLabel} id="standard-required" label="email" name="email"
+                                onChange={handleChange}
+                                InputProps={{
+                                    className: classes.input
+                                }}
+
+                                ref={register({
+                                    name: 'email',
+                                    required: "Parametro requerido.",
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "Caracteres no validos."
+                                    },
+                                })}
+                            />
+
+                            <button className="btn" onClick={() => forgotPassword(formState.email)}>Enviar correo</button>
+                            {send && <Alert severity="success">{send}</Alert>}
+                        </div>
+                    </Modal>
 
                     <div className={classes.alert}>
                         {errors.password && <Alert severity="error">{errors.password.message}</Alert>}

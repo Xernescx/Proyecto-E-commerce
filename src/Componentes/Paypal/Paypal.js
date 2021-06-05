@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { db, auth } from '../FireBase/Firebase'
+import { db } from '../FireBase/Firebase'
 import firebase from 'firebase/app';
 
 

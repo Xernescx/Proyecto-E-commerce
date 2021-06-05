@@ -18,6 +18,20 @@
 
 }
 
+.modalStyle{
+  padding: 5%;
+  background-color:#212529;
+  display: flex;
+  justify-content:center;
+  flex-direction:column;
+    
+}
+
+.forgot{
+  color: rgb(163, 8, 184);
+  cursor: pointer;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

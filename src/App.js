@@ -23,7 +23,7 @@ import Tabla from './Componentes/Tabla';
 import TablaPedidos from './Componentes/TablaPedidos';
 
 
-const isAuthenticated = () => {
+/* const isAuthenticated = () => {
   const token = window.sessionStorage.getItem("user")
 
   if (token !== undefined) {
@@ -31,7 +31,7 @@ const isAuthenticated = () => {
   } else {
     return false;
   }
-}
+} */
 
 const App = () => (
 

@@ -105,17 +105,6 @@ export default function SimpleContainer() {
                 console.error("Error updating document: ", error);
             });
 
-      /*   db.collection("VideoGames").doc(id).update({
-            stock: parseFloat(info.stock - 1),
-
-        }).then(() => {
-            console.log("Document successfully updated!");
-
-        }).catch((error) => {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-        }); */
-
     }
 
 

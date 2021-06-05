@@ -78,16 +78,7 @@ const Profile = () => {
     const classes = useStyles();
     const { register, handleSubmit } = useForm({});
     const [selectedDate, setSelectedDate] = React.useState(new Date());
-    var email1;
-    const [userState, setUserState] = useState({
-        name: "",
-        email: "",
-        password: "",
-        date: "",
-        country: "",
-        lastName: "",
-    });
-
+    const [userState, setUserState] = useState({});
     const [formState, setFormState] = useState();
     const [form1State, setFormState1] = useState();
     const [gpu, setGpu] = useState([])
@@ -108,7 +99,7 @@ const Profile = () => {
         })
 
     }
-  
+
 
 
     const onSubmit = async data => {
@@ -142,18 +133,15 @@ const Profile = () => {
                     window.location = '/home';
                 }
             }
-            if (user != null) {
-                email1 = user.email;
-            }
 
-            db.collection("users").where("email", "==", email1)
+            db.collection("users").where("email", "==", user.email)
                 .onSnapshot((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         /*  console.log(doc.data().preuba);
                          console.log(doc); */
 
-                         let date = doc.data().date.toDate()
-                         let newDate = date.getDay() + "/"+ date.getMonth() +"/"+date.getFullYear()
+                        let date = doc.data().date.toDate()
+                        let newDate = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear()
                         setSelectedDate(newDate)
 
 
@@ -228,7 +216,7 @@ const Profile = () => {
         console.log()
     }, [])
 
-   
+
 
     const pcUser = () => {
         console.log(form1State)
@@ -310,7 +298,7 @@ const Profile = () => {
                                     className: classes.multilineColor
                                 }}
 
-                                
+
                             />
 
                             <InputLabel className={classes.root} >Cpu Min</InputLabel>
@@ -410,7 +398,7 @@ const Profile = () => {
                                     id="date-picker-dialog"
                                     label="Date picker dialog"
                                     format="dd/MM/yyyy"
-                                    helperText={''} 
+                                    helperText={''}
                                     value={selectedDate}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
