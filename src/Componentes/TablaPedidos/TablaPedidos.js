@@ -54,7 +54,7 @@ export default function CollapsibleTable() {
 
                 if (param.admin === "all") {
 
-                    db.collection("pedidos").orderBy("email").get().then((querySnapshot) => {
+                    db.collection("pedidos").where("user", ">=", " ").get().then((querySnapshot) => {
                         let row = [];
                         querySnapshot.forEach((doc) => {
                             let date = doc.data().date.toDate()
@@ -73,7 +73,7 @@ export default function CollapsibleTable() {
                                     history: doc.data().games,
                                 };
                             }
-                            console.log(row);
+
 
 
                         })
@@ -87,7 +87,7 @@ export default function CollapsibleTable() {
                             querySnapshot.forEach((doc) => {
                                 let date = doc.data().date.toDate()
                                 let newDate = (date.getDay() - 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-                                console.log(doc.data())
+
                                 row.push(createData(doc.id, newDate, doc.data().total))
 
 
@@ -136,7 +136,7 @@ export default function CollapsibleTable() {
                     <TableCell component="th" scope="row">
                         {row.id}
                     </TableCell>
-                    {param.admin === "all" && (<TableCell align="right">{row.email}</TableCell>)}
+                    {/* {param.admin === "all" && (<TableCell align="right">{row.email}</TableCell>)} */}
                     <TableCell align="right">{row.fecha}</TableCell>
                     <TableCell align="right">{row.total}€</TableCell>
 
@@ -213,7 +213,7 @@ export default function CollapsibleTable() {
                         <TableRow>
                             <TableCell />
                             <TableCell>ID</TableCell>
-                            {param.admin === "all" && (<TableCell align="right">Email</TableCell>)}
+                            {/*  {param.admin === "all" && (<TableCell align="right">Email</TableCell>)} */}
                             <TableCell align="right">Fecha</TableCell>
                             <TableCell align="right">Total</TableCell>
 
