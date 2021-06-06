@@ -749,9 +749,9 @@ export default function SimpleContainer() {
                                                 {!info.promo && (info.price)}€</p>
                                         </Grid>
                                     </div>
-                                    {!logState && user.role === "ROLE_ADMIN" && (<Link className="buttonEdit " to={`/editGame/ ${productoID}`} ><div >
+                                    {/*  {!logState && user.role === "ROLE_ADMIN" && (<Link className="buttonEdit " to={`/editGame/ ${productoID}`} ><div >
                                         Edit Game
-                                    </div></Link>)}
+                                    </div></Link>)} */}
                                     {logState && (
                                         <Link className="carritoImg" to="/login">
                                             <p className="buttonCar">
