@@ -116,6 +116,7 @@ export default function CollapsibleTable() {
 
 
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
