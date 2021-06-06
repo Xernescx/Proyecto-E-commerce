@@ -54,6 +54,30 @@
 
     
 }
+
+.tableGames{
+    overflow-x:auto;
+}
+
+.tableGames tr {
+    border: 1px solid rgb(196, 0, 0);
+   
+}
+
+.tableGames td{
+    padding: 10px 50px;
+    border-radius: 20px
+}
+
+.tableGames .reqName{
+    background-color: #2f3135;
+}
+.tableGames table{
+    border-collapse: separate;
+    width: 700px;
+
+}
+
 .carritoImg:active, .carritoImg:visited,  .carritoImg:link{
     text-decoration: none;
     color: white;
@@ -163,6 +187,13 @@
     font-size: 24px;
     
 
+}
+
+.positive{
+    background-color: rgba(40, 170, 14, 0.336);
+}
+.negative{
+    background-color: rgba(170, 14, 14, 0.336);
 }
 
 

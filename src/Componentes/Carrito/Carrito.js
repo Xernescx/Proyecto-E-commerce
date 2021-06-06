@@ -2,7 +2,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
-import { db, auth } from '../FireBase/Firebase'
+import { db} from '../FireBase/Firebase'
 import { Link } from 'react-router-dom'
 import "./Carrito.css";
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';

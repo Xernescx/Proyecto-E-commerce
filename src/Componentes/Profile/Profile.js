@@ -84,7 +84,7 @@ const Profile = () => {
     const [gpu, setGpu] = useState([])
     const [cpu, setCpu] = useState([])
     const [gpuU, setGpuU] = useState({})
-
+    const [cpuU, setCpuU] = useState({})
     const handleChange = event => {
         setFormState({
             ...formState,
@@ -147,14 +147,24 @@ const Profile = () => {
 
 
                         if (doc.data().cpu !== "") {
+
                             db.collection("Cpu").doc(doc.data().cpu.id).get().then((doc) => {
-                                setGpuU(doc.data())
+                                
+                                let data = {
+                                    id: doc.id,
+                                    name: doc.data().name
+                                };
+                                setCpuU(data)
                             })
                         }
 
                         if (doc.data().gpu !== "") {
                             db.collection("Gpu").doc(doc.data().gpu.id).get().then((doc) => {
-                                setGpuU(doc.data())
+                                let data = {
+                                    id: doc.id,
+                                    name: doc.data().name
+                                };
+                                setGpuU(data)
                             })
                         }
 
@@ -168,8 +178,8 @@ const Profile = () => {
                             lastName: doc.data().lastName,
                             country: doc.data().country,
                             date: doc.data().date,
-                            cpu: cpu,
-                            gpu: gpu,
+                            cpu: doc.data().cpu,
+                            gpu: doc.data().gpu,
                             ram: doc.data().ram,
                             role: doc.data().userType
                         })
@@ -276,7 +286,7 @@ const Profile = () => {
                                 onChange={formChange}
                                 name="cpu"
                             >
-                                <option select="true" value={gpuU.id}>{gpuU.name}</option>
+                                <option select="true" value={cpuU.id} > {cpuU.name} </option>
                                 <option disabled value="">-----------------------------</option>
                                 {cpu.map(cpu => {
                                     return (
@@ -290,9 +300,9 @@ const Profile = () => {
                                 onChange={formChange}
                                 className={classes.color}
                                 label="Ram"
-                                type="number"
-                                defaultValue="ram"
-                                value={userState.ram}
+                                name="ram"
+                                defaultValue={userState.ram}
+                                placeholder={userState.ram}
                                 InputLabelProps={{ shrink: true }}
                                 InputProps={{
                                     className: classes.multilineColor
@@ -301,7 +311,7 @@ const Profile = () => {
 
                             />
 
-                            <InputLabel className={classes.root} >Cpu Min</InputLabel>
+                            <InputLabel className={classes.root} >Gpu Min</InputLabel>
                             <Select
                                 native
 
@@ -311,7 +321,7 @@ const Profile = () => {
                                 }}
                                 onChange={formChange}
                             >
-                                <option select="true" value={gpuU.id}>{gpuU.name}</option>
+                                <option select="true" value={gpuU.id} > {gpuU.name} </option>
                                 <option disabled value="">-----------------------------</option>
                                 {gpu.map(gpu => {
                                     return (

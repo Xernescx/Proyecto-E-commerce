@@ -17,6 +17,9 @@ import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import firebase from 'firebase/app';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { Box } from '@material-ui/core';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +82,19 @@ export default function SimpleContainer() {
     const [infoGPUmin, setInfoGPUmin] = useState(null);
     const [infoCPUmax, setInfoCPUmax] = useState(null);
     const [infoCPUmin, setInfoCPUmin] = useState(null);
+    const [progreso, setProgreso] = useState(0);
+    const [userState, setUserState] = useState({});
+    const [gpuU, setGpuU] = useState({})
+    const [cpuU, setCpuU] = useState({})
+
+    const [stateGpuMax, setStateGpuMax] = useState("")
+    const [stateGpuMin, setStateGpuMin] = useState("")
+    const [stateCpuMax, setStateCpuMax] = useState("")
+    const [stateRamMax, setStateRamMax] = useState("")
+    const [stateRamMin, setStateRamMin] = useState("")
+    const [stateCpuMin, setStateCpuMin] = useState("")
+
+
     const [open, setOpen] = React.useState({ open: false, currentImg: null });
     // eslint-disable-next-line no-unused-vars
     const [loading, setloading] = useState(true);
@@ -107,6 +123,458 @@ export default function SimpleContainer() {
 
     }
 
+    const comparar = () => {
+        if (userState.cpu === "" || userState.gpu === "" || userState.ram === "") {
+            alert("No se encontro componenetes, ve a tu perfil para configurarlos ")
+            return
+        } else {
+            if (info.ramMin <= userState.ram) {
+                setStateRamMin("positive")
+            } else {
+                setStateRamMin("negatice")
+            }
+            setProgreso(5)
+            if (info.ramMax <= userState.ram) {
+                setStateRamMax("positive")
+            } else {
+                setStateRamMax("negative")
+            }
+            setProgreso(10)
+            let cpuMinState = 0;
+            if (infoCPUmin.semiConductores >= cpuU.semiConductores) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.velocidadRProcesador <= cpuU.velocidadRProcesador) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.tdp >= cpuU.tdp) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.pcie <= cpuU.pcie) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.directx <= cpuU.directx) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.transistores <= cpuU.transistores) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.opengl <= cpuU.opengl) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.opencl <= cpuU.opencl) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.turboGPU <= cpuU.turboGPU) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.velocidadGPU <= cpuU.velocidadGPU) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.hilos <= cpuU.hilos) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.cachel2 <= cpuU.cachel2) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.velocidadRProcesadorTurbo <= cpuU.velocidadRProcesadorTurbo) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.cachel3 <= cpuU.cachel3) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.cachel1 <= cpuU.cachel1) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.nucleol2 <= cpuU.nucleol2) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.nucleol3 <= cpuU.nucleol3) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.multiplicadorR <= cpuU.multiplicadorR) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.velocidadMemoriaRam <= cpuU.velocidadMemoriaRam) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.canalesMemoria <= cpuU.canalesMemoria) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.tamañoDeMemoria <= cpuU.tamañoDeMemoria) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (infoCPUmin.trasferencias <= cpuU.trasferencias) {
+                cpuMinState++;
+            } else {
+                cpuMinState--;
+            }
+            if (cpuMinState >= 0) {
+                setStateCpuMin("positive")
+            } else {
+                setStateCpuMin("negative")
+            }
+            setProgreso(34)
+            let cpuMaxState = 0;
+            if (infoCPUmax.semiConductores >= cpuU.semiConductores) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.velocidadRProcesador <= cpuU.velocidadRProcesador) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.tdp >= cpuU.tdp) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.pcie <= cpuU.pcie) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.directx <= cpuU.directx) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.transistores <= cpuU.transistores) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.opengl <= cpuU.opengl) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.opencl <= cpuU.opencl) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.turboGPU <= cpuU.turboGPU) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.velocidadGPU <= cpuU.velocidadGPU) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.hilos <= cpuU.hilos) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.cachel2 <= cpuU.cachel2) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.velocidadRProcesadorTurbo <= cpuU.velocidadRProcesadorTurbo) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.cachel3 <= cpuU.cachel3) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.cachel1 <= cpuU.cachel1) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.nucleol2 <= cpuU.nucleol2) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.nucleol3 <= cpuU.nucleol3) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.multiplicadorR <= cpuU.multiplicadorR) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.velocidadMemoriaRam <= cpuU.velocidadMemoriaRam) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.canalesMemoria <= cpuU.canalesMemoria) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.tamañoDeMemoria <= cpuU.tamañoDeMemoria) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (infoCPUmax.trasferencias <= cpuU.trasferencias) {
+                cpuMaxState++;
+            } else {
+                cpuMaxState--;
+            }
+            if (cpuMaxState >= 0) {
+                setStateCpuMax("positive")
+            } else {
+                setStateCpuMax("negative")
+            }
+            setProgreso(62)
+
+            let gpuMaxState = 0;
+            if (infoGPUmax.tdp <= gpuU.tdp) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.transistores <= gpuU.transistores) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.semiConductores >= gpuU.semiConductores) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.velocidadRProcesador <= gpuU.velocidadRProcesador) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.indiceDePixeles <= gpuU.indiceDePixeles) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.puntoFlotante <= gpuU.puntoFlotante) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.velocidadMemoriaGpu <= gpuU.velocidadMemoriaGpu) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.indiceTextura <= gpuU.indiceTextura) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.unidadesDeTonalidad <= gpuU.unidadesDeTonalidad) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.tmus <= gpuU.tmus) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.turboGpu <= gpuU.turboGpu) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.rops <= gpuU.rops) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.velocidadMemoriaEfectiva <= gpuU.velocidadMemoriaEfectiva) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.memoriaMaximaAnchoBanda <= gpuU.memoriaMaximaAnchoBanda) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.ram <= gpuU.ram) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.capacidadBus <= gpuU.capacidadBus) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmax.memoriaGDD <= gpuU.memoriaGDD) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (gpuMaxState >= 0) {
+                setStateGpuMax("positive")
+            } else {
+                setStateGpuMax("negative")
+            }
+            setProgreso(84)
+
+            let gpuMinState = 0;
+            if (infoGPUmin.tdp <= gpuU.tdp) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.transistores <= gpuU.transistores) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.semiConductores >= gpuU.semiConductores) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.velocidadRProcesador <= gpuU.velocidadRProcesador) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.indiceDePixeles <= gpuU.indiceDePixeles) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmax.puntoFlotante <= gpuU.puntoFlotante) {
+                gpuMaxState++;
+            } else {
+                gpuMaxState--;
+            }
+            if (infoGPUmin.velocidadMemoriaGpu <= gpuU.velocidadMemoriaGpu) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.indiceTextura <= gpuU.indiceTextura) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.unidadesDeTonalidad <= gpuU.unidadesDeTonalidad) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.tmus <= gpuU.tmus) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.turboGpu <= gpuU.turboGpu) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.rops <= gpuU.rops) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.velocidadMemoriaEfectiva <= gpuU.velocidadMemoriaEfectiva) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.memoriaMaximaAnchoBanda <= gpuU.memoriaMaximaAnchoBanda) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.ram <= gpuU.ram) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.capacidadBus <= gpuU.capacidadBus) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (infoGPUmin.memoriaGDD <= gpuU.memoriaGDD) {
+                gpuMinState++;
+            } else {
+                gpuMinState--;
+            }
+            if (gpuMinState >= 0) {
+                setStateGpuMin("positive")
+            } else {
+                setStateGpuMin("negative")
+            }
+            setProgreso(100)
+
+            if (stateCpuMin === "positive" && stateGpuMin === "positive" && stateRamMin === "positive") {
+
+            } else {
+
+            }
+
+            if (stateCpuMax === "positive" && stateGpuMax === "positive" && stateRamMax === "positive") {
+
+            } else {
+
+            }
+
+        }
+    }
 
     useEffect(() => {
 
@@ -147,6 +615,40 @@ export default function SimpleContainer() {
                     setID(id)
                 });
             });
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                db.collection("users").where("email", "==", user.email)
+                    .onSnapshot((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+
+                            if (doc.data().cpu !== "") {
+                                db.collection("Cpu").doc(doc.data().cpu.id).get().then((doc) => {
+                                    setCpuU(doc.data())
+                                })
+                            }
+
+                            if (doc.data().gpu !== "") {
+                                db.collection("Gpu").doc(doc.data().gpu.id).get().then((doc) => {
+                                    setGpuU(doc.data())
+                                })
+                            }
+
+                            setUserState({
+                                cpu: cpuU,
+                                gpu: gpuU,
+                                ram: doc.data().ram,
+                            })
+
+
+                        });
+                        console.log(userState)
+                    });
+            } else {
+
+            }
+        })
+
 
         setloading(false);
 
@@ -320,25 +822,93 @@ export default function SimpleContainer() {
                         <br />
                         <p>{info.description}</p>
                         <br />
-                        <h2>Requisitos</h2>
+
+                        <div className="tableGames">
+
+                            {userState && (
+                                <Box display="flex" alignItems="center">
+                                    <button onClick={comparar} className="btn" > Combarar </button>
+                                    <Box width="100%" mr={1}>
+                                        <LinearProgress variant="determinate" value={progreso} />
+                                    </Box>
+                                </Box>
+                            )}
+
+                            <table   >
+                                <thead> Requisitos Minimo</thead>
+                                <tbody>
+                                    <tr>
+                                        <th ></th>
+                                        <th>Minimos</th>
+                                        <th>Tu Pc</th>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">SO</td>
+                                        <td> {info.so}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">Procesador</td>
+                                        <td>{infoCPUmin && infoCPUmin.name}</td>
+                                        <td className={stateCpuMin}>{userState && cpuU.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">RAM</td>
+                                        <td>{info.ramMin} GB</td>
+                                        <td className={stateRamMin} >{userState && userState.ram} GB</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">GPU</td>
+                                        <td>{infoGPUmin && infoGPUmin.name}</td>
+                                        <td className={stateGpuMin}>{userState && gpuU.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">Espacio</td>
+                                        <td>{info.discSpaces}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <br />
-                        <h3>Requisitos Minimos</h3>
-                        <ul>
-                            <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {infoCPUmin && infoCPUmin.name}</li>
-                            <li>RAM: {info.ramMin} GB</li>
-                            <li>GPU: {infoGPUmin && infoGPUmin.name}</li>
-                            <li>Espacio: {info.discSpaces}</li>
-                        </ul>
-                        <br />
-                        <h3>Requisitos Recomendados</h3>
-                        <ul>
-                            <li>Sistema Operativo: {info.so}</li>
-                            <li>Procesador: {infoCPUmax && infoCPUmax.name}</li>
-                            <li>RAM: {info.ramMax} GB</li>
-                            <li>GPU: {infoGPUmax && infoGPUmax.name}</li>
-                            <li>Espacio: {info.discSpaces}</li>
-                        </ul>
+                        <div className="tableGames">
+                            <table >
+                                <thead> Requisitos Recomendados</thead>
+                                <tbody>
+                                    <tr >
+                                        <th></th>
+                                        <th>Recomendados</th>
+                                        <th>Tu Pc</th>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">SO</td>
+                                        <td> {info.so}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">Procesador</td>
+                                        <td>{infoCPUmax && infoCPUmax.name}</td>
+                                        <td className={stateCpuMax}>{userState && cpuU.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">RAM</td>
+                                        <td > {info.ramMax} GB</td>
+                                        <td className={stateRamMax} >{userState && userState.ram}  GB</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">GPU</td>
+                                        <td>{infoGPUmax && infoGPUmax.name}</td>
+                                        <td className={stateGpuMax}>{userState && gpuU.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="reqName">Espacio</td>
+                                        <td>{info.discSpaces}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             </div>
