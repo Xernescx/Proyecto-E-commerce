@@ -70,7 +70,7 @@ const PaypalClass = ({ order }) => {
     const comprar = () => {
 
         db.collection("pedidos").add({
-            user: db.collection("users").doc(firebase.auth().currentUser.uid),
+            user: firebase.auth().currentUser.email,
             date: new Date(),
             total: parseFloat(order.total),
             games: order.items

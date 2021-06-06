@@ -35,7 +35,6 @@ export default function SimpleContainer() {
   const classes = useStyles();
   const userJ = JSON.parse(window.sessionStorage.getItem("user"));
   const [links, setLink] = useState([]);
-  const [id, setID] = useState({});
   const [order, setOrder] = useState({});
   const [loading, setloading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -70,11 +69,9 @@ export default function SimpleContainer() {
               });
               setOrder({
                 customer: userJ.email,
-                total: parseFloat(totalPrice),
-                items: id
+                total: totalPrice,
+                items: games,
               })
-
-              setID(games)
             });
           });
         /* console.log(links) */

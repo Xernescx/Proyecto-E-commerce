@@ -76,7 +76,11 @@ const App = () => (
           </Route>
 
 
-           {/* Parte administradro */}
+          {/* Parte administradro */}
+          <Route exact path="/pedidos/:admin">
+            <TablaPedidos />
+          </Route>
+
           <Route path="/newGame">
             <NewGame />
           </Route>

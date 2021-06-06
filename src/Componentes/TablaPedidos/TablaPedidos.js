@@ -17,6 +17,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useEffect } from 'react';
 import firebase from 'firebase/app';
+import { useParams } from 'react-router-dom';
 
 
 const useRowStyles = makeStyles({
@@ -40,7 +41,7 @@ const useStyles = makeStyles(() => ({
 export default function CollapsibleTable() {
     const [rows, setRows] = useState([]);
     const classes = useStyles();
-
+    const param = useParams()
 
 
 
@@ -49,14 +50,19 @@ export default function CollapsibleTable() {
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                const userID = db.collection('users').doc(user.uid);
-                db.collection("pedidos").where("user", "==", userID)
-                    .get().then((querySnapshot) => {
+
+
+                if (param.admin === "all") {
+
+                    db.collection("pedidos").orderBy("email").get().then((querySnapshot) => {
                         let row = [];
                         querySnapshot.forEach((doc) => {
                             let date = doc.data().date.toDate()
                             let newDate = (date.getDay() - 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+
+
                             row.push(createData(doc.id, newDate, doc.data().total))
+
 
 
                             function createData(id, fecha, total) {
@@ -67,13 +73,40 @@ export default function CollapsibleTable() {
                                     history: doc.data().games,
                                 };
                             }
-
+                            console.log(row);
 
 
                         })
                         setRows(row.reverse())
                     })
 
+                } else {
+                    db.collection("pedidos").where("user", "==", firebase.auth().currentUser.email)
+                        .get().then((querySnapshot) => {
+                            let row = [];
+                            querySnapshot.forEach((doc) => {
+                                let date = doc.data().date.toDate()
+                                let newDate = (date.getDay() - 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+                                console.log(doc.data())
+                                row.push(createData(doc.id, newDate, doc.data().total))
+
+
+                                function createData(id, fecha, total) {
+                                    return {
+                                        id,
+                                        fecha,
+                                        total,
+                                        history: doc.data().games,
+                                    };
+                                }
+
+
+
+                            })
+                            setRows(row.reverse())
+                            console.log(row)
+                        })
+                }
             } else {
                 window.location = '/home'
             }
@@ -103,8 +136,10 @@ export default function CollapsibleTable() {
                     <TableCell component="th" scope="row">
                         {row.id}
                     </TableCell>
+                    {param.admin === "all" && (<TableCell align="right">{row.email}</TableCell>)}
                     <TableCell align="right">{row.fecha}</TableCell>
                     <TableCell align="right">{row.total}€</TableCell>
+
 
                 </TableRow>
                 <TableRow>
@@ -178,8 +213,10 @@ export default function CollapsibleTable() {
                         <TableRow>
                             <TableCell />
                             <TableCell>ID</TableCell>
+                            {param.admin === "all" && (<TableCell align="right">Email</TableCell>)}
                             <TableCell align="right">Fecha</TableCell>
                             <TableCell align="right">Total</TableCell>
+
                         </TableRow>
                     </TableHead>
                     <TableBody>

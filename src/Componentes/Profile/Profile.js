@@ -120,6 +120,7 @@ const Profile = () => {
     };
 
     useEffect(() => {
+        
         setloading(true);
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -229,7 +230,7 @@ const Profile = () => {
 
 
     const pcUser = () => {
-        console.log(form1State)
+
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
             cpu: db.collection("Cpu").doc(form1State.cpu),
             ram: parseFloat(form1State.ram),
@@ -349,7 +350,7 @@ const Profile = () => {
                     <Link href="/FormCpu">New Cpu</Link>
                     <Link href="/newGame">New Game</Link>
                     <Link href="/table/users">Usuarios</Link>
-                    <Link href="/table/pedidos">Pedidos</Link>
+                    <Link href="/pedidos/all">Pedidos</Link>
 
                 </div>)}
 
