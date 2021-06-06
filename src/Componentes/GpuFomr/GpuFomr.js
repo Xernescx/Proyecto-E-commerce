@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from 'react';
 import { db } from '../FireBase/Firebase'
 import { useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Alert from "@material-ui/lab/Alert";
-
+import firebase from 'firebase/app';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +62,27 @@ const GpuFomr = props => {
     registro();
   };
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        db.collection("users").where("email", "==", user.email)
+          .onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              if (!doc.data().userType === "ROLE_ADMIN") {
+                window.location = '/home';
+              }
+
+            })
+
+          });
+
+      } else {
+
+        window.location = '/home';
+
+      }
+    })
+  })
 
 
   const registro = React.useCallback(async () => {

@@ -10,7 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import { db } from '../FireBase/Firebase'
+import { db, auth } from '../FireBase/Firebase'
 import { createMuiTheme, Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import './Tabla.css'
@@ -90,7 +90,20 @@ export default function EnhancedTable() {
 
 
     useEffect(() => {
-
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                db.collection("users").where("email", "==", user.email)
+                    .onSnapshot((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            if (!doc.data().userType === "ROLE_ADMIN") {
+                                window.location = '/home';
+                            }
+                        })
+                    });
+            } else {
+                window.location = '/home';
+            }
+        })
 
         db.collection("users").get().then((querySnapshot) => {
             let row = [];

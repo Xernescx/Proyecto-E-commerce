@@ -36,58 +36,59 @@ export default function SimpleContainer() {
   const userJ = JSON.parse(window.sessionStorage.getItem("user"));
   const [links, setLink] = useState([]);
   const [id, setID] = useState({});
+  const [order, setOrder] = useState({});
   const [loading, setloading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
+
+
+
     let total = 0;
     setLink([])
 
-    let user = firebase.auth().currentUser;
-    if (user != null) {
 
-    } else {
-      if (window.sessionStorage.getItem("user") === null) {
-        window.location = '/home';
-      } else {
-        /* console.log("si hay log"); */
-        login();
-      }
-    }
-    db.collection("users").where("email", "==", userJ.email)
-      .orderBy("carrito", "asc").get().then((querySnapshot) => {
-        let games = [];
-        querySnapshot.forEach((doc) => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
 
-          doc.data().carrito.forEach(element => {
+        db.collection("users").where("email", "==", user.email)
+          .orderBy("carrito", "asc").get().then((querySnapshot) => {
+            let games = [];
+            querySnapshot.forEach((doc) => {
+              doc.data().carrito.forEach(element => {
 
-
-            db.collection("VideoGames")
-              .where("name", "==", element).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc1) => {
-                  /* console.log(doc1.data()) */
-                  total = parseFloat(doc1.data().price) + parseFloat(total)
-                  setTotalPrice(total)
-                  games.push({ name: doc1.data().name, price: doc1.data().price })
-                  setLink(links => [...links, doc1.data()])
-                });
+                db.collection("VideoGames")
+                  .where("name", "==", element).get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc1) => {
+                      /* console.log(doc1.data()) */
+                      total = parseFloat(doc1.data().price) + parseFloat(total)
+                      setTotalPrice(total)
+                      games.push({ name: doc1.data().name, price: doc1.data().price })
+                      setLink(links => [...links, doc1.data()])
+                    });
+                  });
               });
-          });
-          setID(games)
-        });
-      });
+              setOrder({
+                customer: userJ.email,
+                total: parseFloat(totalPrice),
+                items: id
+              })
 
-    /* console.log(links) */
+              setID(games)
+            });
+          });
+        /* console.log(links) */
+      } else {
+        window.location = '/home';
+      }
+    })
+
     setloading(false);
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const order = {
-    customer: userJ.email,
-    total: parseFloat(totalPrice),
-    items: id
-  }
 
   function removeItemFromArr(arr, item) {
     var i = arr.indexOf(item);
@@ -113,17 +114,6 @@ export default function SimpleContainer() {
   };
 
 
-  const login = React.useCallback(async () => {
-    console.log('Login')
-    try {
-      await auth.signInWithEmailAndPassword(userJ.email, userJ.password).then((user) => {
-        /* console.log("logeado parece") */
-        /*  console.log(window.localStorage.getItem('user')); */
-      })
-    } catch (error) {
-      console.log(error.code)
-    }
-  })
 
 
   if (loading === true) {
@@ -195,10 +185,10 @@ export default function SimpleContainer() {
 
           {links.length > 0 && (
             <div className="pagarButton">
-            <PaypalButton order={order} />
+              <PaypalButton order={order} />
             </div>
-            )}
-          
+          )}
+
 
           <p>Total: {totalPrice} €</p>
 
