@@ -39,10 +39,8 @@ export default function SimpleContainer() {
   const [loading, setloading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  //Busuqeda del contenido del carrito y validacion de usuario 
   useEffect(() => {
-
-
-
     let total = 0;
     setLink([])
 
@@ -73,10 +71,7 @@ export default function SimpleContainer() {
                       console.log(total)
                     });
                   });
-
-
               });
-
             });
           });
         /* console.log(links) */
@@ -84,10 +79,7 @@ export default function SimpleContainer() {
         window.location = '/home';
       }
     })
-
     setloading(false);
-
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -97,6 +89,7 @@ export default function SimpleContainer() {
     arr.splice(i, 1);
   }
 
+  //borrar del carrito
   const deleteCarList = (a) => {
     setloading(true);
     console.log(a)

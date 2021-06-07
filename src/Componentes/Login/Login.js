@@ -96,6 +96,7 @@ const Login = () => {
         setOpen({ open: false })
     }
 
+    //mandar un correo de recuperacion de contraseña
     const forgotPassword = (email) => {
         let auth = firebase.auth();
         let emailAddress = email;
@@ -107,6 +108,7 @@ const Login = () => {
         });
     }
 
+    //logeo en la aplicaion
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const login = React.useCallback(async () => { //metodo de login 
         try {

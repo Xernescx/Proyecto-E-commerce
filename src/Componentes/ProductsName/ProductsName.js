@@ -143,38 +143,30 @@ export default function SimpleContainer() {
     let nameV = useParams()
     /* console.log(nameV) */
 
-
+    //Agregar a carrito
     const putCar = () => {
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
             carrito: firebase.firestore.FieldValue.arrayUnion(info.name),
-
-
         }).then(() => {
             window.location = '/car';
-
         })
             .catch((error) => {
                 // The document probably doesn't exist.
                 alert("Error updating document: ", error);
             });
-
     }
 
+    //Agregar a la lista de deseos
     const putWish = () => {
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
             wishList: firebase.firestore.FieldValue.arrayUnion(info.name),
-
-
         }).then(() => {
-
             /*   window.location = '/car'; */
-
         })
             .catch((error) => {
                 // The document probably doesn't exist.
                 alert("Error updating document: ", error);
             });
-
     }
 
     const handleChange = event => {
@@ -184,7 +176,7 @@ export default function SimpleContainer() {
         })
     }
 
-
+    //Metodo de comparacion
     const comparar = () => {
         if (userState.cpu === "" || userState.gpu === "" || userState.ram === "") {
             alert("No se encontro componenetes, ve a tu perfil para configurarlos ")
@@ -638,7 +630,7 @@ export default function SimpleContainer() {
         }
     }
 
-
+    //Busqueda de info de bbdd
     async function buscarComponenetes(gpuMax, gpuMin, cpuMax, cpuMin) {
 
         await gpuMax.get().then((result) => { setInfoGPUmax(result.data()) }
@@ -654,62 +646,49 @@ export default function SimpleContainer() {
         );
     }
 
+    //Busqueda del juego en base de datos y confirmacion de usaario
     useEffect(() => {
-
         if (window.sessionStorage.getItem("user") === null) {
             setLogstate(true);
-
         } else {
             setLogstate(false)
         }
-
         db.collection("VideoGames")
             .where("name", "==", nameV.name).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     let id = doc.id;
                     let a = doc.data();
-
                     buscarComponenetes(doc.data().gpuMax, doc.data().gpuMin, doc.data().cpuMax, doc.data().cpuMin);
-
                     firebase.auth().onAuthStateChanged(function (user) {
                         if (user) {
                             db.collection("users").where("email", "==", user.email)
                                 .onSnapshot((querySnapshot) => {
                                     querySnapshot.forEach((doc) => {
-            
                                         if (doc.data().wishList.length > 0) {
                                             doc.data().wishList.forEach(element => {
-            
                                                 if (element === a.name) {
                                                     setWish(true)
                                                 }
                                             });
                                         }
-            
                                         if (doc.data().cpu !== "") {
                                             db.collection("Cpu").doc(doc.data().cpu.id).get().then((doc) => {
                                                 setCpuU(doc.data())
                                             })
                                         }
-            
                                         if (doc.data().gpu !== "") {
                                             db.collection("Gpu").doc(doc.data().gpu.id).get().then((doc) => {
                                                 setGpuU(doc.data())
                                             })
                                         }
-            
                                         setUserState({
                                             cpu: cpuU,
                                             gpu: gpuU,
                                             ram: doc.data().ram,
                                         })
-            
-            
                                     });
-            
                                 });
                         } else {
-            
                         }
                     })
 
@@ -739,6 +718,7 @@ export default function SimpleContainer() {
         setOpen2(false);
     };
 
+    //Actualizar juego
     const update = () => {
         db.collection("VideoGames").doc(`${id}`).update({
             description: formState.description,

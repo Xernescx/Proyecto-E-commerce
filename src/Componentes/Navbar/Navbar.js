@@ -111,7 +111,8 @@ export default function PrimarySearchAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [search, setSearch] = useState(false);
 
-  /* Mira si el usuario esta registrado en el localstorte */
+
+  //Buscador
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       /* console.log("que miras puto") */
@@ -125,18 +126,8 @@ export default function PrimarySearchAppBar() {
     /* console.log(e.target.value) */
   }
 
-
-
-
-
-
-
-
   useEffect(() => {
-
-
-
-
+    //Comprobacion que hay un usuario logeado
     if (window.sessionStorage.getItem("user") === null) {
       setLogstate(true);
       /* console.log("no hay log"); */
@@ -144,17 +135,12 @@ export default function PrimarySearchAppBar() {
     } else {
       setLogstate(false)
       /* console.log("si hay log"); */
-
       db.collection("users").where("email", "==", userJ.email)
         .orderBy("carrito", "asc").get().then((querySnapshot) => {
-
           querySnapshot.forEach((doc) => {
-
             setCarrito(doc.data().carrito)
             /* console.log(doc.data().carrito.length) */
-
           });
-
         })
     }
 
@@ -200,6 +186,8 @@ export default function PrimarySearchAppBar() {
   };
 
   const menuId = 'primary-search-account-menu';
+
+  //Menu de usuario
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -225,6 +213,7 @@ export default function PrimarySearchAppBar() {
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
+  //menu de movil 
   const renderMobileMenu = (
     <ThemeProvider theme={theme}>
       <Menu

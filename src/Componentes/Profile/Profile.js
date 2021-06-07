@@ -101,7 +101,7 @@ const Profile = () => {
     }
 
 
-
+    //Acutalizar info
     const onSubmit = async data => {
         console.log(formState)
 
@@ -119,8 +119,9 @@ const Profile = () => {
             });
     };
 
-    useEffect(() => {
 
+    //Confimacion de usuario y busqueda de informacion del mismo 
+    useEffect(() => {
         setloading(true);
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -140,17 +141,11 @@ const Profile = () => {
                     querySnapshot.forEach((doc) => {
                         /*  console.log(doc.data().preuba);
                          console.log(doc); */
-
                         let date = doc.data().date.toDate()
                         let newDate = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear()
                         setSelectedDate(newDate)
-
-
-
                         if (doc.data().cpu !== "") {
-
                             db.collection("Cpu").doc(doc.data().cpu.id).get().then((doc) => {
-
                                 let data = {
                                     id: doc.id,
                                     name: doc.data().name
@@ -158,7 +153,6 @@ const Profile = () => {
                                 setCpuU(data)
                             })
                         }
-
                         if (doc.data().gpu !== "") {
                             db.collection("Gpu").doc(doc.data().gpu.id).get().then((doc) => {
                                 let data = {
@@ -168,10 +162,6 @@ const Profile = () => {
                                 setGpuU(data)
                             })
                         }
-
-
-
-
                         setUserState({
                             ...userState,
                             email: doc.data().email,
@@ -184,8 +174,6 @@ const Profile = () => {
                             ram: doc.data().ram,
                             role: doc.data().userType
                         })
-
-
                         setFormState({
                             name: doc.data().name,
                             country: doc.data().country,
@@ -193,12 +181,9 @@ const Profile = () => {
                             cpu: cpu,
                             gpu: gpu,
                             ram: doc.data().ram
-
                         })
-
                     });
                 });
-
             db.collection("Gpu").get().then((querySnapshot) => {
                 let data = [];
                 querySnapshot.forEach((doc) => {
@@ -210,7 +195,6 @@ const Profile = () => {
                 });
                 /* console.log(gpu) */
             });
-
             db.collection("Cpu").get().then((querySnapshot) => {
                 let data = [];
                 querySnapshot.forEach((doc) => {
@@ -228,9 +212,8 @@ const Profile = () => {
     }, [])
 
 
-
+//Agregar pc
     const pcUser = () => {
-
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
             cpu: db.collection("Cpu").doc(form1State.cpu),
             ram: parseFloat(form1State.ram),

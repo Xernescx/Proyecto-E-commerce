@@ -78,7 +78,6 @@ const Register1 = () => {
     };
 
 
-
     const state = {
         email: '',
         password: '',
@@ -105,33 +104,25 @@ const Register1 = () => {
     const onSubmit = async data => {
         setError2(null)
         setError(null)
-
         registro();
         /* console.log(formState); */
-
     };
 
 
 
-
-
-
+    //Registro de usuario
     const registro = React.useCallback(async () => {
         try {
-
             const d = new Date();
             const c = new Date(selectedDate);
             const a = c.getFullYear();
             const n = d.getFullYear();
-
             const edad = n - a;
             if (edad < 18) {
                 setError2("Tienes que ser mayor de 18")
                 return;
             }
-
             const res = await auth.createUserWithEmailAndPassword(formState.email, formState.password)
-
             await db.collection('users').doc(res.user.uid).set({
                 email: formState.email,
                 name: formState.name,
@@ -144,7 +135,6 @@ const Register1 = () => {
                 ram: parseInt(0),
                 wishList: [],
             });
-
 
 
         } catch (error) {

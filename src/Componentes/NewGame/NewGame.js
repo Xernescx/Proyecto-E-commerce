@@ -128,6 +128,7 @@ const NewGame = () => {
         registro();
     };
 
+    //agregar o quitar genero
     const onChangeFavorite = (event) => {
         console.log(event.target.checked, event.target.value);
         if (event.target.checked === true) {
@@ -145,6 +146,7 @@ const NewGame = () => {
 
     };
 
+    //Validacion de usuario
     useEffect(() => {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -154,15 +156,10 @@ const NewGame = () => {
                             if (!doc.data().userType === "ROLE_ADMIN") {
                                 window.location = '/home';
                             }
-
                         })
-
                     });
-
             } else {
-
                 window.location = '/home';
-
             }
         })
         db.collection(" genders")
@@ -172,7 +169,6 @@ const NewGame = () => {
                     /* console.log(doc.data().name) */
                 });
             })
-
         db.collection("Gpu").get().then((querySnapshot) => {
             let data = [];
             querySnapshot.forEach((doc) => {
@@ -189,7 +185,6 @@ const NewGame = () => {
         db.collection("Cpu").get().then((querySnapshot) => {
             let data = [];
             querySnapshot.forEach((doc) => {
-
                 data.push({
                     id: doc.id,
                     name: doc.data().name
@@ -198,8 +193,6 @@ const NewGame = () => {
             });
             /*  console.log(cpu) */
         });
-
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

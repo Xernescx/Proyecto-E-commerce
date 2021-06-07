@@ -62,6 +62,7 @@ const GpuFomr = props => {
     registro();
   };
 
+  //validacion de usuario admin
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -84,7 +85,7 @@ const GpuFomr = props => {
     })
   })
 
-
+//subida de info a bbdd
   const registro = React.useCallback(async () => {
     try {
       console.log(formState)

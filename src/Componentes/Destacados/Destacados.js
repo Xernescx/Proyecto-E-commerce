@@ -47,10 +47,8 @@ export default function SimpleContainer() {
     porPagina: 18,
   });
 
-
+  //paginacion 
   const handleChange = (event, value) => {
-
-
     console.log(value)
     let ref;
 
@@ -90,7 +88,7 @@ export default function SimpleContainer() {
 
 
 
-
+//Busuqeda de los producots en bbdd
   useEffect(() => {
 
     db.collection("VideoGames").get().then(res => {
