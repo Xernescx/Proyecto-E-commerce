@@ -20,7 +20,7 @@ import firebase from 'firebase/app';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Box } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -93,6 +93,9 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         width: '30ch',
     },
+    alert: {
+        margin: "2%"
+    }
 }));
 
 const theme = createMuiTheme({
@@ -135,7 +138,6 @@ export default function SimpleContainer() {
     const [logState, setLogstate] = useState(true);
     const classes = useStyles();
     const user = JSON.parse(window.sessionStorage.getItem("user"));
-    const [productoID, setproductoID] = useState();
     let nameV = useParams()
     /* console.log(nameV) */
 
@@ -655,7 +657,6 @@ export default function SimpleContainer() {
                         description: doc.data().description,
                         stock: doc.data().stock
                     })
-                    setproductoID(doc.id)
                     setInfo(a)
                     setID(id)
                 });
@@ -919,8 +920,8 @@ export default function SimpleContainer() {
                         <br />
 
                         <div className="tableGames">
-
-                            {userState && (
+                            {logState && (<Alert className={classes.alert} severity="warning">Si quieres comparar tu pc Registrate o inicia sesion  </Alert>)}
+                            {!logState && (
                                 <Box display="flex" alignItems="center">
                                     <button onClick={comparar} className="btn" > Combarar </button>
                                     <Box width="100%" mr={1}>
@@ -945,17 +946,17 @@ export default function SimpleContainer() {
                                     <tr>
                                         <td className="reqName">Procesador</td>
                                         <td>{infoCPUmin && infoCPUmin.name}</td>
-                                        <td className={stateCpuMin}>{userState && cpuU.name}</td>
+                                        <td className={stateCpuMin}>{!logState && cpuU.name}</td>
                                     </tr>
                                     <tr>
                                         <td className="reqName">RAM</td>
                                         <td>{info.ramMin} GB</td>
-                                        <td className={stateRamMin} >{userState && userState.ram} GB</td>
+                                        <td className={stateRamMin} >{!logState && userState.ram + " GB"}</td>
                                     </tr>
                                     <tr>
                                         <td className="reqName">GPU</td>
                                         <td>{infoGPUmin && infoGPUmin.name}</td>
-                                        <td className={stateGpuMin}>{userState && gpuU.name}</td>
+                                        <td className={stateGpuMin}>{!logState && gpuU.name}</td>
                                     </tr>
                                     <tr>
                                         <td className="reqName">Espacio</td>
@@ -983,17 +984,17 @@ export default function SimpleContainer() {
                                     <tr>
                                         <td className="reqName">Procesador</td>
                                         <td>{infoCPUmax && infoCPUmax.name}</td>
-                                        <td className={stateCpuMax}>{userState && cpuU.name}</td>
+                                        <td className={stateCpuMax}>{!logState && cpuU.name}</td>
                                     </tr>
                                     <tr>
                                         <td className="reqName">RAM</td>
                                         <td > {info.ramMax} GB</td>
-                                        <td className={stateRamMax} >{userState && userState.ram}  GB</td>
+                                        <td className={stateRamMax} >{!logState && userState.ram + " GB"} </td>
                                     </tr>
                                     <tr>
                                         <td className="reqName">GPU</td>
                                         <td>{infoGPUmax && infoGPUmax.name}</td>
-                                        <td className={stateGpuMax}>{userState && gpuU.name}</td>
+                                        <td className={stateGpuMax}>{!logState && gpuU.name}</td>
                                     </tr>
                                     <tr>
                                         <td className="reqName">Espacio</td>

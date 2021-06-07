@@ -146,6 +146,25 @@ const NewGame = () => {
     };
 
     useEffect(() => {
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                db.collection("users").where("email", "==", user.email)
+                    .onSnapshot((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            if (!doc.data().userType === "ROLE_ADMIN") {
+                                window.location = '/home';
+                            }
+
+                        })
+
+                    });
+
+            } else {
+
+                window.location = '/home';
+
+            }
+        })
         db.collection(" genders")
             .orderBy("name", "asc").get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -177,18 +196,18 @@ const NewGame = () => {
                 })
                 setCpu(data)
             });
-           /*  console.log(cpu) */
+            /*  console.log(cpu) */
         });
-        
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const registro = React.useCallback(async () => {
         console.log(genders)
-        try {   
+        try {
             let imageArray = [];
 
             let storageRef = firebase.storage();
@@ -255,7 +274,7 @@ const NewGame = () => {
                 discSpaces: formState.discSpaces,
                 price: formState.price,
                 promo: "",
-                stock:  parseFloat(formState.stock),
+                stock: parseFloat(formState.stock),
             });
             console.log(formState)
             setConfirmet("Se Introducido los datos con exito")
@@ -338,7 +357,7 @@ const NewGame = () => {
 
                             <TextField label="espacio" name="discSpaces"
                                 ref={register}
-                                
+
                                 onChange={handleChange}
                             />
                             <br />
@@ -404,7 +423,7 @@ const NewGame = () => {
                                     <option value="" select ></option>
                                     {gpu.map(gpu => {
                                         return (
-                                            <option key={gpu.name.toLowerCase() } value={gpu.id}>{gpu.name}</option>
+                                            <option key={gpu.name.toLowerCase()} value={gpu.id}>{gpu.name}</option>
                                         )
                                     })
                                     }
