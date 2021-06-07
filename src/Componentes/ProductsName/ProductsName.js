@@ -21,6 +21,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { Box } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
+import StarIcon from '@material-ui/icons/Star';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -113,6 +114,7 @@ const theme = createMuiTheme({
 export default function SimpleContainer() {
 
     const [info, setInfo] = useState(null);
+    const [wish, setWish] = useState(false);
     const [id, setID] = useState(null);
     const [infoGPUmax, setInfoGPUmax] = useState(null);
     const [infoGPUmin, setInfoGPUmin] = useState(null);
@@ -148,13 +150,29 @@ export default function SimpleContainer() {
 
 
         }).then(() => {
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             window.location = '/car';
 
         })
             .catch((error) => {
                 // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
+                alert("Error updating document: ", error);
+            });
+
+    }
+
+    const putWish = () => {
+        db.collection("users").doc(firebase.auth().currentUser.uid).update({
+            wishList: firebase.firestore.FieldValue.arrayUnion(info.name),
+
+
+        }).then(() => {
+
+            /*   window.location = '/car'; */
+
+        })
+            .catch((error) => {
+                // The document probably doesn't exist.
+                alert("Error updating document: ", error);
             });
 
     }
@@ -620,6 +638,22 @@ export default function SimpleContainer() {
         }
     }
 
+
+    async function buscarComponenetes(gpuMax, gpuMin, cpuMax, cpuMin) {
+
+        await gpuMax.get().then((result) => { setInfoGPUmax(result.data()) }
+        );
+
+        await gpuMin.get().then((result) => { setInfoGPUmin(result.data()) }
+        );
+
+        await cpuMax.get().then((result) => { setInfoCPUmax(result.data()) }
+        );
+
+        await cpuMin.get().then((result) => { setInfoCPUmin(result.data()) }
+        );
+    }
+
     useEffect(() => {
 
         if (window.sessionStorage.getItem("user") === null) {
@@ -635,65 +669,61 @@ export default function SimpleContainer() {
                     let id = doc.id;
                     let a = doc.data();
 
-                    buscarComponenetes();
+                    buscarComponenetes(doc.data().gpuMax, doc.data().gpuMin, doc.data().cpuMax, doc.data().cpuMin);
 
-                    async function buscarComponenetes() {
-
-                        await doc.data().gpuMax.get().then((result) => { setInfoGPUmax(result.data()) }
-                        );
-
-                        await doc.data().gpuMin.get().then((result) => { setInfoGPUmin(result.data()) }
-                        );
-
-                        await doc.data().cpuMax.get().then((result) => { setInfoCPUmax(result.data()) }
-                        );
-
-                        await doc.data().cpuMin.get().then((result) => { setInfoCPUmin(result.data()) }
-                        );
-                    }
-
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (user) {
+                            db.collection("users").where("email", "==", user.email)
+                                .onSnapshot((querySnapshot) => {
+                                    querySnapshot.forEach((doc) => {
+            
+                                        if (doc.data().wishList.length > 0) {
+                                            doc.data().wishList.forEach(element => {
+            
+                                                if (element === a.name) {
+                                                    setWish(true)
+                                                }
+                                            });
+                                        }
+            
+                                        if (doc.data().cpu !== "") {
+                                            db.collection("Cpu").doc(doc.data().cpu.id).get().then((doc) => {
+                                                setCpuU(doc.data())
+                                            })
+                                        }
+            
+                                        if (doc.data().gpu !== "") {
+                                            db.collection("Gpu").doc(doc.data().gpu.id).get().then((doc) => {
+                                                setGpuU(doc.data())
+                                            })
+                                        }
+            
+                                        setUserState({
+                                            cpu: cpuU,
+                                            gpu: gpuU,
+                                            ram: doc.data().ram,
+                                        })
+            
+            
+                                    });
+            
+                                });
+                        } else {
+            
+                        }
+                    })
 
                     setFormState({
                         description: doc.data().description,
                         stock: doc.data().stock
                     })
                     setInfo(a)
+
                     setID(id)
                 });
             });
 
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                db.collection("users").where("email", "==", user.email)
-                    .onSnapshot((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-
-                            if (doc.data().cpu !== "") {
-                                db.collection("Cpu").doc(doc.data().cpu.id).get().then((doc) => {
-                                    setCpuU(doc.data())
-                                })
-                            }
-
-                            if (doc.data().gpu !== "") {
-                                db.collection("Gpu").doc(doc.data().gpu.id).get().then((doc) => {
-                                    setGpuU(doc.data())
-                                })
-                            }
-
-                            setUserState({
-                                cpu: cpuU,
-                                gpu: gpuU,
-                                ram: doc.data().ram,
-                            })
-
-
-                        });
-                        console.log(userState)
-                    });
-            } else {
-
-            }
-        })
+       
 
 
         setloading(false);
@@ -715,11 +745,13 @@ export default function SimpleContainer() {
             stock: formState.stock
         }).then(() => {
             alert("Actualizacion exitosa");
+            window.location.reload();
         })
             .catch((error) => {
                 // The document probably doesn't exist.
                 alert("Error updating document: ", error);
             });
+
     }
 
 
@@ -770,8 +802,9 @@ export default function SimpleContainer() {
                             alignItems="center"
                         >
                             <h1>{info.name}</h1>
-                            <IconButton >
-                                <StarBorderIcon className={classes.title} />
+                            <IconButton onClick={putWish}>
+                                {wish && (<StarIcon className={classes.title} />)}
+                                {!wish && (<StarBorderIcon className={classes.title} />)}
                             </IconButton>
                         </Grid>
                         <div className="infoDevImg">

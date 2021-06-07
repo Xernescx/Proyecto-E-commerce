@@ -21,7 +21,7 @@ import GpuFomr from './Componentes/GpuFomr/GpuFomr';
 import CpuForm from './Componentes/CpuForm/CpuForm';
 import Tabla from './Componentes/Tabla';
 import TablaPedidos from './Componentes/TablaPedidos';
-
+import Wish from './Componentes/Wish';
 
 /* const isAuthenticated = () => {
   const token = window.sessionStorage.getItem("user")
@@ -69,6 +69,10 @@ const App = () => (
 
           <Route exact path="/car">
             <Carrito />
+          </Route>
+
+          <Route exact path="/wishList">
+            <Wish />
           </Route>
 
           <Route exact path="/pedidos">

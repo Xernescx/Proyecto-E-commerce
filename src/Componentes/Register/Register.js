@@ -141,7 +141,8 @@ const Register1 = () => {
                 userType: "ROLE_USER",
                 gpu: "",
                 cpu: "",
-                ram: parseInt(0)
+                ram: parseInt(0),
+                wishList: [],
             });
 
 

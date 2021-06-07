@@ -133,8 +133,8 @@ export default function PrimarySearchAppBar() {
 
 
   useEffect(() => {
-    
-    
+
+
 
 
     if (window.sessionStorage.getItem("user") === null) {
@@ -144,21 +144,21 @@ export default function PrimarySearchAppBar() {
     } else {
       setLogstate(false)
       /* console.log("si hay log"); */
-      
+
       db.collection("users").where("email", "==", userJ.email)
-      .orderBy("carrito", "asc").get().then((querySnapshot) => {
+        .orderBy("carrito", "asc").get().then((querySnapshot) => {
 
-        querySnapshot.forEach((doc) => {
+          querySnapshot.forEach((doc) => {
 
-        setCarrito(doc.data().carrito)
-        /* console.log(doc.data().carrito.length) */
+            setCarrito(doc.data().carrito)
+            /* console.log(doc.data().carrito.length) */
 
-        });
+          });
 
-      })
+        })
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logState]);
 
 
@@ -213,9 +213,13 @@ export default function PrimarySearchAppBar() {
       <NavLink className='navLinkMenu' to="/profile">
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       </NavLink>
+      <NavLink className='navLinkMenu' to="/wishList">
+        <MenuItem onClick={handleMenuClose}>Lista de deseos</MenuItem>
+      </NavLink>
       <NavLink className='navLinkMenu' to="/Pedidos">
         <MenuItem onClick={handleMenuClose}>Historial de pedidos</MenuItem>
       </NavLink>
+
       <MenuItem onClick={SingOutMethod}>Sing Out</MenuItem>
     </Menu>
   );
@@ -284,7 +288,7 @@ export default function PrimarySearchAppBar() {
             </NavLink>
           </div>
         )}
-        
+
         {!logState && (
           <div>
             <NavLink className='navLinkMenu' to='/car'>

@@ -86,8 +86,7 @@ export default function CollapsibleTable() {
                             let row = [];
                             querySnapshot.forEach((doc) => {
                                 let date = doc.data().date.toDate()
-                                let newDate = (date.getDay() - 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-
+                                let newDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
                                 row.push(createData(doc.id, newDate, doc.data().total))
 
 
