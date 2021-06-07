@@ -2,7 +2,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
-import { db} from '../FireBase/Firebase'
+import { db } from '../FireBase/Firebase'
 import { Link } from 'react-router-dom'
 import "./Carrito.css";
 import { ThemeProvider, makeStyles, createMuiTheme } from '@material-ui/core/styles';
@@ -61,17 +61,22 @@ export default function SimpleContainer() {
                     querySnapshot.forEach((doc1) => {
                       /* console.log(doc1.data()) */
                       total = parseFloat(doc1.data().price) + parseFloat(total)
-                      setTotalPrice(total)
+                      setTotalPrice(total.toFixed(2))
                       games.push({ name: doc1.data().name, price: doc1.data().price })
                       setLink(links => [...links, doc1.data()])
+
+                      setOrder({
+                        customer: userJ.email,
+                        total: total.toFixed(2),
+                        items: games,
+                      })
+                      console.log(total)
                     });
                   });
+
+
               });
-              setOrder({
-                customer: userJ.email,
-                total: totalPrice,
-                items: games,
-              })
+
             });
           });
         /* console.log(links) */
@@ -158,13 +163,23 @@ export default function SimpleContainer() {
                   <div>
                     <p className="carTitle">{link.name}</p>
                   </div>
+                  <div className="contentCar">
+                    <div className="genderCar">
+                      {link.genders.map(gender => {
+                        return (
 
-                  <p className="priceCar">{link.promo && (((link.price - (link.price * link.promo) / 100)).toFixed(2))}{!link.promo && (link.price)}€</p>
-                  <IconButton onClick={() => deleteCarList(link.name)}>
-                    <DeleteSweepIcon className={classes.title} />
-                  </IconButton>
+                          <Link key={gender} className="enlacesLink" to={`/search?gender=${gender}`}><p className="infoGender">{gender}</p></Link>
+                        )
+                      }
+                      )}
+                    </div>
+
+                    <p className="priceCar">{link.promo && (((link.price - (link.price * link.promo) / 100)).toFixed(2))}{!link.promo && (link.price)}€</p>
+                    <IconButton onClick={() => deleteCarList(link.name)}>
+                      <DeleteSweepIcon className={classes.title} />
+                    </IconButton>
+                  </div>
                 </div>
-
               </Grid>
 
             </div>
