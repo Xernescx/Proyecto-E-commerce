@@ -60,6 +60,7 @@ const CpuForm = props => {
     registro();
   };
 
+  //Validacion de admin usuario 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -69,9 +70,7 @@ const CpuForm = props => {
               if (!doc.data().userType === "ROLE_ADMIN") {
                 window.location = '/home';
               }
-
             })
-
           });
 
       } else {
