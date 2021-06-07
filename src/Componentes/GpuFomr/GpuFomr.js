@@ -158,6 +158,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Tdp" name="tdp"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -169,6 +170,7 @@ const GpuFomr = props => {
 
 
             <TextField label="Transistores" name="transistores"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -176,6 +178,7 @@ const GpuFomr = props => {
 
             <br />
             <TextField label="SemiConductores" name="semiConductores"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -183,6 +186,7 @@ const GpuFomr = props => {
 
             <br />
             <TextField label="Pci Express" name="pciExpress"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -190,6 +194,7 @@ const GpuFomr = props => {
 
             <br />
             <TextField label="Velocidad Reloc Procesador" name="velocidadRProcesador"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -197,18 +202,21 @@ const GpuFomr = props => {
 
             <br />
             <TextField label="Indice De Pixeles" name="indiceDePixeles"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
             />
             <br />
             <TextField label="Punto Flotante" name="puntoFlotante"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
             />
             <br />
             <TextField label="Velocidad Memoria Gpu" name="velocidadMemoriaGpu"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -216,6 +224,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Indice Textura" name="indiceTextura"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -226,6 +235,7 @@ const GpuFomr = props => {
 
 
             <TextField label="Unidades De Tonalidad" name="unidadesDeTonalidad"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -233,6 +243,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="unidades de mapeo" name="tmus"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -240,6 +251,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Turbo Gpu" name="turboGpu"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -247,6 +259,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Unidades Generacion Salida" name="rops"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -255,6 +268,7 @@ const GpuFomr = props => {
 
 
             <TextField label="Velocidad Memoria Efectiva" name="velocidadMemoriaEfectiva"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -262,6 +276,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Memoria Maxima de Ancho Banda" name="memoriaMaximaAnchoBanda"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -269,6 +284,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Ram" name="ram"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -276,6 +292,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="capacidad del Bus" name="capacidadBus"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -283,6 +300,7 @@ const GpuFomr = props => {
             <br />
 
             <TextField label="Memoria GDD" name="memoriaGDD"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}

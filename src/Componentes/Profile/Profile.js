@@ -111,16 +111,16 @@ const Profile = () => {
             lastName: formState.lastName,
             country: formState.country,
         }).then(() => {
-            console.log("Document successfully updated!");
+            alert("Actualizacion exitosa");
         })
             .catch((error) => {
                 // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
+                alert("Error updating document: ", error);
             });
     };
 
     useEffect(() => {
-        
+
         setloading(true);
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -150,7 +150,7 @@ const Profile = () => {
                         if (doc.data().cpu !== "") {
 
                             db.collection("Cpu").doc(doc.data().cpu.id).get().then((doc) => {
-                                
+
                                 let data = {
                                     id: doc.id,
                                     name: doc.data().name
@@ -236,11 +236,11 @@ const Profile = () => {
             ram: parseFloat(form1State.ram),
             gpu: db.collection("Gpu").doc(form1State.gpu)
         }).then(() => {
-            console.log("Document successfully updated!");
+            alert("Actualizacion exitosa");
         })
             .catch((error) => {
                 // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
+                alert("Error updating document: ", error);
             });
     }
 

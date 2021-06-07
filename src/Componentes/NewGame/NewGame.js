@@ -285,6 +285,7 @@ const NewGame = () => {
 
                             <TextField id="standard-multiline-static" label="Description" name="description" rows={4}
                                 InputLabelProps={{ shrink: true }}
+                                multiline
                                 onChange={handleChange}
                                 ref={register}
                             />
@@ -337,19 +338,21 @@ const NewGame = () => {
 
                             <TextField label="espacio" name="discSpaces"
                                 ref={register}
+                                
                                 onChange={handleChange}
                             />
                             <br />
 
                             <TextField label="Precio" name="price"
                                 step="0.01"
+                                type="number"
                                 ref={register}
                                 onChange={handleChange}
                             />
                             <br />
 
                             <TextField label="Stock" name="stock"
-                                
+                                type="number"
                                 ref={register}
                                 onChange={handleChange}
                             />

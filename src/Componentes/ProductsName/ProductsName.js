@@ -19,7 +19,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import firebase from 'firebase/app';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { Box } from '@material-ui/core';
-
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +60,39 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    modalText: {
+        '& >*': {
+            margin: theme.spacing(1),
+
+        },
+        "& .MuiOutlinedInput-input": {
+            color: "white"
+        },
+        '& .MuiInputBase-root': {
+            color: 'white',
+        },
+        "& .MuiInputLabel-root": {
+            color: "rgb(184, 180, 180)"
+        },
+        "& .MuiInputLabel-root.Mui-focused": {
+            color: "purple"
+        },
+
+        '& .MuiInput-underline:before': {
+            borderBottomColor: 'rgb(184, 180, 180)',
+        },
+
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#ac4caf',
+        },
+
+
+
+
+    },
+    textField: {
+        width: '30ch',
+    },
 }));
 
 const theme = createMuiTheme({
@@ -86,7 +119,7 @@ export default function SimpleContainer() {
     const [userState, setUserState] = useState({});
     const [gpuU, setGpuU] = useState({})
     const [cpuU, setCpuU] = useState({})
-
+    const [formState, setFormState] = useState();
     const [stateGpuMax, setStateGpuMax] = useState("")
     const [stateGpuMin, setStateGpuMin] = useState("")
     const [stateCpuMax, setStateCpuMax] = useState("")
@@ -95,7 +128,8 @@ export default function SimpleContainer() {
     const [stateCpuMin, setStateCpuMin] = useState("")
 
 
-    const [open, setOpen] = React.useState({ open: false, currentImg: null });
+    const [open, setOpen] = useState({ open: false, currentImg: null });
+    const [open2, setOpen2] = useState(false);
     // eslint-disable-next-line no-unused-vars
     const [loading, setloading] = useState(true);
     const [logState, setLogstate] = useState(true);
@@ -112,7 +146,7 @@ export default function SimpleContainer() {
 
 
         }).then(() => {
-            console.log("Document successfully updated!");
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             window.location = '/car';
 
         })
@@ -122,6 +156,14 @@ export default function SimpleContainer() {
             });
 
     }
+
+    const handleChange = event => {
+        setFormState({
+            ...formState,
+            [event.target.name]: event.target.value,
+        })
+    }
+
 
     const comparar = () => {
         if (userState.cpu === "" || userState.gpu === "" || userState.ram === "") {
@@ -609,7 +651,10 @@ export default function SimpleContainer() {
                     }
 
 
-
+                    setFormState({
+                        description: doc.data().description,
+                        stock: doc.data().stock
+                    })
                     setproductoID(doc.id)
                     setInfo(a)
                     setID(id)
@@ -654,6 +699,28 @@ export default function SimpleContainer() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const handleOpen = () => {
+        setOpen2(true);
+    };
+
+    const handleClose = () => {
+        setOpen2(false);
+    };
+
+    const update = () => {
+        db.collection("VideoGames").doc(`${id}`).update({
+            description: formState.description,
+            stock: formState.stock
+        }).then(() => {
+            alert("Actualizacion exitosa");
+        })
+            .catch((error) => {
+                // The document probably doesn't exist.
+                alert("Error updating document: ", error);
+            });
+    }
+
 
     const activateModal = (images) => {
         setOpen({ open: true, currentImg: images })
@@ -749,9 +816,37 @@ export default function SimpleContainer() {
                                                 {!info.promo && (info.price)}€</p>
                                         </Grid>
                                     </div>
-                                    {/*  {!logState && user.role === "ROLE_ADMIN" && (<Link className="buttonEdit " to={`/editGame/ ${productoID}`} ><div >
-                                        Edit Game
-                                    </div></Link>)} */}
+                                    {!logState && user.role === "ROLE_ADMIN" && (
+                                        <button className="buttonEdit" onClick={handleOpen}>Edit Game</button>
+                                    )}
+
+                                    <Modal
+                                        className={classes.modal}
+                                        aria-labelledby="transition-modal-title"
+                                        aria-describedby="transition-modal-description"
+                                        open={open2}
+                                        onClose={handleClose}
+                                    >
+                                        <div className={classes.modalText + " modalGame"}>
+                                            <TextField id="standard-multiline-static" label="Description" name="description" rows={4}
+                                                InputLabelProps={{ shrink: true }}
+                                                placeholder={info.description}
+                                                defaultValue={info.description}
+                                                onChange={handleChange}
+                                                multiline
+                                                className={classes.textField}
+                                            />
+                                            <br />
+                                            <TextField label="Stock" name="stock"
+                                                type="number"
+                                                placeholder={info.stock}
+                                                defaultValue={info.stock}
+                                                onChange={handleChange}
+                                            />
+                                            <button className="buttonEdit" onClick={update} >Actualizar</button>
+                                        </div>
+
+                                    </Modal>
                                     {logState && (
                                         <Link className="carritoImg" to="/login">
                                             <p className="buttonCar">

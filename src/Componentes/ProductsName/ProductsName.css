@@ -20,6 +20,7 @@
     background-color: rgb(137, 0, 155);
     padding: 10px 9px;
     border-radius: 5px;
+    border: 0px;
     margin-right: 10px;
     cursor: pointer;
     display: flex;
@@ -189,6 +190,11 @@
 
 }
 
+.modalGame{
+    background-color:#212529;
+    padding: 2%;
+}
+
 .positive{
     background-color: rgba(40, 170, 14, 0.336);
 }
@@ -233,9 +239,8 @@
     margin-top: 20px;
     margin: 20px;
 }
-.textContent p{
-    
-}
+
+
 
 @media screen and (max-width: 780px) {
     .text{

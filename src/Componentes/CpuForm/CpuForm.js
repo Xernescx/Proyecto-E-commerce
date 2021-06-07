@@ -156,6 +156,7 @@ const CpuForm = props => {
 
             <br />
             <TextField label="SemiConductores" name="semiConductores"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -163,6 +164,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Velocidad Reloc Procesador" name="VelocidadRprocesador"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -170,12 +172,14 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Potencia de diseño terminco(TDP)" name="tdp"
+              type="number"
               onChange={handleChange}
               ref={register}
             />
             <br />
 
             <TextField label="Version PCI EXPRESS" name="pcie"
+              type="number"
               onChange={handleChange}
               step="0.01"
               ref={register}
@@ -184,12 +188,14 @@ const CpuForm = props => {
 
             <br />
             <TextField label="Directx" name="directx"
+              type="number"
               onChange={handleChange}
               ref={register}
             />
             <br />
 
             <TextField label="Numero de Transistores" name="transistores"
+              type="number"
               onChange={handleChange}
               step="0.01"
               ref={register}
@@ -197,6 +203,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Version OPENGL" name="opengl"
+              type="number"
               onChange={handleChange}
               step="0.01"
               ref={register}
@@ -206,6 +213,8 @@ const CpuForm = props => {
 
             <br />
             <TextField label="Version OPENCL" name="opencl"
+              type="number"
+              step="0.01"
               onChange={handleChange}
               ref={register}
             />
@@ -217,6 +226,7 @@ const CpuForm = props => {
 
 
             <TextField label="Turbo Gpu" name="turboGPU"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -225,6 +235,7 @@ const CpuForm = props => {
 
 
             <TextField label="velocidad Gpu" name="velocidadGPU"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -232,6 +243,7 @@ const CpuForm = props => {
 
             <br />
             <TextField label="Hilos de la Gpu" name="hilos"
+              type="number"
               onChange={handleChange}
               ref={register}
             />
@@ -239,6 +251,7 @@ const CpuForm = props => {
             <br />´
 
             <TextField label="Cache l2" name="cachel2"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -246,6 +259,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Velocidada Reloc procesador turbo" name="velocidadRProcesadorTurbo"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -253,6 +267,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Cache L3" name="cachel3"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -260,6 +275,8 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Cache l1" name="cachel1"
+
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -267,6 +284,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Nucleo L2" name="nucleol2"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -275,6 +293,7 @@ const CpuForm = props => {
 
 
             <TextField label="Nucleo L3" name="nucleol3"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -282,6 +301,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="multipicador de Reloc" name="multiplicadorR"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -294,6 +314,7 @@ const CpuForm = props => {
 
 
             <TextField label="Velocidad Memoria Ram" name="velocidadMemoriaRam"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -301,6 +322,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Memoria Maxima de Ancho Banda" name="memoriaMaximaAnchoBanda"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
@@ -308,6 +330,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Canales de memoria" name="canalesMemoria"
+              type="number"
               step="0.01"
               onChange={handleChange}
               ref={register}
@@ -315,6 +338,7 @@ const CpuForm = props => {
             <br />
 
             <TextField label="Tamaño de memoria maxima" name="tamañoDeMemoria"
+              type="number"
               step="0.01"
               ref={register}
               onChange={handleChange}
