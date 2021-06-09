@@ -819,12 +819,10 @@ export default function SimpleContainer() {
                                 >
                                     {info.promo && (<p className="promoInfo">{info.promo}%</p>)}
                                     <div className="pricesInfo">
-
                                         <Grid
                                             container
                                             direction="column"
                                         >
-
                                             {info.promo && (<spam >{info.price}€</spam>)}
                                             <p>{info.promo && (((info.price - (info.price * info.promo) / 100)).toFixed(2))}
                                                 {!info.promo && (info.price)}€</p>
@@ -833,7 +831,6 @@ export default function SimpleContainer() {
                                     {!logState && user.role === "ROLE_ADMIN" && (
                                         <button className="buttonEdit" onClick={handleOpen}>Edit Game</button>
                                     )}
-
                                     <Modal
                                         className={classes.modal}
                                         aria-labelledby="transition-modal-title"
@@ -859,14 +856,12 @@ export default function SimpleContainer() {
                                             />
                                             <button className="buttonEdit" onClick={update} >Actualizar</button>
                                         </div>
-
                                     </Modal>
                                     {logState && (
                                         <Link className="carritoImg" to="/login">
                                             <p className="buttonCar">
                                                 Añadir al carrito<AddShoppingCartIcon />
                                             </p>
-
                                         </Link>
                                     )}
                                     {!logState && (
@@ -881,13 +876,8 @@ export default function SimpleContainer() {
                                                     No hay stock
                                                 </p>
                                             )}
-
-
                                         </Link>
-
-
                                     )}
-
                                 </Grid>
                             </div>
                         </div>
@@ -944,11 +934,11 @@ export default function SimpleContainer() {
                             )}
 
                             <table   >
-                                <thead> Requisitos Minimo</thead>
+                                <thead> Requisitos Mínimos</thead>
                                 <tbody>
                                     <tr>
                                         <th ></th>
-                                        <th>Minimos</th>
+                                        <th>Mínimos</th>
                                         <th>Tu Pc</th>
                                     </tr>
                                     <tr>
