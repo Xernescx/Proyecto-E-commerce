@@ -36,6 +36,9 @@ background-color: #212529;
   overflow: auto;
   height: 87ch;
 }
+.labelForm{
+  color: #fff;
+}
 
 label[for="file-input"] {
     display: block;

@@ -926,7 +926,7 @@ export default function SimpleContainer() {
                             {logState && (<Alert className={classes.alert} severity="warning">Si quieres comparar tu pc Registrate o inicia sesion  </Alert>)}
                             {!logState && (
                                 <Box display="flex" alignItems="center">
-                                    <button onClick={comparar} className="btn" > Combarar </button>
+                                    <button onClick={comparar} className="btn" > Comparar </button>
                                     <Box width="100%" mr={1}>
                                         <LinearProgress variant="determinate" value={progreso} />
                                     </Box>

@@ -9,7 +9,7 @@ const Footer = () => {
       <div id="content-wrap">
 
       </div>
-      <footer id="footer"><p>&copy; 2021 temoparal</p></footer>
+      <footer id="footer"><p>&copy; 2021 Carlos Jose Torres Baietti </p></footer>
     </div>
 
 

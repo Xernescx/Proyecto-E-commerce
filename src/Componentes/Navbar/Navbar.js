@@ -199,7 +199,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <NavLink className='navLinkMenu' to="/profile">
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
       </NavLink>
       <NavLink className='navLinkMenu' to="/wishList">
         <MenuItem onClick={handleMenuClose}>Lista de deseos</MenuItem>
@@ -208,7 +208,7 @@ export default function PrimarySearchAppBar() {
         <MenuItem onClick={handleMenuClose}>Historial de pedidos</MenuItem>
       </NavLink>
 
-      <MenuItem onClick={SingOutMethod}>Sing Out</MenuItem>
+      <MenuItem onClick={SingOutMethod}>Cerrar sesión</MenuItem>
     </Menu>
   );
 

@@ -329,7 +329,7 @@ const NewGame = () => {
                             </label>
                             <br />
 
-                            <TextField label="PLataforma" name="plataform"
+                            <TextField label="Plataforma" name="plataform"
                                 onChange={handleChange}
                                 ref={register}
                             />
@@ -342,13 +342,13 @@ const NewGame = () => {
                             <br />
 
 
-                            <TextField label="sistema operativo" name="so"
+                            <TextField label="Sistema operativo" name="so"
                                 onChange={handleChange}
                                 ref={register}
                             />
                             <br />
 
-                            <TextField label="espacio" name="discSpaces"
+                            <TextField label="Espacio en disco" name="discSpaces"
                                 ref={register}
 
                                 onChange={handleChange}
@@ -386,9 +386,9 @@ const NewGame = () => {
                         <div className="spaceForm requisitos">
 
                             <div>
-                                <h2 className="tituloForm"> Minimos</h2>
+                                <h2 className="tituloForm"> Mínimos</h2>
 
-                                <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Min</InputLabel>
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Mín</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -405,7 +405,7 @@ const NewGame = () => {
                                 </Select>
                                 <br />
 
-                                <InputLabel className={classes.root} id="demo-simple-select-label">Gpu Min</InputLabel>
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Gpu Mín</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -423,7 +423,7 @@ const NewGame = () => {
                                 </Select>
                                 <br />
 
-                                <TextField label="RamMin" name="ramMin"
+                                <TextField label="Ram Mín" name="ramMin"
                                     onChange={handleChange}
                                     ref={register}
                                 />
@@ -434,7 +434,7 @@ const NewGame = () => {
                                 <h2 className="tituloForm"> Recomendados</h2>
 
 
-                                <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Max</InputLabel>
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Cpu Máx</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -452,7 +452,7 @@ const NewGame = () => {
                                 </Select>
                                 <br />
 
-                                <InputLabel className={classes.root} id="demo-simple-select-label">Gpi Max</InputLabel>
+                                <InputLabel className={classes.root} id="demo-simple-select-label">Gpi Máx</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -470,7 +470,7 @@ const NewGame = () => {
                                 </ Select>
                                 <br />
 
-                                <TextField label="RamMax" name="ramMax"
+                                <TextField label="Ram Máx" name="ramMax"
                                     onChange={handleChange}
                                     ref={register}
                                 />
@@ -503,7 +503,7 @@ const NewGame = () => {
                         justify="center"
                         alignItems="center"
                     >
-                        <button className="btn" type="submit" >registrarse</button>
+                        <button className="btn" type="submit" >Registrarse</button>
                     </Grid>
                 </form>
                 {confirmet && <Alert className={classes.succes} variant="outlined" severity="success">{confirmet}</Alert>}

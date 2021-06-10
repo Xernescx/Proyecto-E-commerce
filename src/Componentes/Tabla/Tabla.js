@@ -74,6 +74,7 @@ export default function EnhancedTable() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [loading, setloading] = useState(true);
+    const userJSON = JSON.parse(window.sessionStorage.getItem("user"))
 
 
     const [rows, setRows] = useState([]);
@@ -110,7 +111,7 @@ export default function EnhancedTable() {
             querySnapshot.forEach((doc) => {
                 console.log(doc);
                 console.log(doc.data());
-                row.push(createData(doc.id, doc.data().email, doc.data().name, doc.data().lastname, doc.data().country, doc.data().userType))
+                row.push(createData(doc.id, doc.data().email, doc.data().name, doc.data().lastName, doc.data().country, doc.data().userType))
             });
             setRows(row)
             setloading(false);
@@ -124,9 +125,9 @@ export default function EnhancedTable() {
 
     function createData(id, email, nombre, apellido, pais, role, boton) {
         if (role === "ROLE_USER") {
-            boton = <button onClick={() => setAdmin(id)} className="buttonAdmin">Set Admin</button>
+            boton = <button onClick={() => setAdmin(id)} disabled={userJSON.email === email && (true)} className="buttonAdmin">Set Admin</button>
         } else {
-            boton = <button onClick={() => endAdmin(id)} className="buttonAdmin2">End Admin</button>
+            boton = <button onClick={() => endAdmin(id)} disabled={userJSON.email === email && (true)}  className="buttonAdmin2">End Admin</button>
         }
 
         return { id, email, nombre, apellido, pais, role, boton };
@@ -236,6 +237,7 @@ export default function EnhancedTable() {
             userType: "ROLE_USER"
         }).then(() => {
             console.log("Document successfully updated!");
+            window.location.reload();
         })
             .catch((error) => {
                 // The document probably doesn't exist.

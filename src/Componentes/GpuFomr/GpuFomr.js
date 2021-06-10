@@ -178,7 +178,7 @@ const GpuFomr = props => {
             />
 
             <br />
-            <TextField label="SemiConductores" name="semiConductores"
+            <TextField label="Semiconductores" name="semiConductores"
               type="number"
               step="0.01"
               onChange={handleChange}
@@ -194,7 +194,7 @@ const GpuFomr = props => {
             />
 
             <br />
-            <TextField label="Velocidad Reloc Procesador" name="velocidadRProcesador"
+            <TextField label="Velocidad Reloj Procesador" name="velocidadRProcesador"
               type="number"
               step="0.01"
               onChange={handleChange}
@@ -202,7 +202,7 @@ const GpuFomr = props => {
             />
 
             <br />
-            <TextField label="Indice De Pixeles" name="indiceDePixeles"
+            <TextField label="Índice De Pixeles" name="indiceDePixeles"
               type="number"
               step="0.01"
               onChange={handleChange}
@@ -224,7 +224,7 @@ const GpuFomr = props => {
             />
             <br />
 
-            <TextField label="Indice Textura" name="indiceTextura"
+            <TextField label="Índice Textura" name="indiceTextura"
               type="number"
               step="0.01"
               ref={register}
@@ -243,7 +243,7 @@ const GpuFomr = props => {
             />
             <br />
 
-            <TextField label="unidades de mapeo" name="tmus"
+            <TextField label="Unidades de mapeo" name="tmus"
               type="number"
               step="0.01"
               ref={register}
@@ -259,7 +259,7 @@ const GpuFomr = props => {
             />
             <br />
 
-            <TextField label="Unidades Generacion Salida" name="rops"
+            <TextField label="Unidades Generación Salida" name="rops"
               type="number"
               step="0.01"
               ref={register}
@@ -276,7 +276,7 @@ const GpuFomr = props => {
             />
             <br />
 
-            <TextField label="Memoria Maxima de Ancho Banda" name="memoriaMaximaAnchoBanda"
+            <TextField label="Memoria Máxima de Ancho Banda" name="memoriaMaximaAnchoBanda"
               type="number"
               step="0.01"
               ref={register}
@@ -292,7 +292,7 @@ const GpuFomr = props => {
             />
             <br />
 
-            <TextField label="capacidad del Bus" name="capacidadBus"
+            <TextField label="Capacidad del Bus" name="capacidadBus"
               type="number"
               step="0.01"
               ref={register}
