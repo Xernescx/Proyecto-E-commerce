@@ -155,10 +155,13 @@ const Profile = () => {
                         }
                         if (doc.data().gpu !== "") {
                             db.collection("Gpu").doc(doc.data().gpu.id).get().then((doc) => {
+                                
                                 let data = {
                                     id: doc.id,
                                     name: doc.data().name
+
                                 };
+                                console.log(data)
                                 setGpuU(data)
                             })
                         }
@@ -173,6 +176,11 @@ const Profile = () => {
                             gpu: doc.data().gpu,
                             ram: doc.data().ram,
                             role: doc.data().userType
+                        })
+                        setFormState1({
+                            cpu: doc.data().cpu.id,
+                            gpu: doc.data().gpu.id,
+                            ram: doc.data().ram
                         })
                         setFormState({
                             name: doc.data().name,
@@ -191,6 +199,7 @@ const Profile = () => {
                         id: doc.id,
                         name: doc.data().name
                     })
+                    console.log(data)
                     setGpu(data)
                 });
                 /* console.log(gpu) */
@@ -214,6 +223,7 @@ const Profile = () => {
 
 //Agregar pc
     const pcUser = () => {
+        console.log(form1State)
         db.collection("users").doc(firebase.auth().currentUser.uid).update({
             cpu: db.collection("Cpu").doc(form1State.cpu),
             ram: parseFloat(form1State.ram),
